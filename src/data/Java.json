@@ -1,0 +1,1405 @@
+{
+  "theme": "Java",
+  "questions": [
+    {
+      "id": "q-01",
+      "topic": "String",
+      "difficulty": "easy",
+      "text": "Qual é a principal característica da classe String em Java em relação à sua modificação?",
+      "options": [
+        {
+          "text": "Strings são imutáveis.",
+          "isCorrect": true,
+          "explanation": "Em Java, uma vez que um objeto String é criado, seu valor não pode ser alterado."
+        },
+        {
+          "text": "Strings são mutáveis através de métodos próprios.",
+          "isCorrect": false,
+          "explanation": "Métodos de String que parecem modificar o valor na verdade retornam uma nova instância."
+        },
+        {
+          "text": "Apenas Strings criadas com o operador 'new' são mutáveis.",
+          "isCorrect": false,
+          "explanation": "Todas as instâncias da classe String, independentemente de como são criadas, são imutáveis."
+        },
+        {
+          "text": "Strings podem ser alteradas se forem declaradas sem a palavra-chave final.",
+          "isCorrect": false,
+          "explanation": "A classe String em si é final e seu conteúdo interno é imutável."
+        }
+      ]
+    },
+    {
+      "id": "q-02",
+      "topic": "String",
+      "difficulty": "medium",
+      "text": "O que é o String Pool em Java?",
+      "options": [
+        {
+          "text": "Uma área de memória no Heap onde literais de String são armazenados para reuso.",
+          "isCorrect": true,
+          "explanation": "O String Pool economiza memória reaproveitando instâncias de literais de String."
+        },
+        {
+          "text": "Uma área da Stack dedicada à execução de operações com Strings.",
+          "isCorrect": false,
+          "explanation": "O String Pool fica no Heap, não na Stack."
+        },
+        {
+          "text": "Uma classe utilitária do Java para manipulação de coleções de Strings.",
+          "isCorrect": false,
+          "explanation": "Não é uma classe, mas sim uma região específica de gerenciamento de memória."
+        },
+        {
+          "text": "Um método de Garbage Collection exclusivo para Strings.",
+          "isCorrect": false,
+          "explanation": "O Garbage Collector atua no Heap inteiro, o String Pool é apenas para armazenamento de literais."
+        }
+      ]
+    },
+    {
+      "id": "q-03",
+      "topic": "String",
+      "difficulty": "easy",
+      "text": "Qual a principal diferença entre StringBuilder e StringBuffer?",
+      "options": [
+        {
+          "text": "StringBuffer é thread-safe (sincronizado), enquanto StringBuilder não é.",
+          "isCorrect": true,
+          "explanation": "StringBuilder é mais rápido por não ter o overhead de sincronização do StringBuffer."
+        },
+        {
+          "text": "StringBuilder é thread-safe (sincronizado), enquanto StringBuffer não é.",
+          "isCorrect": false,
+          "explanation": "A afirmação está invertida. StringBuffer é a classe sincronizada."
+        },
+        {
+          "text": "StringBuffer cria Strings imutáveis e StringBuilder cria Strings mutáveis.",
+          "isCorrect": false,
+          "explanation": "Ambos são usados para criar sequências de caracteres mutáveis."
+        },
+        {
+          "text": "Não há diferença, são apenas aliases para a mesma implementação.",
+          "isCorrect": false,
+          "explanation": "Eles têm implementações diferentes em relação à concorrência."
+        }
+      ]
+    },
+    {
+      "id": "q-04",
+      "topic": "String",
+      "difficulty": "hard",
+      "text": "O que o método intern() da classe String faz?",
+      "options": [
+        {
+          "text": "Garante que a String esteja no String Pool, retornando a referência do pool se já existir.",
+          "isCorrect": true,
+          "explanation": "Se a String já existir no pool, a referência do pool é retornada; caso contrário, ela é adicionada ao pool."
+        },
+        {
+          "text": "Converte a String para uma representação em array de bytes internos.",
+          "isCorrect": false,
+          "explanation": "O método getBytes() faz conversão para bytes, intern() gerencia memória."
+        },
+        {
+          "text": "Força o Garbage Collector a limpar a String da memória imediatamente.",
+          "isCorrect": false,
+          "explanation": "Não é possível forçar o GC a limpar um objeto específico assim."
+        },
+        {
+          "text": "Transforma a String em uma constante estática na JVM.",
+          "isCorrect": false,
+          "explanation": "Ele adiciona ao pool, mas não a torna um atributo estático do código."
+        }
+      ]
+    },
+    {
+      "id": "q-05",
+      "topic": "String",
+      "difficulty": "medium",
+      "text": "Ao comparar duas Strings 'a' e 'b' com 'a == b', o que está sendo verificado?",
+      "options": [
+        {
+          "text": "Se ambas as referências apontam para o mesmo objeto na memória.",
+          "isCorrect": true,
+          "explanation": "O operador '==' compara referências de memória, não o conteúdo das Strings."
+        },
+        {
+          "text": "Se o conteúdo de texto de 'a' é idêntico ao de 'b'.",
+          "isCorrect": false,
+          "explanation": "Para comparar o conteúdo, deve-se usar o método equals()."
+        },
+        {
+          "text": "Se ambas as Strings têm o mesmo tamanho e mesmo hashcode.",
+          "isCorrect": false,
+          "explanation": "Isso não é avaliado pelo operador '==', que apenas checa a referência."
+        },
+        {
+          "text": "Se ambas as Strings foram criadas usando literais.",
+          "isCorrect": false,
+          "explanation": "O operador verifica referências, independentemente de como foram criadas."
+        }
+      ]
+    },
+    {
+      "id": "q-06",
+      "topic": "String",
+      "difficulty": "hard",
+      "text": "Por que é mais seguro usar um char[] em vez de String para armazenar senhas na memória?",
+      "options": [
+        {
+          "text": "Strings são imutáveis e podem ficar no String Pool por muito tempo antes do GC limpá-las.",
+          "isCorrect": true,
+          "explanation": "Com char[], você pode sobrescrever o conteúdo imediatamente após o uso, evitando exposição na memória."
+        },
+        {
+          "text": "A classe String não suporta criptografia nativa como o char[].",
+          "isCorrect": false,
+          "explanation": "Nenhuma das estruturas possui criptografia nativa; trata-se de gerenciamento de memória."
+        },
+        {
+          "text": "O acesso a arrays de caracteres é muito mais rápido durante processos de autenticação.",
+          "isCorrect": false,
+          "explanation": "A diferença de desempenho é insignificante; a motivação é estritamente segurança de memória."
+        },
+        {
+          "text": "Strings expõem o texto no console durante exceções automaticamente.",
+          "isCorrect": false,
+          "explanation": "Exceções não expõem variáveis de escopo local automaticamente a menos que programadas para isso."
+        }
+      ]
+    },
+    {
+      "id": "q-07",
+      "topic": "Threads",
+      "difficulty": "easy",
+      "text": "Qual a diferença entre chamar o método start() e o método run() de uma Thread?",
+      "options": [
+        {
+          "text": "start() cria uma nova thread de execução; run() executa o código na thread atual.",
+          "isCorrect": true,
+          "explanation": "O método start() instrui a JVM a alocar uma nova thread, que então chamará run()."
+        },
+        {
+          "text": "run() cria uma nova thread de execução; start() executa o código na thread atual.",
+          "isCorrect": false,
+          "explanation": "A afirmação inverte os comportamentos."
+        },
+        {
+          "text": "Não há diferença, ambos iniciam uma nova thread paralelamente.",
+          "isCorrect": false,
+          "explanation": "Apenas start() inicia uma thread paralela."
+        },
+        {
+          "text": "start() é usado para Threads e run() é usado exclusivamente para a interface Runnable.",
+          "isCorrect": false,
+          "explanation": "Thread também implementa Runnable e possui o método run()."
+        }
+      ]
+    },
+    {
+      "id": "q-08",
+      "topic": "Threads",
+      "difficulty": "medium",
+      "text": "Entre estender a classe Thread ou implementar a interface Runnable, qual é a prática mais recomendada e por quê?",
+      "options": [
+        {
+          "text": "Implementar Runnable, pois permite que a classe estenda outra classe, promovendo maior flexibilidade.",
+          "isCorrect": true,
+          "explanation": "Como Java não suporta herança múltipla, implementar a interface deixa a herança livre para outras necessidades."
+        },
+        {
+          "text": "Estender Thread, pois oferece acesso direto a métodos de manipulação como sleep() sem a classe Thread explicitamente.",
+          "isCorrect": false,
+          "explanation": "A flexibilidade de herança perdida supera essa pequena conveniência."
+        },
+        {
+          "text": "Implementar Runnable, porque a execução será sempre mais rápida do que estender a classe Thread.",
+          "isCorrect": false,
+          "explanation": "O desempenho em tempo de execução é virtualmente o mesmo."
+        },
+        {
+          "text": "Estender Thread, pois interfaces não podem conter o método run().",
+          "isCorrect": false,
+          "explanation": "A interface Runnable existe especificamente para declarar o método run()."
+        }
+      ]
+    },
+    {
+      "id": "q-09",
+      "topic": "Threads",
+      "difficulty": "hard",
+      "text": "Qual a principal diferença entre os métodos wait() e sleep() em Java?",
+      "options": [
+        {
+          "text": "wait() libera o monitor (lock) do objeto, enquanto sleep() não libera.",
+          "isCorrect": true,
+          "explanation": "sleep() pausa a thread mas segura os locks; wait() cede a vez e libera o monitor para outras threads."
+        },
+        {
+          "text": "sleep() libera o monitor (lock) do objeto, enquanto wait() não libera.",
+          "isCorrect": false,
+          "explanation": "O comportamento está invertido."
+        },
+        {
+          "text": "wait() pode ser chamado em qualquer lugar, enquanto sleep() só em blocos sincronizados.",
+          "isCorrect": false,
+          "explanation": "É o oposto: wait() DEVE ser chamado dentro de um contexto sincronizado."
+        },
+        {
+          "text": "sleep() é um método de instância, enquanto wait() é um método estático da classe Object.",
+          "isCorrect": false,
+          "explanation": "sleep() é um método estático de Thread; wait() é um método de instância de Object."
+        }
+      ]
+    },
+    {
+      "id": "q-10",
+      "topic": "Threads",
+      "difficulty": "medium",
+      "text": "Quais são os estados válidos no ciclo de vida de uma Thread segundo o enum Thread.State?",
+      "options": [
+        {
+          "text": "NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED.",
+          "isCorrect": true,
+          "explanation": "Estes são os seis estados oficiais de uma thread na JVM."
+        },
+        {
+          "text": "START, RUNNING, PAUSED, STOPPED, DEAD.",
+          "isCorrect": false,
+          "explanation": "Esses termos não correspondem ao enum oficial da API Java."
+        },
+        {
+          "text": "NEW, EXECUTING, SLEEPING, WAITING, KILLED.",
+          "isCorrect": false,
+          "explanation": "Estados incorretos para a especificação Java."
+        },
+        {
+          "text": "IDLE, RUNNABLE, BLOCKED, TERMINATED.",
+          "isCorrect": false,
+          "explanation": "Incompleto e possui um estado (IDLE) não existente na API padrão."
+        }
+      ]
+    },
+    {
+      "id": "q-11",
+      "topic": "Threads",
+      "difficulty": "medium",
+      "text": "O que é uma Daemon Thread em Java?",
+      "options": [
+        {
+          "text": "Uma thread de serviço em background que não impede a JVM de ser encerrada se todas as threads de usuário terminarem.",
+          "isCorrect": true,
+          "explanation": "O Garbage Collector é um exemplo clássico. Se restarem apenas daemon threads, a JVM encerra."
+        },
+        {
+          "text": "Uma thread com prioridade máxima que bloqueia as demais até sua conclusão.",
+          "isCorrect": false,
+          "explanation": "Daemon threads geralmente têm prioridade baixa e não bloqueiam o término da JVM."
+        },
+        {
+          "text": "Uma thread responsável unicamente por gerenciar a memória do sistema.",
+          "isCorrect": false,
+          "explanation": "Aplicações podem ter daemon threads para diversas finalidades, não apenas memória."
+        },
+        {
+          "text": "Uma thread que não pode ser parada explicitamente pelo usuário.",
+          "isCorrect": false,
+          "explanation": "Ela para automaticamente quando as threads principais (user threads) finalizam."
+        }
+      ]
+    },
+    {
+      "id": "q-12",
+      "topic": "Threads",
+      "difficulty": "easy",
+      "text": "O que faz o método join() chamado a partir de um objeto Thread?",
+      "options": [
+        {
+          "text": "Faz a thread atual pausar sua execução até que a thread na qual o join() foi chamado termine.",
+          "isCorrect": true,
+          "explanation": "É usado para aguardar a finalização de uma thread específica antes de prosseguir."
+        },
+        {
+          "text": "Funde duas threads em uma única linha de execução.",
+          "isCorrect": false,
+          "explanation": "Threads não podem ser fundidas em Java."
+        },
+        {
+          "text": "Inicia a execução da thread em paralelo com a thread atual.",
+          "isCorrect": false,
+          "explanation": "Para iniciar, usamos o método start()."
+        },
+        {
+          "text": "Sincroniza o acesso a variáveis compartilhadas entre as threads unidas.",
+          "isCorrect": false,
+          "explanation": "Para sincronização, usam-se blocos synchronized ou locks, não join()."
+        }
+      ]
+    },
+    {
+      "id": "q-13",
+      "topic": "Hash",
+      "difficulty": "medium",
+      "text": "Qual é a regra de ouro (contrato) entre os métodos equals() e hashCode()?",
+      "options": [
+        {
+          "text": "Se dois objetos são iguais segundo equals(), eles devem retornar o mesmo valor no hashCode().",
+          "isCorrect": true,
+          "explanation": "Isso garante o comportamento correto em coleções baseadas em hash, como o HashMap."
+        },
+        {
+          "text": "Se dois objetos têm o mesmo hashCode(), eles obrigatoriamente devem retornar true no equals().",
+          "isCorrect": false,
+          "explanation": "Isso é falso, pois colisões de hash são possíveis. Objetos diferentes podem ter o mesmo hash."
+        },
+        {
+          "text": "O hashCode() deve ser calculado aleatoriamente se o equals() retornar false.",
+          "isCorrect": false,
+          "explanation": "O hashCode deve ser consistente entre invocações e previsível."
+        },
+        {
+          "text": "O equals() nunca deve ser sobrescrito se o hashCode() não for sobrescrito junto.",
+          "isCorrect": false,
+          "explanation": "Embora seja uma boa prática sobrescrever ambos, a regra de ouro refere-se ao contrato de igualdade de valores."
+        }
+      ]
+    },
+    {
+      "id": "q-14",
+      "topic": "Hash",
+      "difficulty": "hard",
+      "text": "No Java 8 e versões posteriores, como o HashMap resolve problemas severos de colisão de hash no mesmo bucket?",
+      "options": [
+        {
+          "text": "Transformando a lista encadeada do bucket em uma árvore balanceada (Red-Black Tree) quando atinge um certo limite.",
+          "isCorrect": true,
+          "explanation": "A partir de 8 elementos no mesmo bucket (TREEIFY_THRESHOLD), a lista vira uma árvore para otimizar buscas de O(n) para O(log n)."
+        },
+        {
+          "text": "Realocando o elemento em um bucket adjacente utilizando linear probing.",
+          "isCorrect": false,
+          "explanation": "O HashMap em Java usa encadeamento (chaining) em vez de linear probing (open addressing)."
+        },
+        {
+          "text": "Recalculando o hashCode do objeto com uma função secundária automaticamente.",
+          "isCorrect": false,
+          "explanation": "O hashCode do objeto não é alterado; a colisão é resolvida na estrutura de dados do bucket."
+        },
+        {
+          "text": "Lançando uma HashCollisionException para que o desenvolvedor altere o hashcode.",
+          "isCorrect": false,
+          "explanation": "O HashMap gerencia colisões internamente, sem lançar exceções para o usuário."
+        }
+      ]
+    },
+    {
+      "id": "q-15",
+      "topic": "Hash",
+      "difficulty": "medium",
+      "text": "Qual é o valor padrão do Fator de Carga (Load Factor) em um HashMap no Java e o que ele significa?",
+      "options": [
+        {
+          "text": "0.75; significa que a capacidade dobra quando 75% da estrutura está preenchida.",
+          "isCorrect": true,
+          "explanation": "O valor de 0.75 oferece um bom compromisso entre custos de tempo (busca) e espaço (memória)."
+        },
+        {
+          "text": "1.0; a capacidade aumenta apenas quando 100% dos buckets estão ocupados.",
+          "isCorrect": false,
+          "explanation": "Esperar encher 100% causaria muitas colisões e lentidão na estrutura."
+        },
+        {
+          "text": "0.5; a estrutura dobra de tamanho quando atinge metade da capacidade.",
+          "isCorrect": false,
+          "explanation": "Um fator de 0.5 consumiria muita memória prematuramente."
+        },
+        {
+          "text": "0.80; aumenta a capacidade linearmente quando chega a 80%.",
+          "isCorrect": false,
+          "explanation": "O padrão de crescimento do HashMap é dobrar o tamanho (potências de 2), não crescimento linear, e o padrão é 0.75."
+        }
+      ]
+    },
+    {
+      "id": "q-16",
+      "topic": "Hash",
+      "difficulty": "easy",
+      "text": "Para que serve uma função de hash em coleções como o HashMap?",
+      "options": [
+        {
+          "text": "Mapear o conteúdo de um objeto para um índice de número inteiro distribuindo os dados nos buckets.",
+          "isCorrect": true,
+          "explanation": "A função hash determina rapidamente onde o objeto deve ser armazenado ou recuperado."
+        },
+        {
+          "text": "Criptografar os dados inseridos na coleção por questões de segurança.",
+          "isCorrect": false,
+          "explanation": "O hash do Java para coleções é usado para desempenho, não para criptografia."
+        },
+        {
+          "text": "Compactar os dados na memória para ocupar menos espaço no Heap.",
+          "isCorrect": false,
+          "explanation": "O uso de hash não comprime os dados; o objeto original ainda é armazenado."
+        },
+        {
+          "text": "Garantir a ordenação alfabética ou numérica automática dos elementos.",
+          "isCorrect": false,
+          "explanation": "HashMaps não mantêm nenhuma ordem garantida. Para ordem, usam-se estruturas em árvore (TreeMap)."
+        }
+      ]
+    },
+    {
+      "id": "q-17",
+      "topic": "Hash",
+      "difficulty": "medium",
+      "text": "O que a classe utilitária java.util.Objects.hash() facilita no desenvolvimento em Java?",
+      "options": [
+        {
+          "text": "A geração de um valor de hashcode combinando os valores de múltiplos campos do objeto de forma simples.",
+          "isCorrect": true,
+          "explanation": "Permite passar vários atributos (ex: Objects.hash(id, nome)) e ele cuida do cálculo combinado e null-safety."
+        },
+        {
+          "text": "A criptografia SHA-256 de senhas sem precisar de bibliotecas externas.",
+          "isCorrect": false,
+          "explanation": "Não é um hash criptográfico; é um identificador numérico interno."
+        },
+        {
+          "text": "A clonagem profunda de objetos complexos.",
+          "isCorrect": false,
+          "explanation": "Clonagem é feita via interface Cloneable ou serialização, não por hash()."
+        },
+        {
+          "text": "A verificação de integridade de arquivos em disco.",
+          "isCorrect": false,
+          "explanation": "É usado apenas para objetos em memória (hashcode padrão do Java)."
+        }
+      ]
+    },
+    {
+      "id": "q-18",
+      "topic": "Set",
+      "difficulty": "easy",
+      "text": "Qual é a principal diferença de comportamento entre HashSet e TreeSet?",
+      "options": [
+        {
+          "text": "TreeSet mantém os elementos ordenados, enquanto HashSet não garante nenhuma ordem.",
+          "isCorrect": true,
+          "explanation": "TreeSet usa uma árvore Red-Black, ordenando via Comparable ou Comparator; HashSet baseia-se em hash."
+        },
+        {
+          "text": "HashSet permite chaves ordenadas, mas TreeSet permite valores duplicados.",
+          "isCorrect": false,
+          "explanation": "Nenhuma implementação da interface Set permite elementos duplicados."
+        },
+        {
+          "text": "TreeSet é mais rápido que HashSet para operações de busca e inserção.",
+          "isCorrect": false,
+          "explanation": "HashSet (O(1)) geralmente é mais rápido que TreeSet (O(log n))."
+        },
+        {
+          "text": "HashSet aceita apenas números, enquanto TreeSet aceita apenas Strings.",
+          "isCorrect": false,
+          "explanation": "Ambos aceitam qualquer tipo de objeto (usando Generics)."
+        }
+      ]
+    },
+    {
+      "id": "q-19",
+      "topic": "Set",
+      "difficulty": "medium",
+      "text": "Quantos valores null são permitidos em um HashSet?",
+      "options": [
+        {
+          "text": "Apenas um valor null.",
+          "isCorrect": true,
+          "explanation": "Como Set não permite duplicatas, você pode inserir null, mas apenas uma única vez."
+        },
+        {
+          "text": "Nenhum, HashSet não suporta valores null e lança NullPointerException.",
+          "isCorrect": false,
+          "explanation": "Ao contrário de algumas coleções como TreeSet ou ConcurrentHashMap, o HashSet permite um null."
+        },
+        {
+          "text": "Incontáveis, desde que inseridos em índices diferentes.",
+          "isCorrect": false,
+          "explanation": "Set não tem índices, e não permite duplicatas de nenhuma forma, nem de null."
+        },
+        {
+          "text": "Dois valores null.",
+          "isCorrect": false,
+          "explanation": "Somente um valor null é aceito."
+        }
+      ]
+    },
+    {
+      "id": "q-20",
+      "topic": "Set",
+      "difficulty": "medium",
+      "text": "Qual é a utilidade do LinkedHashSet em comparação ao HashSet comum?",
+      "options": [
+        {
+          "text": "O LinkedHashSet mantém a ordem em que os elementos foram inseridos (ordem de inserção).",
+          "isCorrect": true,
+          "explanation": "Ele usa uma lista duplamente encadeada em conjunto com a tabela hash para rastrear a ordem de adição."
+        },
+        {
+          "text": "O LinkedHashSet ordena automaticamente os elementos por ordem alfabética ou numérica.",
+          "isCorrect": false,
+          "explanation": "A ordenação natural automática é característica do TreeSet."
+        },
+        {
+          "text": "O LinkedHashSet é significativamente mais rápido em inserções que o HashSet.",
+          "isCorrect": false,
+          "explanation": "Na verdade, é levemente mais lento devido à manutenção das referências de encadeamento."
+        },
+        {
+          "text": "O LinkedHashSet permite a inserção de elementos duplicados.",
+          "isCorrect": false,
+          "explanation": "Como implementa a interface Set, não permite duplicatas."
+        }
+      ]
+    },
+    {
+      "id": "q-21",
+      "topic": "Set",
+      "difficulty": "hard",
+      "text": "No Java, a classe HashSet é implementada internamente por qual estrutura de dados?",
+      "options": [
+        {
+          "text": "Um objeto da classe HashMap, armazenando o elemento como chave e uma constante (dummy) como valor.",
+          "isCorrect": true,
+          "explanation": "O Java reutiliza o HashMap para construir o HashSet, ignorando a parte dos 'valores' do map."
+        },
+        {
+          "text": "Um array primitivo de listas encadeadas (LinkedLists) customizadas exclusivas do HashSet.",
+          "isCorrect": false,
+          "explanation": "Ele aproveita a estrutura completa já pronta e testada do HashMap."
+        },
+        {
+          "text": "Uma árvore binária de busca balanceada (Binary Search Tree).",
+          "isCorrect": false,
+          "explanation": "Árvores de busca balanceada são a base do TreeSet, não do HashSet."
+        },
+        {
+          "text": "Uma HashTable bidimensional alocada diretamente no pool de memória nativa.",
+          "isCorrect": false,
+          "explanation": "Não utiliza memória nativa de forma direta e se baseia na API do HashMap."
+        }
+      ]
+    },
+    {
+      "id": "q-22",
+      "topic": "Set",
+      "difficulty": "easy",
+      "text": "O que acontece ao tentar adicionar um elemento que já existe em um Set usando o método add()?",
+      "options": [
+        {
+          "text": "O elemento não é inserido e o método retorna false.",
+          "isCorrect": true,
+          "explanation": "O Set preserva a unicidade; elementos repetidos são ignorados silenciosamente na adição."
+        },
+        {
+          "text": "O elemento antigo é substituído pelo novo e o método retorna true.",
+          "isCorrect": false,
+          "explanation": "Em Maps, colocar a mesma chave atualiza o valor; em Sets, o add falha e retorna false."
+        },
+        {
+          "text": "Uma exceção DuplicateElementException é lançada.",
+          "isCorrect": false,
+          "explanation": "O Java não lança exceção para isso em conjuntos, apenas retorna um booleano."
+        },
+        {
+          "text": "O elemento é adicionado no final e o tamanho do Set cresce.",
+          "isCorrect": false,
+          "explanation": "Sets não permitem a coexistência de duplicatas de forma alguma."
+        }
+      ]
+    },
+    {
+      "id": "q-23",
+      "topic": "Map",
+      "difficulty": "medium",
+      "text": "Qual a diferença central de uso entre as classes HashMap e Hashtable em Java?",
+      "options": [
+        {
+          "text": "Hashtable é sincronizada (thread-safe) e não aceita chaves/valores null; HashMap não é sincronizada e aceita nulls.",
+          "isCorrect": true,
+          "explanation": "Hashtable é uma classe legada. Hoje recomenda-se ConcurrentHashMap em cenários concorrentes e HashMap em threads únicas."
+        },
+        {
+          "text": "HashMap é sincronizada, Hashtable não é sincronizada.",
+          "isCorrect": false,
+          "explanation": "O contrário é verdadeiro."
+        },
+        {
+          "text": "Hashtable garante ordem de inserção, HashMap usa árvore Red-Black.",
+          "isCorrect": false,
+          "explanation": "Nenhuma das duas garante ordem de inserção (isso seria LinkedHashMap)."
+        },
+        {
+          "text": "Não há diferença funcional, Hashtable foi descontinuada na versão 5 do Java.",
+          "isCorrect": false,
+          "explanation": "Ela não foi removida, apenas tornada menos usada devido a alternativas melhores, e têm diferenças funcionais claras."
+        }
+      ]
+    },
+    {
+      "id": "q-24",
+      "topic": "Map",
+      "difficulty": "hard",
+      "text": "Como o ConcurrentHashMap atinge alta performance para threads concorrentes no Java 8+ comparado ao Hashtable?",
+      "options": [
+        {
+          "text": "Ele usa bloqueio no nível de nó (bucket) via CAS e synchronized em vez de bloquear o Map inteiro.",
+          "isCorrect": true,
+          "explanation": "O ConcurrentHashMap bloqueia apenas a parte específica que está sendo modificada (lock striping adaptado), permitindo maior paralelismo."
+        },
+        {
+          "text": "Ele bloqueia todas as leituras enquanto ocorre uma escrita para evitar dados sujos.",
+          "isCorrect": false,
+          "explanation": "Operações de leitura no ConcurrentHashMap não exigem bloqueios, tornando-as incrivelmente rápidas."
+        },
+        {
+          "text": "Ele armazena os dados temporariamente em disco para evitar problemas de concorrência em memória.",
+          "isCorrect": false,
+          "explanation": "O armazenamento é totalmente em memória (Heap)."
+        },
+        {
+          "text": "Ele cria uma thread separada para enfileirar cada pedido de escrita em background.",
+          "isCorrect": false,
+          "explanation": "A sincronização é feita de forma síncrona nos próprios buckets, sem enfileiramento em background."
+        }
+      ]
+    },
+    {
+      "id": "q-25",
+      "topic": "Map",
+      "difficulty": "easy",
+      "text": "Para iterar simultaneamente sobre chaves e valores de um Map, qual estrutura fornece a melhor performance?",
+      "options": [
+        {
+          "text": "O método entrySet(), que retorna pares Map.Entry contendo a chave e o valor juntos.",
+          "isCorrect": true,
+          "explanation": "Com o entrySet() você obtém chave e valor em uma única passagem pela coleção."
+        },
+        {
+          "text": "Iterar sobre keySet() e para cada chave chamar map.get(key).",
+          "isCorrect": false,
+          "explanation": "Isso exige procurar (hash lookup) pelo valor para cada chave, custando mais processamento."
+        },
+        {
+          "text": "O método values(), iterando sobre os valores isoladamente.",
+          "isCorrect": false,
+          "explanation": "O método values() retorna apenas os valores, perdendo-se o acesso direto às respectivas chaves."
+        },
+        {
+          "text": "Usar um bloco try-catch em um loop infinito até que uma exceção seja lançada.",
+          "isCorrect": false,
+          "explanation": "Isso é uma antipadrão terrível em Java."
+        }
+      ]
+    },
+    {
+      "id": "q-26",
+      "topic": "Map",
+      "difficulty": "medium",
+      "text": "É possível usar chaves 'null' em um TreeMap?",
+      "options": [
+        {
+          "text": "Não, o TreeMap lança NullPointerException pois ele precisa comparar os elementos para ordenação.",
+          "isCorrect": true,
+          "explanation": "Uma vez que o TreeMap ordena suas chaves através da interface Comparable, comparar com null causa erro."
+        },
+        {
+          "text": "Sim, é permitido usar uma única chave nula, da mesma forma que no HashMap.",
+          "isCorrect": false,
+          "explanation": "Somente Maps que não exigem comparação explícita de ordem (como HashMap) aceitam chaves null."
+        },
+        {
+          "text": "Sim, desde que a chave nula seja acompanhada por um valor também nulo.",
+          "isCorrect": false,
+          "explanation": "A regra depende da chave, os valores podem ser nulos livremente, mas a chave não pode."
+        },
+        {
+          "text": "Não, o Java bloqueia o uso de null em todas as implementações da interface Map.",
+          "isCorrect": false,
+          "explanation": "O HashMap e o LinkedHashMap aceitam uma chave nula."
+        }
+      ]
+    },
+    {
+      "id": "q-27",
+      "topic": "Map",
+      "difficulty": "medium",
+      "text": "Qual o propósito do método computeIfAbsent() adicionado aos Maps a partir do Java 8?",
+      "options": [
+        {
+          "text": "Calcula e insere um valor baseado em uma função apenas se a chave especificada ainda não existir no Map.",
+          "isCorrect": true,
+          "explanation": "Ele evita escrever if(map.get(k) == null) { map.put(k, valor); } simplificando o código com lambdas."
+        },
+        {
+          "text": "Remove um valor se a chave fornecida estiver ausente no Map.",
+          "isCorrect": false,
+          "explanation": "Isso não faz sentido lógico, pois a chave já não está presente."
+        },
+        {
+          "text": "Retorna o tamanho total do Map caso este esteja vazio.",
+          "isCorrect": false,
+          "explanation": "Trata-se de uma função para inserir condicionalmente, não de contagem."
+        },
+        {
+          "text": "Substitui silenciosamente o valor de uma chave existente por um valor nulo.",
+          "isCorrect": false,
+          "explanation": "Apenas calcula se o valor estiver ausente (ou nulo previamente)."
+        }
+      ]
+    },
+    {
+      "id": "q-28",
+      "topic": "Map",
+      "difficulty": "hard",
+      "text": "O LinkedHashMap pode ser facilmente transformado em uma estrutura de Cache do tipo LRU (Least Recently Used). Como isso é ativado?",
+      "options": [
+        {
+          "text": "Passando 'true' no parâmetro 'accessOrder' do construtor e sobrescrevendo o método removeEldestEntry.",
+          "isCorrect": true,
+          "explanation": "O accessOrder = true muda a ordem de inserção para ordem de último acesso. removeEldestEntry delimita o tamanho do cache."
+        },
+        {
+          "text": "Utilizando a anotação @LRUCache no momento da declaração do mapa.",
+          "isCorrect": false,
+          "explanation": "Essa anotação não existe no Java padrão."
+        },
+        {
+          "text": "Chamando o método map.enableCache(tamanho_maximo) após instanciar a classe.",
+          "isCorrect": false,
+          "explanation": "Não existe tal método; o comportamento deve ser inserido por herança e configuração do construtor."
+        },
+        {
+          "text": "O HashMap comum já atua como um Cache LRU por padrão.",
+          "isCorrect": false,
+          "explanation": "O HashMap não provê suporte nato para regras de limpeza baseadas em acesso, nem garante ordem."
+        }
+      ]
+    },
+    {
+      "id": "q-29",
+      "topic": "Async",
+      "difficulty": "medium",
+      "text": "Na programação assíncrona com Java, qual a vantagem do CompletableFuture sobre a interface Future tradicional?",
+      "options": [
+        {
+          "text": "CompletableFuture permite compor, encadear múltiplos callbacks e completar a tarefa manualmente de forma não-bloqueante.",
+          "isCorrect": true,
+          "explanation": "A interface Future (Java 5) exibe resultados assíncronos, mas verificar seu estado ou aguardá-lo costuma bloquear a thread via get()."
+        },
+        {
+          "text": "A interface Future requer a importação de bibliotecas de terceiros enquanto o CompletableFuture é nativo.",
+          "isCorrect": false,
+          "explanation": "Ambos são nativos do pacote java.util.concurrent."
+        },
+        {
+          "text": "CompletableFuture só funciona para operações matemáticas, enquanto Future é para I/O.",
+          "isCorrect": false,
+          "explanation": "Ambos são independentes de tipo (usando Generics) e suportam qualquer tarefa."
+        },
+        {
+          "text": "A interface Future é mais rápida em 100% dos cenários pois não utiliza pools de threads.",
+          "isCorrect": false,
+          "explanation": "A interface Future é acoplada a ExecutorServices que usam pools de threads, assim como CompletableFuture usa o ForkJoinPool."
+        }
+      ]
+    },
+    {
+      "id": "q-30",
+      "topic": "Async",
+      "difficulty": "easy",
+      "text": "Como é a forma mais comum de se criar e gerenciar um pool de threads no Java (antes do Java 19 Virtual Threads)?",
+      "options": [
+        {
+          "text": "Através da classe de fábrica utilitária Executors, que retorna instâncias de ExecutorService.",
+          "isCorrect": true,
+          "explanation": "Executors.newFixedThreadPool(n) e outros métodos facilitam a criação de pools pré-configurados."
+        },
+        {
+          "text": "Instanciando a classe Thread[] e controlando cada índice do array em um loop while.",
+          "isCorrect": false,
+          "explanation": "Isso é extremamente ineficiente e propenso a erros de sincronização."
+        },
+        {
+          "text": "Através da classe Collections.synchronizedPool().",
+          "isCorrect": false,
+          "explanation": "Essa classe e método não existem."
+        },
+        {
+          "text": "Criando threads na memória cache usando anotações @AsyncPool.",
+          "isCorrect": false,
+          "explanation": "Anotações como @Async são comuns no Spring, mas na API nativa a abordagem é usar a interface ExecutorService."
+        }
+      ]
+    },
+    {
+      "id": "q-31",
+      "topic": "Async",
+      "difficulty": "medium",
+      "text": "Qual é a principal distinção técnica entre as interfaces Runnable e Callable?",
+      "options": [
+        {
+          "text": "Callable retorna um valor e pode lançar exceções checadas, enquanto Runnable retorna void e não lança exceções checadas.",
+          "isCorrect": true,
+          "explanation": "A interface Callable tem o método call() que tem retorno tipo , Runnable usa run() que é void."
+        },
+        {
+          "text": "Runnable retorna um valor, Callable não retorna nada.",
+          "isCorrect": false,
+          "explanation": "A afirmativa inverte os papéis das interfaces."
+        },
+        {
+          "text": "Callable pode ser instanciada sem uma Thread, Runnable obriga o uso de Thread.",
+          "isCorrect": false,
+          "explanation": "Ambas são apenas interfaces. Podem ser implementadas em qualquer lugar."
+        },
+        {
+          "text": "Callable faz a thread rodar mais rápido devido à sua estrutura interna otimizada.",
+          "isCorrect": false,
+          "explanation": "A velocidade de execução é estritamente a mesma; a diferença é na assinatura do método."
+        }
+      ]
+    },
+    {
+      "id": "q-32",
+      "topic": "Async",
+      "difficulty": "medium",
+      "text": "O que ocorre ao chamar o método get() em um objeto do tipo Future em Java?",
+      "options": [
+        {
+          "text": "A thread atual é bloqueada até que a tarefa assíncrona representada pelo Future seja concluída.",
+          "isCorrect": true,
+          "explanation": "O método get() é uma chamada síncrona/bloqueante que aguarda a computação paralela terminar para resgatar o valor."
+        },
+        {
+          "text": "O método cancela a operação assíncrona imediatamente e retorna nulo.",
+          "isCorrect": false,
+          "explanation": "Para cancelar usa-se future.cancel(true)."
+        },
+        {
+          "text": "Retorna o estado da tarefa através de um Enum de progresso.",
+          "isCorrect": false,
+          "explanation": "Ele retorna o resultado final do tipo genérico  atribuído à tarefa."
+        },
+        {
+          "text": "Lança uma exceção se a tarefa demorar mais de 1 segundo.",
+          "isCorrect": false,
+          "explanation": "O método get() sem parâmetros espera indefinidamente. Para tempo limite, usa-se get(timeout, TimeUnit)."
+        }
+      ]
+    },
+    {
+      "id": "q-33",
+      "topic": "Async",
+      "difficulty": "hard",
+      "text": "No contexto de CompletableFuture, qual a diferença entre supplyAsync e runAsync?",
+      "options": [
+        {
+          "text": "supplyAsync aceita um Supplier e retorna um resultado, enquanto runAsync aceita um Runnable e não retorna resultado (void).",
+          "isCorrect": true,
+          "explanation": "supplyAsync atua como uma fábrica para operações que produzem um valor. runAsync é para ações secundárias do tipo 'fire and forget'."
+        },
+        {
+          "text": "runAsync roda imediatamente no processador, enquanto supplyAsync aguarda todos os recursos do sistema.",
+          "isCorrect": false,
+          "explanation": "Ambos delegam a execução para o ForkJoinPool por padrão."
+        },
+        {
+          "text": "Não há diferença real, eles são sinônimos criados por retrocompatibilidade.",
+          "isCorrect": false,
+          "explanation": "Possuem assinaturas e tipos de retorno distintos e incompatíveis."
+        },
+        {
+          "text": "supplyAsync roda de forma síncrona, e runAsync de forma assíncrona.",
+          "isCorrect": false,
+          "explanation": "Ambos, por conterem 'Async' no nome, delegam a tarefa para outra thread."
+        }
+      ]
+    },
+    {
+      "id": "q-34",
+      "topic": "Sync",
+      "difficulty": "easy",
+      "text": "Qual é a função primária da palavra-chave 'synchronized' em Java?",
+      "options": [
+        {
+          "text": "Impedir que várias threads acessem um bloco ou método simultaneamente, evitando corrupção de dados.",
+          "isCorrect": true,
+          "explanation": "Ele cria exclusão mútua (lock) no objeto ou classe associada."
+        },
+        {
+          "text": "Acelerar a velocidade de comunicação entre threads diferentes via cache L1.",
+          "isCorrect": false,
+          "explanation": "O synchronized força barreiras de memória, o que pode desacelerar ligeiramente a performance."
+        },
+        {
+          "text": "Fazer com que dois arrays fiquem com o mesmo tamanho simultaneamente em memória.",
+          "isCorrect": false,
+          "explanation": "Não possui relação com controle de tamanho de estruturas de dados."
+        },
+        {
+          "text": "Sincronizar a hora do relógio da JVM com a hora do sistema operacional do computador base.",
+          "isCorrect": false,
+          "explanation": "O termo sincronização em concorrência se refere ao acesso ordenado, não a tempo físico."
+        }
+      ]
+    },
+    {
+      "id": "q-35",
+      "topic": "Sync",
+      "difficulty": "medium",
+      "text": "Para que serve a palavra-chave 'volatile' aplicada a uma variável?",
+      "options": [
+        {
+          "text": "Garante a visibilidade das mudanças da variável para todas as threads imediatamente, lendo/escrevendo direto da memória principal.",
+          "isCorrect": true,
+          "explanation": "O 'volatile' avisa a JVM para não fazer cache da variável em registradores locais de uma thread, evitando leituras desatualizadas."
+        },
+        {
+          "text": "Garante atomicidade para operações complexas, como var++.",
+          "isCorrect": false,
+          "explanation": "Ele garante VISIBILIDADE, mas não ATOMICIDADE. Para operações como var++ precisa-se de sincronização ou classes Atomic."
+        },
+        {
+          "text": "Avisa o Garbage Collector de que essa variável deve ser ignorada em limpezas.",
+          "isCorrect": false,
+          "explanation": "Volatile não afeta a elegibilidade da variável para coleta de lixo."
+        },
+        {
+          "text": "Indica que o valor da variável nunca poderá ser alterado.",
+          "isCorrect": false,
+          "explanation": "Esse é o papel do modificador 'final'. O 'volatile' reflete uma variável que justamente mudará por vias externas/concorrentes."
+        }
+      ]
+    },
+    {
+      "id": "q-36",
+      "topic": "Sync",
+      "difficulty": "hard",
+      "text": "O que caracteriza a ocorrência de um Deadlock em Java?",
+      "options": [
+        {
+          "text": "Quando duas ou mais threads ficam bloqueadas para sempre, aguardando recursos que as outras mantêm travados.",
+          "isCorrect": true,
+          "explanation": "Thread A detém Lock 1 e quer Lock 2; Thread B detém Lock 2 e quer Lock 1. Resultado: paralisação perpétua."
+        },
+        {
+          "text": "Quando uma thread consome 100% de CPU através de um loop infinito, matando o processo.",
+          "isCorrect": false,
+          "explanation": "Isso descreve um Livelock extremo ou Starvation severo, ou apenas um bug, mas deadlock foca no bloqueio (espera inativa)."
+        },
+        {
+          "text": "Quando a JVM excede a memória máxima permitida em seu heap durante o processamento de threads.",
+          "isCorrect": false,
+          "explanation": "Isto causaria um OutOfMemoryError, não um Deadlock."
+        },
+        {
+          "text": "Quando o tempo estipulado em uma requisição timeout() chega a zero.",
+          "isCorrect": false,
+          "explanation": "Trata-se de um Timeout exception/erro, uma resolução segura de bloqueio, oposto ao conceito destrutivo de Deadlock."
+        }
+      ]
+    },
+    {
+      "id": "q-37",
+      "topic": "Sync",
+      "difficulty": "medium",
+      "text": "Qual a grande vantagem de usar a classe ReentrantLock do pacote java.util.concurrent.locks sobre o synchronized tradicional?",
+      "options": [
+        {
+          "text": "Oferece maior flexibilidade, permitindo locks com tempo limite (tryLock), verificação de lock e capacidade de interromper threads na espera.",
+          "isCorrect": true,
+          "explanation": "O synchronized é primitivo e impositivo. ReentrantLock permite tentar pegar a trava sem bloquear a thread indefinidamente."
+        },
+        {
+          "text": "O ReentrantLock não exige que o desenvolvedor destrave explicitamente usando unlock().",
+          "isCorrect": false,
+          "explanation": "Pelo contrário, é essencial usar bloco try/finally com unlock(), senão cria vazamento de trava. O synchronized libera sozinho ao final do bloco."
+        },
+        {
+          "text": "Não causa Deadlocks nunca, porque a JVM detecta preventivamente o uso inadequado das travas.",
+          "isCorrect": false,
+          "explanation": "Ambos estão sujeitos a Deadlocks se arquitetados erroneamente."
+        },
+        {
+          "text": "O ReentrantLock é significativamente mais rápido para blocos simples e pequenos métodos do que o synchronized.",
+          "isCorrect": false,
+          "explanation": "Para casos simples (sem contenção forte), as otimizações do synchronized a partir do Java 6 o fazem ser incrivelmente veloz, emparelhado ao Reentrant."
+        }
+      ]
+    },
+    {
+      "id": "q-38",
+      "topic": "Sync",
+      "difficulty": "hard",
+      "text": "Qual é a finalidade principal da classe ThreadLocal no Java?",
+      "options": [
+        {
+          "text": "Fornecer variáveis que são locais a uma thread, de modo que cada thread que acessa a variável possua sua própria cópia independente.",
+          "isCorrect": true,
+          "explanation": "Muito útil para armazenar contextos como conexões de banco de dados ou transações, evitando a necessidade de passar variáveis por métodos ou usar sincronização global."
+        },
+        {
+          "text": "Definir um sistema de coordenadas geográficas locais em aplicações móveis multithread.",
+          "isCorrect": false,
+          "explanation": "A classe lida com isolamento de dados no nível de threads virtuais/sistema operacional, sem vínculo com GPS."
+        },
+        {
+          "text": "Centralizar a gestão de todas as threads criadas localmente em uma única classe estática.",
+          "isCorrect": false,
+          "explanation": "Para gestão de grupo, se usava ThreadGroup ou hoje pools de threads por meio do framework de Executores."
+        },
+        {
+          "text": "Limitar a criação de instâncias locais de thread ao processador atual do servidor.",
+          "isCorrect": false,
+          "explanation": "ThreadLocal cuida do armazenamento de escopo de variáveis, não do agendamento delas aos processadores."
+        }
+      ]
+    },
+    {
+      "id": "q-39",
+      "topic": "Sync",
+      "difficulty": "medium",
+      "text": "Como as classes do pacote java.util.concurrent.atomic (ex: AtomicInteger) alcançam concorrência de forma mais rápida do que o synchronized?",
+      "options": [
+        {
+          "text": "Elas dependem de instruções de hardware Compare-And-Swap (CAS), que evitam bloqueios pesados das threads pelo sistema operacional.",
+          "isCorrect": true,
+          "explanation": "O CAS (hardware lock-free protocol) atualiza na premissa otimista; verifica se o valor é o esperado, se for atualiza, senão tenta de novo, sem suspender a thread."
+        },
+        {
+          "text": "Elas desativam temporariamente as interrupções de hardware até a operação terminar.",
+          "isCorrect": false,
+          "explanation": "Isto não é possível no espaço de nível de usuário de software padrão sem acesso do Kernel, e o Java não tenta fazer isso em threads normais."
+        },
+        {
+          "text": "Elas delegam a operação para o servidor GPU mais próximo.",
+          "isCorrect": false,
+          "explanation": "As operações executam no CPU convencional usando instruções nativas atômicas de CPU."
+        },
+        {
+          "text": "Elas convertem inteiros em booleanos provisórios para pular etapas matemáticas complexas da JVM.",
+          "isCorrect": false,
+          "explanation": "Isso é incorreto, não faz sentido lógico na arquitetura ou matemática."
+        }
+      ]
+    },
+    {
+      "id": "q-40",
+      "topic": "Heap",
+      "difficulty": "easy",
+      "text": "No contexto da JVM, qual a principal diferença de propósito entre a memória Heap e a memória Stack?",
+      "options": [
+        {
+          "text": "O Heap armazena objetos instanciados, e a Stack armazena quadros de execução de métodos e variáveis locais primitivas.",
+          "isCorrect": true,
+          "explanation": "Enquanto o Heap é global e dinâmico, cada Thread possui sua própria Stack que cresce/diminui conforme chamadas de métodos são feitas."
+        },
+        {
+          "text": "O Heap é local para cada thread, e a Stack é compartilhada entre todas as threads do sistema.",
+          "isCorrect": false,
+          "explanation": "O oposto é a verdade."
+        },
+        {
+          "text": "Não há diferença no propósito, a Stack é apenas um fragmento particionado dentro do Heap.",
+          "isCorrect": false,
+          "explanation": "Eles são geridos diferentemente na arquitetura de memória da JVM."
+        },
+        {
+          "text": "A Stack guarda as Strings (String Pool), e o Heap os literais numéricos de performance intensiva.",
+          "isCorrect": false,
+          "explanation": "O String pool fica no Heap."
+        }
+      ]
+    },
+    {
+      "id": "q-41",
+      "topic": "Heap",
+      "difficulty": "medium",
+      "text": "O que os termos 'Young Generation' e 'Old (Tenured) Generation' representam no ecossistema do Java?",
+      "options": [
+        {
+          "text": "São áreas distintas na memória Heap usadas pelo Garbage Collector para otimizar o tempo da coleta através de hipóteses geracionais.",
+          "isCorrect": true,
+          "explanation": "Baseado na teoria de que a maioria dos objetos morre cedo, a GC coleta frequentemente o Young, e pouco o Old."
+        },
+        {
+          "text": "Definem as versões de sintaxe suportadas pela JVM (código antigo legados versus lambdas recentes).",
+          "isCorrect": false,
+          "explanation": "É estritamente conceito da engenharia do Coletor de Lixo em memória, sem vínculo a sintaxe da linguagem."
+        },
+        {
+          "text": "Categorizam os usuários que executam o aplicativo para logs de marketing interno da Oracle.",
+          "isCorrect": false,
+          "explanation": "Os termos não tratam de pessoas usuárias."
+        },
+        {
+          "text": "Fases de inicialização da JVM, da fase de boot inicial até o pico de estabilidade.",
+          "isCorrect": false,
+          "explanation": "Fases de boot não adotam nomes geracionais dessa natureza."
+        }
+      ]
+    },
+    {
+      "id": "q-42",
+      "topic": "Heap",
+      "difficulty": "hard",
+      "text": "O que causa um erro do tipo 'java.lang.OutOfMemoryError: Java heap space'?",
+      "options": [
+        {
+          "text": "A JVM não tem memória suficiente disponível no Heap para criar novos objetos e o Garbage Collector falha em liberar espaços.",
+          "isCorrect": true,
+          "explanation": "Ocorre tipicamente ao processar volumes enormes de dados, infinitamente inseridos em listas locais ou por Memory Leaks lógicos do desenvolvedor."
+        },
+        {
+          "text": "Houve uma recursividade infinita que consumiu todo o espaço do sistema da máquina.",
+          "isCorrect": false,
+          "explanation": "Recursões geram StackOverflowError porque estouram o limite da Stack (pilha de chamadas), não o Heap."
+        },
+        {
+          "text": "Um processo concorrente de banco de dados rejeitou o limite de pooling criado pela API da conexão local.",
+          "isCorrect": false,
+          "explanation": "Não é gerado por rejeições externas. Falha estrita de RAM alocada para JVM vs Objetos instanciados."
+        },
+        {
+          "text": "A JVM tentou salvar arquivos no disco, mas o SSD/HDD da máquina do host estava 100% ocupado.",
+          "isCorrect": false,
+          "explanation": "Isso desencadearia IOExceptions, não erros de Heap Space Memory, que tratam exclusivamente de RAM."
+        }
+      ]
+    },
+    {
+      "id": "q-43",
+      "topic": "Heap",
+      "difficulty": "hard",
+      "text": "O que significa o conceito de GC Roots na coleta de lixo em Java?",
+      "options": [
+        {
+          "text": "São os objetos originais sempre acessíveis (ex: threads ativas, variáveis estáticas) a partir dos quais o Garbage Collector mapeia o que deve viver ou morrer no Heap.",
+          "isCorrect": true,
+          "explanation": "O coletor caminha pelos GC Roots buscando todo objeto atrelado a eles. O que não for alcançado é considerado 'lixo' e recolhido."
+        },
+        {
+          "text": "São pacotes fundamentais instalados pelo JRE primário no sistema raiz do computador (root).",
+          "isCorrect": false,
+          "explanation": "O conceito remete a referências na memória da aplicação (nós originais), e não pacotes sistêmicos."
+        },
+        {
+          "text": "O ponto de memória primário (endereço zero) do hardware antes de começar o boot real.",
+          "isCorrect": false,
+          "explanation": "O hardware não afeta esse nível semântico da VM."
+        },
+        {
+          "text": "Classes que implementam a interface especial de GCRootConfig para não serem deletadas acidentalmente.",
+          "isCorrect": false,
+          "explanation": "Não há uma interface de usuário GCRootConfig. O monitoramento pelo GC é implícito com base em escopos locais e referências no sistema rodando."
+        }
+      ]
+    },
+    {
+      "id": "q-44",
+      "topic": "Heap",
+      "difficulty": "medium",
+      "text": "No Java 8, a região de memória PermGen foi descontinuada e substituída por qual estrutura?",
+      "options": [
+        {
+          "text": "Metaspace.",
+          "isCorrect": true,
+          "explanation": "O Metaspace assumiu o lugar para armazenar os metadados de classe, crescendo automaticamente de acordo com o limite de memória nativa do SO, evitando erros do antigo PermGen."
+        },
+        {
+          "text": "Survivor Space.",
+          "isCorrect": false,
+          "explanation": "Survivor Space é uma subdivisão do Young Generation dedicada aos ciclos rápidos de coletas temporárias de vida média."
+        },
+        {
+          "text": "Eden Space 2.0.",
+          "isCorrect": false,
+          "explanation": "Eden Space é apenas o espaço inicial para novos objetos pequenos da jovem geração, não foi substituído por PermGen."
+        },
+        {
+          "text": "Virtual Threads Memory Pool.",
+          "isCorrect": false,
+          "explanation": "Virtual Threads Memory Pool não substituiu PermGen (isso nem existia no Java 8)."
+        }
+      ]
+    },
+    {
+      "id": "q-45",
+      "topic": "Heap",
+      "difficulty": "easy",
+      "text": "Por que é desencorajado chamar System.gc() diretamente no código Java?",
+      "options": [
+        {
+          "text": "Pois a chamada é apenas uma recomendação para a JVM que pode introduzir atrasos imprevisíveis na performance por coletas desnecessárias, já que a JVM gerencia isso melhor.",
+          "isCorrect": true,
+          "explanation": "Ao tentar forçar a limpeza manual do heap de forma aleatória, pode-se iniciar varreduras completas severas (Stop-The-World) atrasando fluxos sem ganhos."
+        },
+        {
+          "text": "Porque a chamada exclui todos os objetos, encerrando todas as atividades pendentes instantaneamente.",
+          "isCorrect": false,
+          "explanation": "Ele só limpa objetos sem referências válidas e inacessíveis da raiz."
+        },
+        {
+          "text": "É desencorajado pois a Oracle adotou uma política de cobrar custos na nuvem toda vez que acionado por devs.",
+          "isCorrect": false,
+          "explanation": "O Java runtime é independente dessas taxas mercadológicas baseadas em chamadas simples; o problema é estritamente desempenho nativo técnico."
+        },
+        {
+          "text": "O método invocado cria um novo lixo acidental e falha de segurança perigosa (memory leak).",
+          "isCorrect": false,
+          "explanation": "Não cria vazamento; só força rotinas não planejadas nos bastidores do sistema, o oposto exato."
+        }
+      ]
+    },
+    {
+      "id": "q-46",
+      "topic": "String",
+      "difficulty": "hard",
+      "text": "Considere o código: String s = new String('Teste');. Quantos objetos serão criados pela JVM caso a palavra 'Teste' ainda não exista no String Pool?",
+      "options": [
+        {
+          "text": "Dois objetos: um no String Pool e outro instanciado no Heap (não-pool).",
+          "isCorrect": true,
+          "explanation": "O literal entre aspas gera internamento automático na pool e o operador 'new' força uma segunda instância genérica da string na área livre de objetos."
+        },
+        {
+          "text": "Um objeto: apenas no String Pool.",
+          "isCorrect": false,
+          "explanation": "Usar explicitamente o new afeta a força da arquitetura de reaproveitamento, criando instâncias explícitas fora do pool de deduplicação."
+        },
+        {
+          "text": "Um objeto: apenas no Heap comum, ignorando a pool por causa do 'new'.",
+          "isCorrect": false,
+          "explanation": "O literal inicial do argumento aciona o Classloader a inserir internamente no Pool preliminarmente."
+        },
+        {
+          "text": "Nenhum, ocorrerá um erro de compilação pedindo tipos compatíveis.",
+          "isCorrect": false,
+          "explanation": "A sintaxe é válida na especificação oficial do Java (embora desnecessária funcionalmente em cenários reais)."
+        }
+      ]
+    },
+    {
+      "id": "q-47",
+      "topic": "Threads e Coleções",
+      "difficulty": "medium",
+      "text": "Qual o perigo imediato de iterar sobre um HashMap normal não sincronizado e modificá-lo em duas threads concorrentes simultaneamente?",
+      "options": [
+        {
+          "text": "Acionamento contínuo da ConcurrentModificationException pelo iterador ou corrupção fatal cíclica nas listas dos nós internos.",
+          "isCorrect": true,
+          "explanation": "Se modificado na hora da leitura em paralelo, os fail-fast iterators travam, ou em casos de resize estrutural cruzado cria loops infinitos nos ponteiros."
+        },
+        {
+          "text": "O compilador paralisa a build negando compilação do arquivo.",
+          "isCorrect": false,
+          "explanation": "Este erro surge unicamente via Tempo de Execução (Runtime); estaticamente o programa roda normalmente."
+        },
+        {
+          "text": "A primeira Thread bloqueia todas as outras threads até completar sua travessia.",
+          "isCorrect": false,
+          "explanation": "Ele carece justamente dos comandos synchronized explícitos do monitor para realizar esse travamento benéfico."
+        },
+        {
+          "text": "O próprio Map resolve via um algoritmo de fusão criando duplicatas ignoráveis.",
+          "isCorrect": false,
+          "explanation": "O sistema quebra se não tratada adequadamente com ConcurrentHashMap e estruturas ativas preparadas."
+        }
+      ]
+    },
+    {
+      "id": "q-48",
+      "topic": "Hash e Threads",
+      "difficulty": "hard",
+      "text": "Onde estão armazenadas as instâncias de Thread e variáveis locais para acesso em concorrência se o sistema sofre Memory Leaks no Heap?",
+      "options": [
+        {
+          "text": "Os objetos reais que a thread referencia na concorrência estão no Heap e sofrem o Memory Leak; já a execução de seus escopos básicos reside na Stack intocada.",
+          "isCorrect": true,
+          "explanation": "O escape (leak) envolve falha de coleta dos objetos globais em si. Já os loops, booleanos primitivos de status e o quadro local rodam individualizados nas pilhas separadas das threads da CPU."
+        },
+        {
+          "text": "As variáveis locais das threads passam diretamente pro Heap corrompendo referências alheias de imediato.",
+          "isCorrect": false,
+          "explanation": "A pilha de thread é inviolável nativamente ao resto salvo por ponteiros compartilhados de forma explicita nas diretivas."
+        },
+        {
+          "text": "O Memory Leak consome e devora primeiramente as Stacks finalizando todas as threads sem matar o Heap.",
+          "isCorrect": false,
+          "explanation": "Heap tem espaço contínuo amplo, Memory Leak lota-o globalmente. O stack causa estouro rápido de profundeza individual (Overflow)."
+        },
+        {
+          "text": "Toda parte do software assíncrono vai para a área exclusiva da VRAM da arquitetura do aparelho.",
+          "isCorrect": false,
+          "explanation": "Isto diz respeito a vídeo (placas gráficas GPU); O Java executa paralelismos pesados tipicamente centralizado de ram normal salvo interfaces nativas abertas do programador."
+        }
+      ]
+    },
+    {
+      "id": "q-49",
+      "topic": "Async e Thread",
+      "difficulty": "hard",
+      "text": "Ao utilizar o ForkJoinPool do Java 7/8 no ambiente assíncrono, como ele soluciona a estagnação de threads ocupadas vs livres (work-stealing algorithm)?",
+      "options": [
+        {
+          "text": "Threads que finalizam suas filas locais buscam na extremidade (cauda) das filas duplas de tarefas de outras threads parceiras ativas e 'roubam' as cargas lá dispostas para manter performance.",
+          "isCorrect": true,
+          "explanation": "O roubo de tarefas por caudas opostas diminui contenção da tranca e garante que threads velozes ajudem dinamicamente threads lentas nas quebras recursivas dos nós."
+        },
+        {
+          "text": "O ForkJoinPool encerra instantaneamente todas as threads que entram em ócio contínuo por mais de 5 ms.",
+          "isCorrect": false,
+          "explanation": "A eficiência se dá pelo uso ótimo da thread já existente por intermédio das filas interligadas em dequeue, não eliminação imediata."
+        },
+        {
+          "text": "Quando ocupado por tempo demais (timeout), as partes densas dividem-se na nuvem pra cluster nativos sem interagir internamente no JVM matriz original.",
+          "isCorrect": false,
+          "explanation": "Soluções via Cloud remetem a grids externas baseados em RMI ou Kafka, o ForkJoin opera local em processadores paralelos puros da placa."
+        },
+        {
+          "text": "As threads desocupadas aguardam silenciosamente e apenas o processador do escalonador as liga via sinal nativo assíncrono final.",
+          "isCorrect": false,
+          "explanation": "Isto contraria inteiramente o objetivo de roubo ativo dinâmico entre vizinhos presentes do Pool das workers."
+        }
+      ]
+    },
+    {
+      "id": "q-50",
+      "topic": "Sync e Map",
+      "difficulty": "medium",
+      "text": "Para compartilhar variáveis seguras entre múltiplas funções, se uma thread utilizar putIfAbsent numa tabela Collections.synchronizedMap() em vez de usar ConcurrentHashMap, qual a diferença crítica na camada das travas operativas?",
+      "options": [
+        {
+          "text": "synchronizedMap trava a estrutura inteira inibindo qualquer leitura ou escrita paralele imediata de qualquer outra chave pela concorrência.",
+          "isCorrect": true,
+          "explanation": "O wrapper bloqueia 100% da matriz nos métodos modificadores forçando enfileiramento pesado, enquanto o Concurrent opera com fragmentação da tranca (Segmentação ou Buckets únicos) de forma veloz."
+        },
+        {
+          "text": "Ambos providenciam 100% de otimização distribuída nas travas individuais dos hashes, sendo sinônimos em tempo de execução nativos.",
+          "isCorrect": false,
+          "explanation": "Em alta carga, a perfomance do wrapper clássico synchronized cai assustadoramente provendo gargalo de thread único na JVM global."
+        },
+        {
+          "text": "synchronizedMap não aceita lambdas funcionais modernos lançando UnsupportedOperationException.",
+          "isCorrect": false,
+          "explanation": "Ele expõe e delega as interfaces comuns dos Maps, ele apenas envolve as respostas com marcadores de acesso síncronos fechados de hardware clássico."
+        },
+        {
+          "text": "ConcurrentHashMap joga as diretivas de trancas exclusivamente para a fase Metaspace sem uso do espaço RAM dos objetos em uso pelo sistema.",
+          "isCorrect": false,
+          "explanation": "Eles tratam a concorrência nos campos adjacentes aos Node e Tables do objeto contido e gerenciado em Heap livre local regular, não em Metaspace restrito."
+        }
+      ]
+    }
+  ]
+}

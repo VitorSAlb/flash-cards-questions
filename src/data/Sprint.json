@@ -1,0 +1,1403 @@
+{
+    "theme": "Spring",
+    "questions": [
+        {
+            "id": "q-01",
+            "topic": "Core / IoC",
+            "difficulty": "easy",
+            "text": "Qual é o principal objetivo do padrão de Inversão de Controle (IoC) no Spring Framework?",
+            "options": [
+                {
+                    "text": "Transferir a responsabilidade de criar e gerenciar o ciclo de vida dos objetos (beans) do desenvolvedor para o contêiner do Spring.",
+                    "isCorrect": true,
+                    "explanation": "O IoC Container gerencia a instanciação, configuração e injeção de dependências, reduzindo o acoplamento do código."
+                },
+                {
+                    "text": "Gerenciar a conexão com o banco de dados diretamente através de drivers nativos.",
+                    "isCorrect": false,
+                    "explanation": "Isso é responsabilidade de bibliotecas de persistência e drivers JDBC, não do IoC Container em si."
+                },
+                {
+                    "text": "Inverter o fluxo de requisições HTTP do cliente para o servidor.",
+                    "isCorrect": false,
+                    "explanation": "O IoC lida com instâncias de objetos no backend, não com o fluxo de rede."
+                },
+                {
+                    "text": "Garantir que todas as classes do sistema implementem uma interface comum.",
+                    "isCorrect": false,
+                    "explanation": "O Spring incentiva o uso de interfaces, mas o IoC não obriga essa prática estruturalmente."
+                }
+            ]
+        },
+        {
+            "id": "q-02",
+            "topic": "Annotations",
+            "difficulty": "easy",
+            "text": "Qual anotação é usada para injetar automaticamente dependências em uma classe no Spring?",
+            "options": [
+                {
+                    "text": "@Autowired",
+                    "isCorrect": true,
+                    "explanation": "O @Autowired instrui o Spring a resolver e injetar o bean correspondente no campo, construtor ou método."
+                },
+                {
+                    "text": "@InjectDependency",
+                    "isCorrect": false,
+                    "explanation": "Essa anotação não existe nativamente no Spring."
+                },
+                {
+                    "text": "@Provide",
+                    "isCorrect": false,
+                    "explanation": "Não é uma anotação válida do Spring para injeção."
+                },
+                {
+                    "text": "@Bean",
+                    "isCorrect": false,
+                    "explanation": "@Bean é usado para declarar a criação de um bean em classes @Configuration, não para injetar dependências em campos de serviço."
+                }
+            ]
+        },
+        {
+            "id": "q-03",
+            "topic": "Annotations",
+            "difficulty": "medium",
+            "text": "Qual é a diferença entre as anotações @Component, @Service e @Repository?",
+            "options": [
+                {
+                    "text": "@Service e @Repository são especializações de @Component; @Repository traduz exceções de persistência, e @Service indica regras de negócio.",
+                    "isCorrect": true,
+                    "explanation": "Todas registram beans, mas fornecem semântica diferente. @Repository adiciona tradução automática de DataAccessException."
+                },
+                {
+                    "text": "Apenas @Component cria beans singleton. @Service e @Repository criam beans do tipo prototype.",
+                    "isCorrect": false,
+                    "explanation": "Por padrão, todas as três criam beans com escopo Singleton."
+                },
+                {
+                    "text": "@Repository serve para injeção de dependência e @Component para configuração de segurança.",
+                    "isCorrect": false,
+                    "explanation": "As finalidades descritas estão incorretas."
+                },
+                {
+                    "text": "Não há nenhuma diferença técnica ou semântica, são apenas aliases idênticos introduzidos em versões diferentes.",
+                    "isCorrect": false,
+                    "explanation": "Há diferença semântica e, no caso do @Repository, diferença técnica (tradução de exceções)."
+                }
+            ]
+        },
+        {
+            "id": "q-04",
+            "topic": "Annotations",
+            "difficulty": "medium",
+            "text": "Se houver duas implementações de uma mesma interface injetadas via @Autowired, como resolver o conflito (NoUniqueBeanDefinitionException)?",
+            "options": [
+                {
+                    "text": "Utilizando a anotação @Qualifier junto com @Autowired para especificar o nome do bean desejado, ou marcando uma das implementações com @Primary.",
+                    "isCorrect": true,
+                    "explanation": "@Qualifier especifica o id do bean, e @Primary define a preferência padrão quando há múltiplos beans do mesmo tipo."
+                },
+                {
+                    "text": "O Spring resolve o conflito automaticamente injetando a classe com o nome mais curto.",
+                    "isCorrect": false,
+                    "explanation": "O Spring lança uma exceção caso não consiga determinar qual bean injetar."
+                },
+                {
+                    "text": "Usando a anotação @ConflictResolver no método main da aplicação.",
+                    "isCorrect": false,
+                    "explanation": "Essa anotação não existe no ecossistema Spring."
+                },
+                {
+                    "text": "Deletando uma das implementações, pois o Spring não suporta múltiplas implementações de interfaces.",
+                    "isCorrect": false,
+                    "explanation": "O Spring suporta múltiplas implementações; basta orientá-lo sobre qual injetar."
+                }
+            ]
+        },
+        {
+            "id": "q-05",
+            "topic": "Core / IoC",
+            "difficulty": "medium",
+            "text": "Qual é o escopo padrão (Scope) dos Beans gerenciados pelo Spring?",
+            "options": [
+                {
+                    "text": "Singleton",
+                    "isCorrect": true,
+                    "explanation": "O Spring cria apenas uma instância do bean para todo o contêiner por padrão."
+                },
+                {
+                    "text": "Prototype",
+                    "isCorrect": false,
+                    "explanation": "Prototype cria uma nova instância a cada requisição de injeção, não é o padrão."
+                },
+                {
+                    "text": "Request",
+                    "isCorrect": false,
+                    "explanation": "Request scope é específico para ambientes web (uma instância por requisição HTTP)."
+                },
+                {
+                    "text": "Session",
+                    "isCorrect": false,
+                    "explanation": "Session scope cria uma instância por sessão de usuário HTTP."
+                }
+            ]
+        },
+        {
+            "id": "q-06",
+            "topic": "Core / IoC",
+            "difficulty": "hard",
+            "text": "Qual a principal diferença entre ApplicationContext e BeanFactory?",
+            "options": [
+                {
+                    "text": "BeanFactory utiliza carregamento preguiçoso (lazy loading), enquanto ApplicationContext pré-instancia os beans singleton e oferece recursos avançados (eventos, i18n).",
+                    "isCorrect": true,
+                    "explanation": "ApplicationContext é uma extensão de BeanFactory que suporta funcionalidades corporativas e instancia beans na inicialização."
+                },
+                {
+                    "text": "ApplicationContext é obsoleto e foi substituído inteiramente pelo BeanFactory no Spring 5.",
+                    "isCorrect": false,
+                    "explanation": "Ambos coexistem, mas ApplicationContext é a interface recomendada para quase todas as aplicações modernas."
+                },
+                {
+                    "text": "BeanFactory só funciona em aplicações Web, e ApplicationContext em aplicações desktop.",
+                    "isCorrect": false,
+                    "explanation": "ApplicationContext abrange aplicações web (WebApplicationContext) e standalone."
+                },
+                {
+                    "text": "Não há diferença de inicialização, ambos instanciam beans sob demanda (lazy) por padrão.",
+                    "isCorrect": false,
+                    "explanation": "ApplicationContext pré-inicializa beans singletons (eager loading)."
+                }
+            ]
+        },
+        {
+            "id": "q-07",
+            "topic": "Annotations",
+            "difficulty": "easy",
+            "text": "Qual a utilidade da anotação @Value no Spring?",
+            "options": [
+                {
+                    "text": "Injetar valores literais, resultados de expressões SpEL ou propriedades de arquivos de configuração em variáveis de uma classe.",
+                    "isCorrect": true,
+                    "explanation": "Permite ler dados do application.properties usando @Value(\"${propriedade}\") ou executar expressões."
+                },
+                {
+                    "text": "Definir o valor de retorno padrão de um método @RestController.",
+                    "isCorrect": false,
+                    "explanation": "Não tem utilidade para ditar retornos padrão de métodos MVC."
+                },
+                {
+                    "text": "Mapear o valor de uma coluna de banco de dados diretamente para um atributo estático.",
+                    "isCorrect": false,
+                    "explanation": "Para mapeamento de banco usam-se anotações JPA como @Column."
+                },
+                {
+                    "text": "Validar se um campo recebido em um DTO não é nulo.",
+                    "isCorrect": false,
+                    "explanation": "Para validações, usam-se anotações como @NotNull ou @NotBlank (Bean Validation)."
+                }
+            ]
+        },
+        {
+            "id": "q-08",
+            "topic": "Spring Boot",
+            "difficulty": "medium",
+            "text": "O que a anotação @SpringBootApplication faz implicitamente?",
+            "options": [
+                {
+                    "text": "Combina @Configuration, @EnableAutoConfiguration e @ComponentScan.",
+                    "isCorrect": true,
+                    "explanation": "É uma anotação de conveniência que consolida essas três anotações essenciais para inicializar o Spring Boot."
+                },
+                {
+                    "text": "Inicia o banco de dados embutido e desativa a segurança padrão do Spring.",
+                    "isCorrect": false,
+                    "explanation": "Ela não desativa a segurança nem foca exclusivamente no banco embutido."
+                },
+                {
+                    "text": "Combina @RestController, @Service e @Repository no diretório raiz.",
+                    "isCorrect": false,
+                    "explanation": "Ela não atribui papéis de web ou persistência à classe principal, apenas configura o contexto."
+                },
+                {
+                    "text": "Configura automaticamente as credenciais de produção no servidor Tomcat.",
+                    "isCorrect": false,
+                    "explanation": "Credenciais e configurações finas de servidor não são escopo direto dessa anotação."
+                }
+            ]
+        },
+        {
+            "id": "q-09",
+            "topic": "MVC",
+            "difficulty": "easy",
+            "text": "No Spring MVC, qual é a principal diferença entre @Controller e @RestController?",
+            "options": [
+                {
+                    "text": "@RestController é a combinação de @Controller com @ResponseBody, indicando que os métodos retornam dados (JSON/XML) em vez de views (HTML).",
+                    "isCorrect": true,
+                    "explanation": "@RestController evita a necessidade de anotar cada método com @ResponseBody ao construir APIs REST."
+                },
+                {
+                    "text": "@RestController suporta apenas métodos GET, enquanto @Controller suporta todos os verbos HTTP.",
+                    "isCorrect": false,
+                    "explanation": "Ambos suportam todos os verbos HTTP."
+                },
+                {
+                    "text": "@Controller é usado exclusivamente para classes de serviço, não recebendo requisições da web.",
+                    "isCorrect": false,
+                    "explanation": "@Controller é estritamente usado para camada de apresentação web (receber requisições)."
+                },
+                {
+                    "text": "@RestController requer a configuração de um servidor Node.js secundário.",
+                    "isCorrect": false,
+                    "explanation": "Eles rodam no mesmo Servlet container (como Tomcat) configurado no Spring."
+                }
+            ]
+        },
+        {
+            "id": "q-10",
+            "topic": "MVC / Restful",
+            "difficulty": "medium",
+            "text": "Qual anotação deve ser usada para extrair o valor '123' da URL '/usuarios/123'?",
+            "options": [
+                {
+                    "text": "@PathVariable",
+                    "isCorrect": true,
+                    "explanation": "@PathVariable mapeia variáveis de template URI (o caminho na URL) para argumentos do método."
+                },
+                {
+                    "text": "@RequestParam",
+                    "isCorrect": false,
+                    "explanation": "@RequestParam é usado para parâmetros de query string, ex: /usuarios?id=123."
+                },
+                {
+                    "text": "@RequestBody",
+                    "isCorrect": false,
+                    "explanation": "@RequestBody mapeia o corpo da requisição HTTP (ex: um JSON no POST) para um objeto."
+                },
+                {
+                    "text": "@PathParam",
+                    "isCorrect": false,
+                    "explanation": "@PathParam pertence à especificação JAX-RS, não ao Spring MVC padrão (que usa @PathVariable)."
+                }
+            ]
+        },
+        {
+            "id": "q-11",
+            "topic": "MVC",
+            "difficulty": "hard",
+            "text": "Qual componente age como o Front Controller no Spring MVC, roteando as requisições HTTP recebidas para os Controllers adequados?",
+            "options": [
+                {
+                    "text": "DispatcherServlet",
+                    "isCorrect": true,
+                    "explanation": "O DispatcherServlet intercepta todas as requisições mapeadas e usa HandlerMappings para delegar ao Controller correto."
+                },
+                {
+                    "text": "ApplicationContext",
+                    "isCorrect": false,
+                    "explanation": "O ApplicationContext é o contêiner de IoC, não o tratador de roteamento HTTP."
+                },
+                {
+                    "text": "InternalResourceViewResolver",
+                    "isCorrect": false,
+                    "explanation": "Esse componente resolve nomes lógicos de views para arquivos físicos (ex: JSP), após o Controller processar."
+                },
+                {
+                    "text": "TomcatRouter",
+                    "isCorrect": false,
+                    "explanation": "Esse componente não existe nativamente no Spring MVC."
+                }
+            ]
+        },
+        {
+            "id": "q-12",
+            "topic": "MVC",
+            "difficulty": "medium",
+            "text": "Para tratar exceções de forma global em uma API Spring Boot, qual anotação de classe é a mais indicada?",
+            "options": [
+                {
+                    "text": "@ControllerAdvice ou @RestControllerAdvice",
+                    "isCorrect": true,
+                    "explanation": "Essas anotações definem componentes interceptadores globais que aplicam métodos @ExceptionHandler a todos os controllers."
+                },
+                {
+                    "text": "@GlobalException",
+                    "isCorrect": false,
+                    "explanation": "Não existe essa anotação no Spring Framework."
+                },
+                {
+                    "text": "@RequestMapping",
+                    "isCorrect": false,
+                    "explanation": "@RequestMapping mapeia endpoints, não captura exceções globais."
+                },
+                {
+                    "text": "@WebFilter",
+                    "isCorrect": false,
+                    "explanation": "@WebFilter pertence à API de Servlets para interceptar tráfego, não é específica para tratamento de exceções MVC no Spring."
+                }
+            ]
+        },
+        {
+            "id": "q-13",
+            "topic": "Restful",
+            "difficulty": "medium",
+            "text": "Qual é a principal utilidade da classe ResponseEntity em um @RestController?",
+            "options": [
+                {
+                    "text": "Permite manipular o objeto de resposta inteiro, incluindo corpo (body), cabeçalhos (headers) e o código de status HTTP (status code).",
+                    "isCorrect": true,
+                    "explanation": "Dá controle total sobre a resposta HTTP, permitindo retornar status como 201 Created ou 404 Not Found dinamicamente."
+                },
+                {
+                    "text": "Realiza o parse automático de XML para JSON em requisições assíncronas.",
+                    "isCorrect": false,
+                    "explanation": "Quem faz o parseamento HTTP message converter (ex: Jackson), não a classe ResponseEntity."
+                },
+                {
+                    "text": "Garante que a resposta HTTP seja sempre cacheada pelo navegador do cliente.",
+                    "isCorrect": false,
+                    "explanation": "Embora você possa adicionar headers de cache nela, ela não faz isso sozinha por padrão."
+                },
+                {
+                    "text": "Valida os dados de entrada de um formulário da web antes de salvar no banco.",
+                    "isCorrect": false,
+                    "explanation": "Para validação de entrada usa-se @Valid no RequestBody e classes de BindingResult."
+                }
+            ]
+        },
+        {
+            "id": "q-14",
+            "topic": "Restful",
+            "difficulty": "medium",
+            "text": "Segundo a arquitetura REST, quais dos seguintes verbos HTTP são considerados idempotentes?",
+            "options": [
+                {
+                    "text": "GET, PUT e DELETE.",
+                    "isCorrect": true,
+                    "explanation": "Idempotente significa que múltiplas requisições idênticas devem ter o mesmo efeito que uma única. POST não é idempotente."
+                },
+                {
+                    "text": "Apenas GET e POST.",
+                    "isCorrect": false,
+                    "explanation": "POST cria novos recursos a cada chamada (geralmente), não sendo idempotente."
+                },
+                {
+                    "text": "POST, PUT e PATCH.",
+                    "isCorrect": false,
+                    "explanation": "POST e frequentemente PATCH não são estritamente idempotentes na especificação HTTP."
+                },
+                {
+                    "text": "Todos os verbos HTTP são idempotentes em APIs RESTful.",
+                    "isCorrect": false,
+                    "explanation": "Falso. O POST por definição cria novos recursos."
+                }
+            ]
+        },
+        {
+            "id": "q-15",
+            "topic": "MVC",
+            "difficulty": "easy",
+            "text": "Para evitar a conversão manual manual de objetos Java para JSON na resposta de uma API REST no Spring, qual dependência atua nos bastidores por padrão?",
+            "options": [
+                {
+                    "text": "Jackson (ObjectMapper)",
+                    "isCorrect": true,
+                    "explanation": "O Spring Boot utiliza a biblioteca Jackson por padrão para serializar (Java para JSON) e desserializar (JSON para Java) objetos."
+                },
+                {
+                    "text": "Gson",
+                    "isCorrect": false,
+                    "explanation": "Embora possa ser configurado, o Gson (do Google) não é o padrão do Spring Boot."
+                },
+                {
+                    "text": "Hibernate",
+                    "isCorrect": false,
+                    "explanation": "Hibernate trata de ORM (Mapeamento Objeto-Relacional no banco), não de conversão JSON web."
+                },
+                {
+                    "text": "JAXB",
+                    "isCorrect": false,
+                    "explanation": "JAXB é usado para serialização em XML, não o conversor padrão para JSON."
+                }
+            ]
+        },
+        {
+            "id": "q-16",
+            "topic": "Spring Security",
+            "difficulty": "easy",
+            "text": "No contexto do Spring Security, qual é a diferença entre Autenticação (Authentication) e Autorização (Authorization)?",
+            "options": [
+                {
+                    "text": "Autenticação verifica QUEM é o usuário (identidade); Autorização verifica O QUE o usuário tem permissão para fazer (regras/roles).",
+                    "isCorrect": true,
+                    "explanation": "A autenticação valida credenciais (login), e a autorização restringe acesso a endpoints com base nas permissões (ex: ROLE_ADMIN)."
+                },
+                {
+                    "text": "Autenticação gera o token JWT; Autorização valida a senha no banco de dados.",
+                    "isCorrect": false,
+                    "explanation": "A validação da senha pertence à fase de Autenticação."
+                },
+                {
+                    "text": "Não há diferença, os dois termos são sinônimos no core do Spring Security.",
+                    "isCorrect": false,
+                    "explanation": "Eles são processos distintos e fundamentais tratadas por interfaces separadas (AuthenticationManager vs AccessDecisionManager)."
+                },
+                {
+                    "text": "Autenticação é usada para APIs REST e Autorização é usada para aplicações web MVC clássicas.",
+                    "isCorrect": false,
+                    "explanation": "Ambos os processos aplicam-se independentemente da arquitetura."
+                }
+            ]
+        },
+        {
+            "id": "q-17",
+            "topic": "Spring Security",
+            "difficulty": "medium",
+            "text": "Qual interface chave o Spring Security utiliza para buscar informações do usuário (como login, senha e roles) geralmente do banco de dados?",
+            "options": [
+                {
+                    "text": "UserDetailsService",
+                    "isCorrect": true,
+                    "explanation": "Ela obriga a implementação do método loadUserByUsername(), retornando um objeto UserDetails que o Spring usará para checar a senha."
+                },
+                {
+                    "text": "AuthenticationProvider",
+                    "isCorrect": false,
+                    "explanation": "O provider executa a lógica de validar a senha, mas frequentemente depende do UserDetailsService para buscar o usuário."
+                },
+                {
+                    "text": "SecurityContextRepository",
+                    "isCorrect": false,
+                    "explanation": "Este é usado para armazenar o contexto de segurança entre requisições HTTP, não para buscar os dados base do banco."
+                },
+                {
+                    "text": "UserDetailsManager",
+                    "isCorrect": false,
+                    "explanation": "Embora seja uma extensão, a interface principal e mais famosa para busca é a UserDetailsService."
+                }
+            ]
+        },
+        {
+            "id": "q-18",
+            "topic": "Spring Security",
+            "difficulty": "medium",
+            "text": "Desde o Spring Security 5.7+, qual é a forma recomendada de configurar regras de acesso HTTP em vez de estender WebSecurityConfigurerAdapter?",
+            "options": [
+                {
+                    "text": "Declarar um bean do tipo SecurityFilterChain.",
+                    "isCorrect": true,
+                    "explanation": "A abordagem baseada em componentes (registrando um bean SecurityFilterChain) substituiu a antiga herança de WebSecurityConfigurerAdapter."
+                },
+                {
+                    "text": "Usar apenas anotações @Secured nos controllers sem classes de configuração globais.",
+                    "isCorrect": false,
+                    "explanation": "Anotações cobrem autorização em nível de método, mas configurações globais (CORS, CSRF, form login) requerem o SecurityFilterChain."
+                },
+                {
+                    "text": "Estender a classe AbstractHttpConfigurer baseada em XML.",
+                    "isCorrect": false,
+                    "explanation": "XML é obsoleto para configurações padrão modernas do Spring Boot."
+                },
+                {
+                    "text": "Sobrescrever o DispatcherServlet e adicionar regras em hardcode.",
+                    "isCorrect": false,
+                    "explanation": "Isso ignora todo o ecossistema do Spring Security baseado em filtros."
+                }
+            ]
+        },
+        {
+            "id": "q-19",
+            "topic": "Spring Security",
+            "difficulty": "easy",
+            "text": "Qual é a implementação padrão e mais recomendada para codificar (fazer hash) senhas no Spring Security?",
+            "options": [
+                {
+                    "text": "BCryptPasswordEncoder",
+                    "isCorrect": true,
+                    "explanation": "BCrypt é seguro, imune a rainbow tables (usa salts automáticos) e é o padrão de mercado no ecossistema Spring."
+                },
+                {
+                    "text": "MD5PasswordEncoder",
+                    "isCorrect": false,
+                    "explanation": "MD5 é considerado quebrado e altamente inseguro para armazenamento de senhas."
+                },
+                {
+                    "text": "PlainTextPasswordEncoder",
+                    "isCorrect": false,
+                    "explanation": "Não aplicar hashing (texto puro) não deve ser usado em nenhum ambiente real."
+                },
+                {
+                    "text": "SHA256PasswordEncoder",
+                    "isCorrect": false,
+                    "explanation": "Embora SHA-256 seja um hash, BCrypt é computacionalmente resistente a brute-force, sendo o recomendado."
+                }
+            ]
+        },
+        {
+            "id": "q-20",
+            "topic": "Spring Security",
+            "difficulty": "hard",
+            "text": "Em uma arquitetura de API REST Stateless protegida com JWT, qual vulnerabilidade comum o Spring Security tem habilitada por padrão que deve ser desabilitada via `csrf().disable()`?",
+            "options": [
+                {
+                    "text": "CSRF (Cross-Site Request Forgery)",
+                    "isCorrect": true,
+                    "explanation": "APIs Stateless baseadas em tokens JWT não armazenam sessão no servidor, logo não são vulneráveis a CSRF baseada em cookies automáticos, permitindo desabilitar essa proteção para evitar falsos positivos."
+                },
+                {
+                    "text": "CORS (Cross-Origin Resource Sharing)",
+                    "isCorrect": false,
+                    "explanation": "CORS não é uma vulnerabilidade, é uma política de controle de acesso dos navegadores, e não se desabilita com csrf()."
+                },
+                {
+                    "text": "SQL Injection",
+                    "isCorrect": false,
+                    "explanation": "Spring Security não trata diretamente injeção de SQL; isso é feito pela camada JPA/Hibernate usando prepared statements."
+                },
+                {
+                    "text": "XSS (Cross-Site Scripting)",
+                    "isCorrect": false,
+                    "explanation": "A proteção de XSS envolve escaping de dados de tela; desabilitar csrf() não desabilita defesas de XSS."
+                }
+            ]
+        },
+        {
+            "id": "q-21",
+            "topic": "Spring Security",
+            "difficulty": "hard",
+            "text": "Para implementar a verificação de um token JWT em cada requisição na API, qual classe base é comum de se estender?",
+            "options": [
+                {
+                    "text": "OncePerRequestFilter",
+                    "isCorrect": true,
+                    "explanation": "Garante que o filtro seja executado estritamente uma única vez por requisição HTTP, perfeito para extrair e validar tokens do cabeçalho Authorization."
+                },
+                {
+                    "text": "GenericFilterBean",
+                    "isCorrect": false,
+                    "explanation": "Apesar de viável, a OncePerRequestFilter é preferida porque GenericFilterBean pode ser invocado múltiplas vezes no ciclo do Servlet."
+                },
+                {
+                    "text": "TokenAuthenticationManager",
+                    "isCorrect": false,
+                    "explanation": "Essa classe não faz parte do pacote base padronizado do Spring Security para filtros."
+                },
+                {
+                    "text": "HandlerInterceptorAdapter",
+                    "isCorrect": false,
+                    "explanation": "Interceptors do Spring MVC ocorrem após a camada de segurança do filtro. A autenticação JWT precisa barrar antes (nos Security Filters)."
+                }
+            ]
+        },
+        {
+            "id": "q-22",
+            "topic": "Spring Security",
+            "difficulty": "medium",
+            "text": "Onde o Spring Security armazena o usuário autenticado atual da requisição de forma que ele fique disponível em toda a thread de execução?",
+            "options": [
+                {
+                    "text": "No SecurityContextHolder, que por padrão usa ThreadLocal.",
+                    "isCorrect": true,
+                    "explanation": "Isso permite que qualquer camada (Controller, Service) chame SecurityContextHolder.getContext().getAuthentication() sem precisar passar o objeto por parâmetro."
+                },
+                {
+                    "text": "No atributo HttpSession sob a chave genérica 'SPRING_USER'.",
+                    "isCorrect": false,
+                    "explanation": "O SecurityContext pode ser armazenado na sessão entre requisições, mas no escopo de execução ativa, fica no SecurityContextHolder."
+                },
+                {
+                    "text": "Numa tabela de banco de dados nativa chamada oauth_access_tokens.",
+                    "isCorrect": false,
+                    "explanation": "Bancos em memória ou relacionais não são usados para cachear o contexto de thread em tempo real do processador."
+                },
+                {
+                    "text": "Em um cookie assinado enviado de volta no Response HTTP.",
+                    "isCorrect": false,
+                    "explanation": "Isto diz respeito ao tráfego de rede, e não ao estado da memória da aplicação (thread local)."
+                }
+            ]
+        },
+        {
+            "id": "q-23",
+            "topic": "Spring Security",
+            "difficulty": "medium",
+            "text": "O que a anotação @PreAuthorize(\"hasRole('ADMIN')\") faz quando aplicada a um método?",
+            "options": [
+                {
+                    "text": "Impede a execução do método, lançando uma AccessDeniedException, caso o usuário autenticado não possua a role 'ADMIN'.",
+                    "isCorrect": true,
+                    "explanation": "Faz parte do Method Security (GlobalMethodSecurity), interceptando a chamada e avaliando a expressão SpEL antes de executar a lógica."
+                },
+                {
+                    "text": "Faz log do método avisando que é uma rota sensível, mas não bloqueia a chamada.",
+                    "isCorrect": false,
+                    "explanation": "A anotação é estritamente punitiva/restritiva e lança exceção em caso de falha."
+                },
+                {
+                    "text": "Eleva os privilégios do usuário atual para 'ADMIN' temporariamente durante aquele método.",
+                    "isCorrect": false,
+                    "explanation": "Spring Security não realiza elevação de privilégio por anotação; ele apenas valida os privilégios existentes no contexto."
+                },
+                {
+                    "text": "Define a rota REST no banco de dados para ser indexada no Swagger como Admin-Only.",
+                    "isCorrect": false,
+                    "explanation": "Não tem a ver com documentação de API."
+                }
+            ]
+        },
+        {
+            "id": "q-24",
+            "topic": "Spring Tests",
+            "difficulty": "medium",
+            "text": "Qual a finalidade de usar a anotação @SpringBootTest em testes de integração?",
+            "options": [
+                {
+                    "text": "Carregar todo o ApplicationContext do Spring, instanciando os beans e subindo a aplicação de forma análoga à produção para testar a integração geral.",
+                    "isCorrect": true,
+                    "explanation": "@SpringBootTest sobe o ecossistema inteiro. É mais pesado, mas garante que a injeção e o ambiente estão totalmente conectados."
+                },
+                {
+                    "text": "Inibir o acesso ao banco de dados e rodar o projeto puramente em RAM.",
+                    "isCorrect": false,
+                    "explanation": "Ele se conecta ao banco real definido no profile (se não for mockado). Não impede nada inerentemente."
+                },
+                {
+                    "text": "Limitar o teste a avaliar apenas o pacote de Controllers (MVC), ignorando Repository e Service.",
+                    "isCorrect": false,
+                    "explanation": "Isso é feito pela anotação @WebMvcTest, não por @SpringBootTest."
+                },
+                {
+                    "text": "Garantir que a classe possua o método 'main' executável pelo JUnit.",
+                    "isCorrect": false,
+                    "explanation": "Testes usam reflexão com frameworks como JUnit/TestNG; não requerem métodos main explícitos na classe de teste."
+                }
+            ]
+        },
+        {
+            "id": "q-25",
+            "topic": "Spring Tests",
+            "difficulty": "hard",
+            "text": "Ao testar a camada web (Controllers) de forma isolada, como você pode injetar dependências falsas da camada de Serviço?",
+            "options": [
+                {
+                    "text": "Utilizando a anotação @MockBean nos atributos de serviço da classe de teste.",
+                    "isCorrect": true,
+                    "explanation": "@MockBean substitui os beans reais do ApplicationContext por instâncias mockadas via Mockito, ideal quando se usa @WebMvcTest."
+                },
+                {
+                    "text": "Usando a anotação padrão @Autowired que cria proxies fantasma.",
+                    "isCorrect": false,
+                    "explanation": "@Autowired buscará o bean real, falhando se o teste estiver isolado ou executando lógicas pesadas indesejadas de banco."
+                },
+                {
+                    "text": "Não é possível; é obrigatório rodar o banco em memória (H2) em testes MVC.",
+                    "isCorrect": false,
+                    "explanation": "Com o MockBean, o controller é testado sem precisar acionar repositórios ou banco de dados."
+                },
+                {
+                    "text": "Adicionando a palavra-chave 'Mock' ao nome da variável, o Spring a converte automaticamente.",
+                    "isCorrect": false,
+                    "explanation": "A identificação de mocks no Spring é feita por anotações, não por convenção de nomenclatura de variável."
+                }
+            ]
+        },
+        {
+            "id": "q-26",
+            "topic": "Spring Tests",
+            "difficulty": "medium",
+            "text": "O que a classe MockMvc permite realizar no ambiente de testes?",
+            "options": [
+                {
+                    "text": "Permite disparar requisições HTTP simuladas contra os Controllers e fazer asserts nas respostas (status, json path, etc) sem iniciar um servidor web real.",
+                    "isCorrect": true,
+                    "explanation": "O MockMvc oferece uma API fluente para testar rotas e retornos JSON de forma leve e super rápida (DispatcherServlet mockado)."
+                },
+                {
+                    "text": "Gera dados de preenchimento falsos (Fake data) para inserir no banco antes dos testes.",
+                    "isCorrect": false,
+                    "explanation": "MockMvc não gera dados persistentes; ele lida com requisições HTTP simuladas."
+                },
+                {
+                    "text": "Substitui o TestRestTemplate, sendo a única forma suportada de testar microserviços no Spring 3+.",
+                    "isCorrect": false,
+                    "explanation": "TestRestTemplate continua sendo útil para testes de integração reais (rodando o Tomcat numa porta randômica)."
+                },
+                {
+                    "text": "Verifica vazamentos de memória na arquitetura MVC durante carga pesada.",
+                    "isCorrect": false,
+                    "explanation": "Não é ferramenta de profiling ou de stress test."
+                }
+            ]
+        },
+        {
+            "id": "q-27",
+            "topic": "Spring Tests",
+            "difficulty": "easy",
+            "text": "Se você precisa focar seus testes exclusivamente na camada de persistência JPA (Repositories), qual anotação otimiza esse ambiente?",
+            "options": [
+                {
+                    "text": "@DataJpaTest",
+                    "isCorrect": true,
+                    "explanation": "@DataJpaTest ignora componentes MVC, carrega os repositórios, autoconfigura bancos em memória (se disponíveis) e roda as operações em transações com rollback."
+                },
+                {
+                    "text": "@EntityTest",
+                    "isCorrect": false,
+                    "explanation": "Esta anotação não existe na biblioteca padrão do Spring Boot Test."
+                },
+                {
+                    "text": "@SpringBootTest",
+                    "isCorrect": false,
+                    "explanation": "Embora teste JPA também, sobe a aplicação inteira, tornando o teste mais lento e não isolado."
+                },
+                {
+                    "text": "@RepositoryConfig",
+                    "isCorrect": false,
+                    "explanation": "Não é a anotação para fatiamento de teste (slice testing) do Spring Boot."
+                }
+            ]
+        },
+        {
+            "id": "q-28",
+            "topic": "HATEOAS",
+            "difficulty": "medium",
+            "text": "O que o acrônimo HATEOAS representa e qual o seu propósito em uma API REST Spring?",
+            "options": [
+                {
+                    "text": "Hypermedia As The Engine Of Application State; ele enriquece os retornos JSON com links de navegação relacionados ao recurso atual.",
+                    "isCorrect": true,
+                    "explanation": "O HATEOAS permite que o cliente interaja de forma dinâmica com a API seguindo links de hipermídia (ex: _links.self) inseridos pelo servidor."
+                },
+                {
+                    "text": "HyperText Automated Transfer Execution; um formato compacto usado para comprimir grandes volumes de JSON.",
+                    "isCorrect": false,
+                    "explanation": "A descrição é fictícia; HATEOAS é um princípio arquitetural REST focado em links."
+                },
+                {
+                    "text": "High Availability Testing Entity; uma ferramenta de balanceamento de carga do Spring Cloud.",
+                    "isCorrect": false,
+                    "explanation": "Não possui relação com alta disponibilidade ou testes de carga."
+                },
+                {
+                    "text": "Hypermedia Application Token Extension; substitui o uso de tokens JWT em servidores REST.",
+                    "isCorrect": false,
+                    "explanation": "HATEOAS não resolve segurança ou autenticação."
+                }
+            ]
+        },
+        {
+            "id": "q-29",
+            "topic": "HATEOAS",
+            "difficulty": "hard",
+            "text": "Na biblioteca Spring HATEOAS, como são construídos de forma segura os links apontando para os métodos do Controller sem o uso de strings chumbadas em código (hardcode)?",
+            "options": [
+                {
+                    "text": "Usando a classe WebMvcLinkBuilder (ex: linkTo(methodOn(Classe.class).metodo())).",
+                    "isCorrect": true,
+                    "explanation": "O WebMvcLinkBuilder inspeciona o controller em tempo de execução via proxy para inferir o caminho URI, evitando links quebraveis ao renomear rotas."
+                },
+                {
+                    "text": "Configurando as rotas no application.yml e recuperando com @Value(\"${link.id}\").","isCorrect": false,"explanation": "Isso ainda seria um tratamento manual propenso a falhas, ignorando as capacidades dinâmicas da biblioteca."
+                },
+                {
+                    "text": "O Spring adiciona links em todos os métodos @GetMapping automaticamente por reflection nativa do Tomcat.",
+                    "isCorrect": false,
+                    "explanation": "O desenvolvedor deve explicitar a construção dos links e embuti-los no objeto (como EntityModel)."
+                },
+                {
+                    "text": "Através da anotação @GenerateLinks diretamente nos DTOs.",
+                    "isCorrect": false,
+                    "explanation": "Não existe anotação mágica para gerar HATEOAS customizados contextuais; usa-se a API programática."
+                }
+            ]
+        },
+        {
+            "id": "q-30",
+            "topic": "HATEOAS",
+            "difficulty": "medium",
+            "text": "Qual classe base (wrapper) é comumente usada no Spring HATEOAS para envelopar um objeto de domínio único junto com seus links?",
+            "options": [
+                {
+                    "text": "EntityModel",
+                    "isCorrect": true,
+                    "explanation": "EntityModel é o container para um único recurso e sua lista de links relacionais (herda de RepresentationModel)."
+                },
+                {
+                    "text": "LinkCollection",
+                    "isCorrect": false,
+                    "explanation": "Classe inexistente. Coleções são envoltas em CollectionModel."
+                },
+                {
+                    "text": "HateoasResponse",
+                    "isCorrect": false,
+                    "explanation": "Nome inválido no framework."
+                },
+                {
+                    "text": "HypermediaObject",
+                    "isCorrect": false,
+                    "explanation": "Não faz parte da API oficial do Spring HATEOAS."
+                }
+            ]
+        },
+        {
+            "id": "q-31",
+            "topic": "Spring Data",
+            "difficulty": "medium",
+            "text": "Qual a principal diferença entre CrudRepository e JpaRepository na Spring Data JPA?",
+            "options": [
+                {
+                    "text": "JpaRepository estende PagingAndSortingRepository (que estende CrudRepository) e inclui métodos adicionais específicos da JPA, como findAll() retornando List e flush().",
+                    "isCorrect": true,
+                    "explanation": "JpaRepository fornece retornos de coleções mais fáceis (List em vez de Iterable) e lida com operações orientadas a contexto persistente (saveAndFlush)."
+                },
+                {
+                    "text": "CrudRepository só suporta bancos SQL, e JpaRepository só suporta bancos NoSQL (como MongoDB).",
+                    "isCorrect": false,
+                    "explanation": "JPA é especificamente para bancos relacionais (SQL)."
+                },
+                {
+                    "text": "A interface CrudRepository é obsoleta e foi descontinuada na versão 2.0 do Spring Data.",
+                    "isCorrect": false,
+                    "explanation": "CrudRepository segue ativa e é a base de todas as abstrações."
+                },
+                {
+                    "text": "JpaRepository requer a criação de queries manuais em SQL nativo obrigatórias em toda declaração.",
+                    "isCorrect": false,
+                    "explanation": "A abstração permite uso de dynamic query methods (findBy...) sem escrever SQL em nenhuma das duas interfaces."
+                }
+            ]
+        },
+        {
+            "id": "q-32",
+            "topic": "Spring Data",
+            "difficulty": "easy",
+            "text": "Como o Spring Data JPA interpreta a criação de um método de interface nomeado `findByEmailAndAtivoTrue(String email)`?",
+            "options": [
+                {
+                    "text": "Ele cria automaticamente uma query equivalente a 'SELECT * FROM entidade WHERE email = ? AND ativo = true'.",
+                    "isCorrect": true,
+                    "explanation": "Os Derived Query Methods analisam o nome do método com palavras-chave padronizadas para gerar SQL/JPQL sob a interface proxy."
+                },
+                {
+                    "text": "Ele retorna um erro se não houver uma anotação @Query configurando o comando SQL explicitamente.",
+                    "isCorrect": false,
+                    "explanation": "O benefício do framework é justamente deduzir a query e não exigir anotação @Query nesses casos verbosos padronizados."
+                },
+                {
+                    "text": "Ele buscará um procedimento armazenado (Stored Procedure) no banco de dados com esse nome idêntico.",
+                    "isCorrect": false,
+                    "explanation": "Stored procedures necessitam de configurações usando @Procedure."
+                },
+                {
+                    "text": "O método é ignorado a menos que seja sobrescrito em uma classe concreta @Service.",
+                    "isCorrect": false,
+                    "explanation": "O Spring injeta a implementação em tempo de execução via Proxy dinâmico, sem necessidade de classe concreta."
+                }
+            ]
+        },
+        {
+            "id": "q-33",
+            "topic": "Spring Data",
+            "difficulty": "medium",
+            "text": "Ao criar queries customizadas usando a anotação @Query no Spring Data JPA, qual é a linguagem utilizada por padrão (se nativeQuery=false)?",
+            "options": [
+                {
+                    "text": "JPQL (Java Persistence Query Language)",
+                    "isCorrect": true,
+                    "explanation": "O JPQL consulta contra entidades e atributos de classe Java mapeados, e não tabelas ou colunas físicas do banco de dados."
+                },
+                {
+                    "text": "SQL Nativo (Dialeto do banco configurado).",
+                    "isCorrect": false,
+                    "explanation": "Para SQL nativo, deve-se usar @Query(value = \"...\", nativeQuery = true)."
+                },
+                {
+                    "text": "HQL (Hibernate Query Language) de forma exclusiva, não compatível com JPA pura.",
+                    "isCorrect": false,
+                    "explanation": "Embora o Hibernate (que suporta HQL) seja o provider comum, o Spring foca na sintaxe da abstração JPQL, garantindo portabilidade."
+                },
+                {
+                    "text": "SpEL (Spring Expression Language).",
+                    "isCorrect": false,
+                    "explanation": "SpEL pode ser usado DENTRO da anotação para passar dinâmicos, mas não é a linguagem de consulta ao SGBD."
+                }
+            ]
+        },
+        {
+            "id": "q-34",
+            "topic": "Spring Data",
+            "difficulty": "hard",
+            "text": "Se você anotar um método com @Transactional em uma classe de serviço, e esse método chamar outro método @Transactional DA MESMA CLASSE diretamente, o que ocorrerá na arquitetura baseada em proxy do Spring?",
+            "options": [
+                {
+                    "text": "O comportamento do proxy será bypassado (ignorado) na chamada interna, e quaisquer configurações exclusivas do segundo método transacional não terão efeito.",
+                    "isCorrect": true,
+                    "explanation": "O Spring AOP (proxies baseados em interface ou CGLIB) intercepta chamadas de beans externos. Chamadas a 'this.metodoInterno()' não passam pelo interceptor do Proxy."
+                },
+                {
+                    "text": "Uma exceção NestedTransactionException será lançada impedindo compilação paralela.",
+                    "isCorrect": false,
+                    "explanation": "O código funciona, mas silenciosamente ignora regras novas do escopo aninhado pela deficiência do self-invocation."
+                },
+                {
+                    "text": "O Spring abrirá garantidamente uma sub-transação independente (REQUIRES_NEW).",
+                    "isCorrect": false,
+                    "explanation": "Novas diretivas são ignoradas. Ele apenas continua a fluir na mesma transação caso estivesse em andamento, como um método de Java comum."
+                },
+                {
+                    "text": "Isso causará deadlock no pool de conexões do banco de dados (HikariCP).",
+                    "isCorrect": false,
+                    "explanation": "O self-invocation não engendra deadlocks lógicos arquiteturais, apenas ignora limites transacionais declarativos AOP."
+                }
+            ]
+        },
+        {
+            "id": "q-35",
+            "topic": "Spring Data",
+            "difficulty": "medium",
+            "text": "Para lidar com atualizações ou exclusões de registros em lote via @Query no Spring Data, qual anotação complementar é exigida pelo framework para evitar exceções?",
+            "options": [
+                {
+                    "text": "@Modifying",
+                    "isCorrect": true,
+                    "explanation": "O Spring Data assume que @Query são selects (read-only). Ao usar comandos UPDATE ou DELETE, a anotação @Modifying notifica o gerenciador do EntityManager para limpar escopos e executar comandos que modificam dados."
+                },
+                {
+                    "text": "@Transactional",
+                    "isCorrect": false,
+                    "explanation": "@Transactional é necessária no nível do serviço/camada, mas não substitui o metadado @Modifying na assinatura do Repository."
+                },
+                {
+                    "text": "@ExecuteUpdate",
+                    "isCorrect": false,
+                    "explanation": "A anotação não existe na convenção Spring Data."
+                },
+                {
+                    "text": "@BatchOperation",
+                    "isCorrect": false,
+                    "explanation": "Inexistente na especificação padrão de repositórios do Spring."
+                }
+            ]
+        },
+        {
+            "id": "q-36",
+            "topic": "Spring Data",
+            "difficulty": "hard",
+            "text": "Qual é a utilidade prática do recurso @EntityGraph no Spring Data JPA em consultas?",
+            "options": [
+                {
+                    "text": "Fornecer uma solução elegante ao Problema N+1 definindo declarativamente quais relacionamentos 'Lazy' devem ser carregados de forma antecipada (Eager) numa query específica.",
+                    "isCorrect": true,
+                    "explanation": "EntityGraphs configuram comportamentos de fetch (LEFT JOIN) dinamicamente no JPA, evitando milhares de pequenas requisições derivadas de lazy loads não atendidos na sessão principal."
+                },
+                {
+                    "text": "Criar gráficos visuais em JSON integrados a bibliotecas de frontend analíticas no servidor.",
+                    "isCorrect": false,
+                    "explanation": "Refere-se ao plano de execução gráfica em memória de domínios, não plotagem chart analítico na UI."
+                },
+                {
+                    "text": "Gerenciar versionamento otimista do banco (Optimistic Locking) baseada em logs.",
+                    "isCorrect": false,
+                    "explanation": "O versionamento usa @Version em vez de EntityGraph."
+                },
+                {
+                    "text": "Mapear o schema NoSQL usando referências por IDs estrangeiros.",
+                    "isCorrect": false,
+                    "explanation": "Não é uma ferramenta restrita de migração NoSQL, é puramente otimização de Fetch relacional ORM."
+                }
+            ]
+        },
+        {
+            "id": "q-37",
+            "topic": "Spring Boot / Core",
+            "difficulty": "medium",
+            "text": "Quando um projeto Spring Boot tem configurações nos arquivos application.properties e application.yml em um mesmo diretório raiz, e definem a mesma chave, qual arquivo possui precedência (no Spring Boot 2.4+)?",
+            "options": [
+                {
+                    "text": "Se baseia na ordem alfabética ou carregamento aleatório se não houver controle estrito, mas propriedades de linha de comando substituem ambos.",
+                    "isCorrect": false,
+                    "explanation": "O Spring Boot padronizou a ordem de modo que ter as duas não é aconselhável, mas properties geralmente toma precedência sobre yml."
+                },
+                {
+                    "text": "O application.properties sobrepõe (sobrescreve) o application.yml de mesmo perfil.",
+                    "isCorrect": true,
+                    "explanation": "Por padrão, application.properties tem precedência sobre application.yml caso conflitem na hierarquia de carregamento da máquina de propriedades."
+                },
+                {
+                    "text": "O application.yml sempre anula as configurações em properties por ser o formato YAML mais moderno.",
+                    "isCorrect": false,
+                    "explanation": "YAML é carregado antes de PROPERTIES nos internals do Spring, significando que o Properties processado depois ganha a última palavra em sobrescrita de mapa de ambiente."
+                },
+                {
+                    "text": "O Spring lança a exceção FatalConfigConflictException e impede a inicialização.",
+                    "isCorrect": false,
+                    "explanation": "Ele lida com isso elegantemente resolvendo de forma hierárquica silenciosa."
+                }
+            ]
+        },
+        {
+            "id": "q-38",
+            "topic": "Spring Boot",
+            "difficulty": "medium",
+            "text": "O que o módulo 'Spring Boot Actuator' provê de utilidade à aplicação?",
+            "options": [
+                {
+                    "text": "Fornece endpoints prontos para produção voltados a monitorar a saúde da aplicação (health), métricas do servidor, infos do ambiente de configuração e tráfego ativo HTTP.",
+                    "isCorrect": true,
+                    "explanation": "Permite fácil integração com ferramentas de monitoramento cloud-native nativas como Prometheus ou Datadog expondo URLs seguras como /actuator/health."
+                },
+                {
+                    "text": "Converte projetos Monolíticos para arquitetura de Microserviços baseada no Netflix OSS (Eureka).",
+                    "isCorrect": false,
+                    "explanation": "O Spring Cloud desempenha essa responsabilidade de transição de redes (Discovery), o Actuator apenas provê endpoints de auditagem local analítica."
+                },
+                {
+                    "text": "Implementa rotinas CRUD automáticas para bancos de dados diretamente em REST para agilizar prototipagem de frontend.",
+                    "isCorrect": false,
+                    "explanation": "Isso é tarefa do Spring Data REST."
+                },
+                {
+                    "text": "Fornece um cliente HTTP interno otimizado que desativa chamadas de terceiros instáveis usando Bulkheads.",
+                    "isCorrect": false,
+                    "explanation": "Esta proteção descreve padrão de Circuit Breakers (Resilience4j) e não Actuator endpoints analíticos."
+                }
+            ]
+        },
+        {
+            "id": "q-39",
+            "topic": "AOP",
+            "difficulty": "hard",
+            "text": "Na terminologia da Programação Orientada a Aspectos (AOP) utilizada no Spring, o que define um 'Pointcut'?",
+            "options": [
+                {
+                    "text": "Uma expressão predicada regular que determina onde (quais métodos/classes interceptar) os aspectos lógicos (Advices) deverão ser inseridos e executados.",
+                    "isCorrect": true,
+                    "explanation": "O pointcut funciona como um filtro descritivo de regex (ex: execution(* com.xyz.*.*(..))) para buscar pontos de junção de aplicação AOP onde injetar código auxiliar (logging/segurança)."
+                },
+                {
+                    "text": "A porção de código em si que será executada (a funcionalidade como logging, cache ou proxying de fato).",
+                    "isCorrect": false,
+                    "explanation": "Esta funcionalidade embutida chama-se 'Advice'."
+                },
+                {
+                    "text": "Um momento no ciclo de vida de um servlet definindo pontos da view HTTP onde dados devem ser truncados em pontos de visualização da UI.",
+                    "isCorrect": false,
+                    "explanation": "Mera invenção com palavras homônimas em contexto de renderização Web, não possui relação estrita com proxy AOP orgânico."
+                },
+                {
+                    "text": "Uma anotação de classe que garante o bloqueio imediato do escalonador quando uma exceção transacional não capturada ocorrer.",
+                    "isCorrect": false,
+                    "explanation": "Não há correlação de AOP purista Pointcut com travas de transações baseadas em exceções escalares exclusivas."
+                }
+            ]
+        },
+        {
+            "id": "q-40",
+            "topic": "AOP",
+            "difficulty": "medium",
+            "text": "Qual anotação Advice no ecossistema Spring AOP permite executar lógicas personalizadas não apenas ANTES do método alvo, mas também intervir DEPOIS, controlando de forma fluente se a execução vai prosseguir ou ser abortada manipulando o objeto ProceedingJoinPoint?",
+            "options": [
+                {
+                    "text": "@Around",
+                    "isCorrect": true,
+                    "explanation": "A anotação Around é a mais poderosa pois engloba todo o escopo metodológico, permitindo invocar manualmente o .proceed() do pointcut interceptado. Utilizada frequentemente em contagem de tempo log(timer)."
+                },
+                {
+                    "text": "@Before",
+                    "isCorrect": false,
+                    "explanation": "Apenas intercepta logicamente antes e flui incondicionalmente, não possuindo poder sobre a invocação da thread posterior base."
+                },
+                {
+                    "text": "@AfterReturning",
+                    "isCorrect": false,
+                    "explanation": "Opera somente quando métodos executam exitosamente com base no payload e retornam sem abertamente falhar em exceptions globais."
+                },
+                {
+                    "text": "@InterceptorFlow",
+                    "isCorrect": false,
+                    "explanation": "Não é sintaxe padrão de AspectJ presente no ecossistema atual do AOP core annotations do Spring MVC."
+                }
+            ]
+        },
+        {
+            "id": "q-41",
+            "topic": "Spring Boot / Core",
+            "difficulty": "medium",
+            "text": "Ao utilizar o framework com a classe Java nativa RestTemplate (ou alternativas modernas recomendadas WebClient), de qual componente principal elas facilitam o gerenciamento?",
+            "options": [
+                {
+                    "text": "Comunicação com serviços HTTP externos consumindo chamadas de APIS RESTful vindas de servidores terceiros ou internos.",
+                    "isCorrect": true,
+                    "explanation": "Essas classes são ferramentas (clientes HTTP) para fazer POST, GET, PUT etc de forma programática disparando network no backend para integrações."
+                },
+                {
+                    "text": "Manipulação nativa da injeção assíncrona das rotinas web e fila de mensagens em brokers como o Apache Kafka.",
+                    "isCorrect": false,
+                    "explanation": "O ambiente Spring de mensagens de Kafka requer template apropriados ex: KafkaTemplate, não os clientes HTTP (Rest)."
+                },
+                {
+                    "text": "Transformação estática de templates visuais de HTML para motores Thymeleaf de frontend.",
+                    "isCorrect": false,
+                    "explanation": "A palavra Template do nome deriva de ser uma estrutura moldável de helper genérica, sem relação com 'Templates Visuais de interface do usuário web view HTML'."
+                },
+                {
+                    "text": "Conexão aos pools JDBC e repositório de bancos primordiais que salvam metadados dos métodos controladores.",
+                    "isCorrect": false,
+                    "explanation": "O JDBCTemplate realiza as diretivas da persistência de forma imperativa (SQL)."
+                }
+            ]
+        },
+        {
+            "id": "q-42",
+            "topic": "Spring Tests",
+            "difficulty": "medium",
+            "text": "Durante implementações de teste integrados focados apenas no mock de respostas do RestTemplate ou WebClient (não requisitando APIs hospedadas reias externas no unitário), qual anotação no Spring Cloud permite ativar interfaces emulação restritamente?",
+            "options": [
+                {
+                    "text": "@AutoConfigureWireMock",
+                    "isCorrect": true,
+                    "explanation": "O ecossistema Cloud Contract integra a popular suíte WireMock no server local por meio do autoconfigurer para criar stubs sem subir ambientes paralelos hosteados e custosos nas pipelines do CI/CD."
+                },
+                {
+                    "text": "@WebMvcClientMockedTests",
+                    "isCorrect": false,
+                    "explanation": "Termo fictício sintático dentro das diretrizes padronizadas do Spring atual."
+                },
+                {
+                    "text": "@DisableHttpNetworkRequests",
+                    "isCorrect": false,
+                    "explanation": "Não provê restrição automática imperativa declarativa como essa, a menos implementações de sandboxes próprias no Java."
+                },
+                {
+                    "text": "@SimulateRestCloudOnly",
+                    "isCorrect": false,
+                    "explanation": "Invenção baseada sem fundamentos na API cloud core documentada do Boot test environments."
+                }
+            ]
+        },
+        {
+            "id": "q-43",
+            "topic": "Core / IoC",
+            "difficulty": "medium",
+            "text": "Se em determinado cenário você precisa injetar ou declarar Beans sob demanda não antecipando no pool global pesado inicial (lazy initialization), qual anotação viabiliza esse comportamento sem perder recursos na inicialização do start-up?",
+            "options": [
+                {
+                    "text": "@Lazy",
+                    "isCorrect": true,
+                    "explanation": "O Bean não instanciará objetos pesados da memória no boot start initial application. Ao invés, fará uma resolução do delay aguardando um componente ativo realmente necessitá-lo em tempo de execução nativo da requisição real HTTP posterior."
+                },
+                {
+                    "text": "@DeferExecution",
+                    "isCorrect": false,
+                    "explanation": "Descreve padrão de adiamento mas não compõe sintaxe de anotações core default do pacote org.springframework.context."
+                },
+                {
+                    "text": "@Async",
+                    "isCorrect": false,
+                    "explanation": "A anotação Async cria pool separada no Thread Dispatcher de requisições, sem afetar gerenciamento do boot loader local principal dos escopos dos Beans em lifecycle."
+                },
+                {
+                    "text": "@Eager(false)",
+                    "isCorrect": false,
+                    "explanation": "Embora similar aos mappings nativos Hibernate (FetchType.EAGER/LAZY) isso não serve no ambiente Spring framework container base beans global injection rules."
+                }
+            ]
+        },
+        {
+            "id": "q-44",
+            "topic": "Core / Boot",
+            "difficulty": "medium",
+            "text": "Em processamentos assíncronos no Spring Boot (como envio demorado de emails ou requisições complexas), o que acontece se utilizarmos a anotação @Async sem antes declararmos a anotação root @EnableAsync na classe principal de configuração?",
+            "options": [
+                {
+                    "text": "O método ignorará silenciosamente a orientação e continuará executando na Thread padrão principal sincronamente impactando em lentidões ao usuário.",
+                    "isCorrect": true,
+                    "explanation": "Sem ativação de proxying background de task executor thread pool, o motor interceptador simplesmente desconsidera o trigger anotativo restrito e empilha sequencial com a rotina travada base."
+                },
+                {
+                    "text": "Causará exceção e crash do servidor Tomcat imediatamente com AsyncNotInitializedException.",
+                    "isCorrect": false,
+                    "explanation": "Muitas das APIs da linguagem resolvem ausências via regressões silenciosas sem punição de shutdown fatal instantâneo visível da build."
+                },
+                {
+                    "text": "Ele fará execução agendada pro futuro gerando filas in memory local memory grid invisíveis temporárias ao escopo default.",
+                    "isCorrect": false,
+                    "explanation": "Não adota padrão de cron agendado dinâmico na falha assíncrona."
+                },
+                {
+                    "text": "O Spring usará sempre CPU paralela virtual do SO forçando a injeção manual dos módulos.",
+                    "isCorrect": false,
+                    "explanation": "Se isento das libs não opera fork joins de CPUs de hardware diretas."
+                }
+            ]
+        },
+        {
+            "id": "q-45",
+            "topic": "Core",
+            "difficulty": "easy",
+            "text": "Para criação de tarefas repetitivas ou relógios automáticos baseados em tempo de espera ou expressões crons avançadas (agendamentos), a melhor e mais recomendada ferramenta integrada do módulo de tarefas base do Spring é provida pela anotação:",
+            "options": [
+                {
+                    "text": "@Scheduled",
+                    "isCorrect": true,
+                    "explanation": "Anotando o método e rodando o contexto com @EnableScheduling no servidor, criamos rotinas periódicas de back-end (ex: `@Scheduled(cron = \"0 0 * * * *\")`) rodando invisível à ação do front."
+                },
+                {
+                    "text": "@ClockWorkConfig",
+                    "isCorrect": false,
+                    "explanation": "Inexistente na especificação primária do Boot."
+                },
+                {
+                    "text": "@TimedRoutine",
+                    "isCorrect": false,
+                    "explanation": "O Actuator usa anotações similiares @Timed apenas para registrar métricas parciais de duração, não agendar invocações executivas automatizadas autônomas globais rotineiras."
+                },
+                {
+                    "text": "@RoutineExecutorInterval",
+                    "isCorrect": false,
+                    "explanation": "Também descolado dos nomes clássicos propostos em Spring Tasks Framework native library default classes names."
+                }
+            ]
+        },
+        {
+            "id": "q-46",
+            "topic": "Spring Boot",
+            "difficulty": "easy",
+            "text": "Qual o uso comum para as classes CommandLineRunner e ApplicationRunner em uma API do Spring Boot?",
+            "options": [
+                {
+                    "text": "Permitem executar blocos lógicos customizados específicos somente uma única vez imediatamente após todo contexto inicial Spring Boot terminar de estabilizar seu boot, muito bom pra carga de seeds dummy DB na partida local.",
+                    "isCorrect": true,
+                    "explanation": "Ao instanciar e assinar a interface `run(...)` dentro dessas implementações expostas na engine component, injetamos script logo na virada pós-start completo da engine com DB pronto à ser usado pelas APIs já onlines."
+                },
+                {
+                    "text": "Permitem injetar interrupções em endpoints interceptando requisições REST pela interface shell CMD da console dos sistemas admin operacionais.",
+                    "isCorrect": false,
+                    "explanation": "Eles não são listeners das rotas da API na web controller. Não interceptam requests orgânicos do protocolo IP."
+                },
+                {
+                    "text": "Traduzem os scripts gerados no prompt C++ para bibliotecas compiláveis na JDK nativamente sem dockerização das sub dependências.",
+                    "isCorrect": false,
+                    "explanation": "Sem aderência a integrações puramente base de C++, JNI local bridges ou emulações via shell de bash container tools primárias."
+                },
+                {
+                    "text": "Eles garantem a reinicialização segura paralela do ambiente Java sempre que erro OOM ocorra.",
+                    "isCorrect": false,
+                    "explanation": "As reinicializações sobem pelo orquestrador Docker/K8s/PM2 e não internamente geridos por runners de aplicação Boot auto recover classes orgânicas de exception globais simples."
+                }
+            ]
+        },
+        {
+            "id": "q-47",
+            "topic": "MVC / Restful",
+            "difficulty": "medium",
+            "text": "No contexto da extração de parâmetros HTTP nos Endpoints, qual a alternativa que exemplifica a anotação perfeita para capturar valores originados nos Headers (cabeçalhos nativos HTTP) como identificadores Request-ID ou Tokens proprietários?",
+            "options": [
+                {
+                    "text": "@RequestHeader",
+                    "isCorrect": true,
+                    "explanation": "Mapeia dados provindos diretamente de campos ocultos dos metadados como Content-Type custom ou propriedades de controle client-server do navegador para variáveis do método no web context sem acessar servlets cruzados."
+                },
+                {
+                    "text": "@HeadParam",
+                    "isCorrect": false,
+                    "explanation": "O Java (JAX-RS) propõe @HeaderParam, mas o Spring usa explicitamente @RequestHeader de sintaxe base do seu org.springframework.web.bind.annotation."
+                },
+                {
+                    "text": "@RequestPropertyMap",
+                    "isCorrect": false,
+                    "explanation": "Nomenclatura inválida na API real."
+                },
+                {
+                    "text": "@CookieValue",
+                    "isCorrect": false,
+                    "explanation": "@CookieValue puxa exclusivamentes propriedades geridas na restrição web de Cookies do host, não os cabeçalhos soltos e abertos da request matriz protocolar original (ainda que cookie habite headers nas raw streams do wire)."
+                }
+            ]
+        },
+        {
+            "id": "q-48",
+            "topic": "Spring Data",
+            "difficulty": "medium",
+            "text": "Se em seu Repository necessitamos criar suporte à busca de registros no banco formatada com paginação do usuário exibindo quantidades pequenas fixas, como definimos a inserção deste suporte em Queries DerivedMethods?",
+            "options": [
+                {
+                    "text": "Adiciona-se o parâmetro interface `Pageable` na assinatura final da função no Repositorio, fazendo o método nativamente retornar um objeto envolto em `Page<Entity>` completo contendo sub status da query e limite numérico orgânico automatizado.",
+                    "isCorrect": true,
+                    "explanation": "A abstração Data JPA detecta a assinatura Pageable e executa duas queries na sombra do dialect; a seleta delimitada via offset no sql e uma count * agregada validando totais globais no backend para paginação elegante em HATEOAS UI frontend calls dinâmicos com limite estipulados via query URL."
+                },
+                {
+                    "text": "Incluindo blocos nativos de `LIMIT ? OFFSET ?` nas anotações nativas de select do banco obrigatóriamente em cada query customizada do sistema repositório centralizado interno de persistência ORM relacional mapeada no application properties profile principal.",
+                    "isCorrect": false,
+                    "explanation": "O uso declarativo base nativo de paginação (Pageable) liberta o arquiteto da escrita manual maçante verbosa de dialeto puro manual propenso a injeções em múltiplos DB engines portados."
+                },
+                {
+                    "text": "Injetando PageManager service nos Controllers da base estrutural.",
+                    "isCorrect": false,
+                    "explanation": "PageManager é irreal em sintaxe no core package library do SpringBoot data commons standards."
+                },
+                {
+                    "text": "As paginações não são suportadas automaticamente, tem que se construir Array List genéricos e fazer list.subList(ini, end) processados na RAM consumindo JVM global resources internamente para otimização em cache dinâmico estático temporário local in line runtime code execution.",
+                    "isCorrect": false,
+                    "explanation": "É a clássica antipattern. Trazer milhão na memória só pra cortar de 10-20 quebra o heap. Spring Pageable é inserido no SQL layer nativo resolvendo no banco."
+                }
+            ]
+        },
+        {
+            "id": "q-49",
+            "topic": "Security / MVC",
+            "difficulty": "hard",
+            "text": "Como implementamos de forma declarativa e simples as restrições globais de segurança com as famosas políticas do padrão CORS em um RestController Spring para liberar consumos em domínios alheios front-ends (React hospedado na Vercel enquanto backend na AWS host), prevenindo falha dos navegadores client base security?",
+            "options": [
+                {
+                    "text": "Empregando puramente a anotação @CrossOrigin em cima das classes do controller ou endpoints individuais, bem como instanciando filtros na cadeia de Config global se requisitado estritamente.",
+                    "isCorrect": true,
+                    "explanation": "O Spring Framework fornece a versátil e granular anotação local `@CrossOrigin(origins=\"*\")` controlando acessos do web broswer de forma que libera métodos de Origin Access nativos na request (pre-flight options call resolution local web MVC flow transparent)."
+                },
+                {
+                    "text": "Desligando do SpringBootSecurity nativo local na class principal o parâmetro HTTP disable.domain(false).",
+                    "isCorrect": false,
+                    "explanation": "Configuração irreal com notação incorreta de parâmetros da biblioteca original security local filter build chains adapter flow logic core engine abstract methods implementations."
+                },
+                {
+                    "text": "Basta instalar JWT puro sem uso de CORS configs em headers que os protocolos se integram localmente em navegadores de forma síncrona orgânica desarmando trancas de policy.",
+                    "isCorrect": false,
+                    "explanation": "Tokens JWT atestam acessos autênticos do humano/maquina. A barreira Origin (CORS) rege do site em URL web, sendo coisas de naturezas distintas. A porta deve estar destrancada na config de preflight independentemente do token contido nas autorizações postadas depois localmente."
+                },
+                {
+                    "text": "Alterar o nome das rotas para embutir as credenciais secretas.",
+                    "isCorrect": false,
+                    "explanation": "As credenciais na URL expõem a arquitetura inteira."
+                }
+            ]
+        },
+        {
+            "id": "q-50",
+            "topic": "Core",
+            "difficulty": "easy",
+            "text": "No que tange aos ciclos de injeções da dependência recomendadas pela biblioteca do Java Spring Framework e literatura técnica (Sonar, IDEs recomendation guides), qual abordagem o mercado prioriza e a engenharia considera mais assertiva comparada a velha @Autowired em atributos fields diretos ocultos e vulneráveis ao NPE?",
+            "options": [
+                {
+                    "text": "A injeção explícita feita através da construção via método Construtor nas assinaturas primárias obrigatórias.",
+                    "isCorrect": true,
+                    "explanation": "Injeção de dependências no Construtor permite imutabilidade declarando as variávies `final`, facilita a construção simples em Testes de unidade manual das classes e explicita o acoplamento do serviço impedindo de falhar ao iniciar no boot e evitando NullPointers de objetos ocultos pós construtores vazios instanciáveis dinamicamente."
+                },
+                {
+                    "text": "Injeção usando anotação unicamente de método modificador publico Setters dinâmicos independentes.",
+                    "isCorrect": false,
+                    "explanation": "Injeções de Setters permitem circular dependencies mas expõem vulnerabilidades de alteração nos ciclos dinâmicos de processamento, não sendo recomendado em serviços core obrigatórios mas úteis de forma raríssima opcional em sub dependências lógicas de fallback nativos restritivos abertos ao desenvolvedor."
+                },
+                {
+                    "text": "Injeção por Reflexão Nativa manual nas classes BaseAbstract.",
+                    "isCorrect": false,
+                    "explanation": "Total anti pattern manual de arquiteturas limpas modernas gerenciadas em contêineres e frameworks orgânicos globais."
+                },
+                {
+                    "text": "Injeção estática e Singleton estrito usando Design Pattern Singleton clássico getInstance().",
+                    "isCorrect": false,
+                    "explanation": "O framework visa abolir Singletons clássicos duros criados localmente, passando pra contêiner Spring assumir o design de singleton leve flexibilizando polimorfismo limpo."
+                }
+            ]
+        }
+    ]
+}

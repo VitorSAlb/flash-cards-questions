@@ -1,0 +1,1969 @@
+{
+    "theme": "Infraestrutura, Mensageria e Protocolos",
+    "questions": [
+        {
+            "id": "q-01",
+            "topic": "Kafka",
+            "difficulty": "easy",
+            "text": "O que é o Apache Kafka em sua essência arquitetural?",
+            "options": [
+                {
+                    "text": "Uma plataforma de streaming de eventos distribuída e um log de commit (append-only) otimizado para alta taxa de transferência.",
+                    "isCorrect": true,
+                    "explanation": "O Kafka não é apenas uma fila tradicional (message broker), mas um log distribuído onde eventos são anexados de forma sequencial e persistente."
+                },
+                {
+                    "text": "Um banco de dados relacional distribuído, focado em transações ACID complexas.",
+                    "isCorrect": false,
+                    "explanation": "O Kafka armazena dados, mas não oferece consultas relacionais (JOINs complexos) ou ACID da mesma forma que um SGBD tradicional."
+                },
+                {
+                    "text": "Um proxy reverso projetado para balanceamento de carga de requisições HTTP.",
+                    "isCorrect": false,
+                    "explanation": "Isso descreve ferramentas como NGINX ou HAProxy, não o Kafka."
+                },
+                {
+                    "text": "Um cache de objetos em memória para armazenamento temporário e rápido, semelhante ao Redis.",
+                    "isCorrect": false,
+                    "explanation": "O Kafka persiste dados em disco, visando durabilidade a longo prazo, diferentemente de soluções in-memory voláteis."
+                }
+            ]
+        },
+        {
+            "id": "q-02",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "Qual a principal vantagem da divisão de um Tópico (Topic) em várias Partições (Partitions) no Kafka?",
+            "options": [
+                {
+                    "text": "Permite o processamento paralelo (escalabilidade horizontal), pois diferentes instâncias de consumidores no mesmo grupo podem ler partições distintas simultaneamente.",
+                    "isCorrect": true,
+                    "explanation": "As partições são a unidade fundamental de escalabilidade no Kafka, permitindo distribuir o armazenamento e o consumo (via Consumer Groups) através de múltiplos nós."
+                },
+                {
+                    "text": "Garante a ordem estrita de todas as mensagens globalmente em todo o tópico.",
+                    "isCorrect": false,
+                    "explanation": "A ordem no Kafka só é garantida no nível de partição, não globalmente em um tópico com múltiplas partições."
+                },
+                {
+                    "text": "Reduz o consumo de espaço em disco, pois o Kafka comprime automaticamente partições adjacentes.",
+                    "isCorrect": false,
+                    "explanation": "Particionar não reduz o armazenamento; pelo contrário, introduz uma pequena sobrecarga de metadados. A compressão é configurada separadamente."
+                },
+                {
+                    "text": "Impede que consumidores não autorizados acessem os dados, funcionando como camada de segurança.",
+                    "isCorrect": false,
+                    "explanation": "A segurança (ACLs, TLS) é gerenciada globalmente, não pela segmentação em partições."
+                }
+            ]
+        },
+        {
+            "id": "q-03",
+            "topic": "Kafka",
+            "difficulty": "hard",
+            "text": "Em arquiteturas financeiras críticas, qual configuração do produtor (Producer) garante que uma mensagem não seja confirmada até que todas as réplicas sincronizadas (ISRs) a tenham persistido?",
+            "options": [
+                {
+                    "text": "acks=all (ou acks=-1)",
+                    "isCorrect": true,
+                    "explanation": "Com acks=all, o líder espera o reconhecimento de todas as réplicas in-sync (ISRs) antes de responder ao produtor com sucesso, garantindo a mais alta durabilidade sem perda de dados se o líder cair."
+                },
+                {
+                    "text": "acks=1",
+                    "isCorrect": false,
+                    "explanation": "Com acks=1, apenas a réplica líder confirma o recebimento. Se ela cair antes de replicar para os followers, a mensagem é perdida."
+                },
+                {
+                    "text": "acks=0",
+                    "isCorrect": false,
+                    "explanation": "Com acks=0, o produtor envia e esquece (fire-and-forget), não esperando confirmação de ninguém. Alta performance, mas zero garantia."
+                },
+                {
+                    "text": "retries=MAX",
+                    "isCorrect": false,
+                    "explanation": "Retentativas ajudam em falhas transientes, mas não controlam o critério de confirmação de durabilidade no cluster Kafka."
+                }
+            ]
+        },
+        {
+            "id": "q-04",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "Como o Kafka garante que as mensagens relacionadas a uma mesma entidade (ex: atualizações de um mesmo Cliente num CRM) sejam processadas na ordem correta?",
+            "options": [
+                {
+                    "text": "Produzindo as mensagens com a mesma 'Message Key' (Chave de Mensagem), garantindo que sejam roteadas sempre para a mesma partição, onde a ordem é estrita.",
+                    "isCorrect": true,
+                    "explanation": "O Kafka usa o hash da chave para determinar a partição. Chaves iguais vão para a mesma partição, preservando a ordem cronológica de eventos (ex: cliente criado -> atualizado -> deletado)."
+                },
+                {
+                    "text": "Configurando o tópico com apenas uma única partição global para todo o sistema.",
+                    "isCorrect": false,
+                    "explanation": "Isso mataria a escalabilidade (throughput). O roteamento por chave permite múltiplas partições enquanto mantém a ordem local necessária."
+                },
+                {
+                    "text": "Usando um relógio global sincronizado (NTP) no payload da mensagem e ordenando na camada da aplicação consumidora.",
+                    "isCorrect": false,
+                    "explanation": "Isso exigiria que o consumidor armazenasse eventos em buffer e resolvesse ordens ativamente, anulando as garantias nativas do broker."
+                },
+                {
+                    "text": "Habilitando a funcionalidade 'GlobalOrder=true' nas propriedades do broker Zookeeper.",
+                    "isCorrect": false,
+                    "explanation": "Essa propriedade não existe na arquitetura do Kafka."
+                }
+            ]
+        },
+        {
+            "id": "q-05",
+            "topic": "Kafka",
+            "difficulty": "easy",
+            "text": "O que representa o 'Offset' no contexto de consumo do Kafka?",
+            "options": [
+                {
+                    "text": "Um identificador sequencial numérico único de uma mensagem dentro de uma partição específica, funcionando como um 'marcador de página' para os consumidores.",
+                    "isCorrect": true,
+                    "explanation": "O offset indica a posição exata de uma mensagem na partição. O consumidor (via consumer group) rastreia seu último offset lido (commit) para saber de onde continuar em caso de reinicialização."
+                },
+                {
+                    "text": "A diferença de fuso horário entre o broker produtor e o consumidor final.",
+                    "isCorrect": false,
+                    "explanation": "O offset não tem relação com fuso horário, é um marcador posicional sequencial."
+                },
+                {
+                    "text": "O limite de tamanho máximo que uma mensagem pode ter ao ser produzida para o tópico.",
+                    "isCorrect": false,
+                    "explanation": "Tamanho de mensagem é controlado por 'message.max.bytes', não pelo offset."
+                },
+                {
+                    "text": "A quantidade de mensagens perdidas (dead letters) durante uma falha de rede temporária.",
+                    "isCorrect": false,
+                    "explanation": "O offset contabiliza as mensagens processadas/lidas de forma linear, não os erros isolados de infraestrutura."
+                }
+            ]
+        },
+        {
+            "id": "q-06",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "O que acontece quando adicionamos um novo microsserviço consumindo de um tópico, utilizando um 'Consumer Group' TOTALMENTE NOVO e distinto dos existentes?",
+            "options": [
+                {
+                    "text": "Ele começará a ler as mensagens da partição de forma totalmente independente (fan-out), recebendo sua própria cópia dos eventos sem afetar ou competir com os consumidores antigos.",
+                    "isCorrect": true,
+                    "explanation": "Esse é o conceito de Publish-Subscribe (Pub/Sub) no Kafka. Grupos diferentes não compartilham offsets, permitindo que vários sistemas consumam o mesmo log paralelamente para finalidades distintas."
+                },
+                {
+                    "text": "Ocorrerá um rebalanceamento imediato, e as partições serão divididas igualmente entre os grupos velhos e o novo.",
+                    "isCorrect": false,
+                    "explanation": "O rebalanceamento de partições ocorre apenas entre consumidores *do mesmo* Consumer Group."
+                },
+                {
+                    "text": "O Kafka gerará um erro de 'ConsumerGroupConflictException' caso o novo grupo tente ler mensagens que já tiveram 'commit' pelo grupo antigo.",
+                    "isCorrect": false,
+                    "explanation": "As mensagens no Kafka não são apagadas no momento da leitura. Ficam retidas em disco pelo tempo configurado, podendo ser lidas múltiplas vezes por novos grupos."
+                },
+                {
+                    "text": "O novo grupo será forçado a esperar passivamente até que todos os consumidores antigos se desconectem do cluster.",
+                    "isCorrect": false,
+                    "explanation": "Leituras concorrentes entre múltiplos grupos são suportadas e incentivadas arquiteturalmente."
+                }
+            ]
+        },
+        {
+            "id": "q-07",
+            "topic": "Kafka",
+            "difficulty": "hard",
+            "text": "Na evolução arquitetural recente do Apache Kafka, o ZooKeeper está sendo obsoleto e removido. Qual protocolo/mecanismo nativo o substituiu para gerenciar os metadados do cluster e eleições de líder?",
+            "options": [
+                {
+                    "text": "KRaft (Kafka Raft Metadata Protocol).",
+                    "isCorrect": true,
+                    "explanation": "O KRaft integra a gestão de metadados como um log de eventos gerenciado pelo próprio Kafka, eliminando a dependência externa (ZooKeeper), simplificando a infra e aumentando escalabilidade (milhões de partições)."
+                },
+                {
+                    "text": "Etcd.",
+                    "isCorrect": false,
+                    "explanation": "Embora o Etcd seja um repositório chave-valor forte baseado em Raft, ele é usado pelo Kubernetes, não é o substituto oficial construído para dentro do core do Kafka."
+                },
+                {
+                    "text": "Redis Sentinel.",
+                    "isCorrect": false,
+                    "explanation": "Redis Sentinel foca em alta disponibilidade em cache, não possui a semântica de gerenciamento estrutural de logs do Kafka."
+                },
+                {
+                    "text": "Consul.",
+                    "isCorrect": false,
+                    "explanation": "Consul (HashiCorp) é usado para service discovery e meshes em infraestrutura, e não internal metadata core engine do Kafka."
+                }
+            ]
+        },
+        {
+            "id": "q-08",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "O que é a compactação de logs (Log Compaction) no Kafka e em qual cenário ela é mais útil?",
+            "options": [
+                {
+                    "text": "Garante que o Kafka preserve pelo menos o último estado (última mensagem) correspondente a cada 'Message Key' específica num tópico, útil para recriar snapshots de tabelas de banco de dados (CDC).",
+                    "isCorrect": true,
+                    "explanation": "A compactação limpa atualizações antigas de uma mesma chave, deixando apenas a última versão. Fundamental em arquiteturas como KSQL e replicação de SGBDs via Debezium."
+                },
+                {
+                    "text": "É o uso de algoritmos genéricos como GZIP ou Snappy pelo produtor para reduzir o tamanho de rede da mensagem pura.",
+                    "isCorrect": false,
+                    "explanation": "Isso se refere à compressão de payload de mensagens, não à política de 'Log Compaction' (política de retenção das partições)."
+                },
+                {
+                    "text": "A fusão de vários tópicos com pouca utilização em um único tópico de background para poupar espaço de indexação.",
+                    "isCorrect": false,
+                    "explanation": "O Kafka não junta tópicos aleatoriamente de forma automática no plano de fundo."
+                },
+                {
+                    "text": "O expurgo de todas as mensagens cujo payload seja idêntico, ignorando a chave da mensagem.",
+                    "isCorrect": false,
+                    "explanation": "O Log Compaction atua estritamente na identidade das chaves (keys), não analisando o corpo da mensagem (value)."
+                }
+            ]
+        },
+        {
+            "id": "q-09",
+            "topic": "Kafka",
+            "difficulty": "hard",
+            "text": "No contexto do processamento de eventos do Kafka, o que acontece durante uma operação clássica de Rebalance (Rebalanceamento) de um Consumer Group?",
+            "options": [
+                {
+                    "text": "Todos os consumidores daquele grupo pausam o consumo (Stop-The-World) enquanto as partições do tópico são redistribuídas entre os consumidores ativos do grupo (ex: quando um nó cai ou é adicionado).",
+                    "isCorrect": true,
+                    "explanation": "Historicamente (Eager Rebalancing), todos paravam até que o Group Coordinator no broker atribuísse as partições novamente. Arquiteturas recentes introduziram Incremental Cooperative Rebalancing para mitigar esse tempo de inatividade."
+                },
+                {
+                    "text": "O Kafka apaga todos os offsets do Consumer Group e recomeça o processamento do índice inicial (zero) de cada partição.",
+                    "isCorrect": false,
+                    "explanation": "Os offsets salvos não são deletados; após o rebalanceamento, os consumidores retomam de onde o consumidor anterior daquela partição havia feito o último commit."
+                },
+                {
+                    "text": "O cluster elege um novo Broker líder para hospedar os tópicos afetados.",
+                    "isCorrect": false,
+                    "explanation": "Mudança de líder (Leader Election) em caso de queda de nó é no lado do Broker, enquanto o Rebalance é exclusivo do lado dos Consumidores do grupo."
+                },
+                {
+                    "text": "As mensagens são reordenadas em disco de acordo com seu timestamp exato.",
+                    "isCorrect": false,
+                    "explanation": "As mensagens no Kafka são imutáveis e jamais são fisicamente reordenadas no arquivo de log após serem inseridas (append-only)."
+                }
+            ]
+        },
+        {
+            "id": "q-10",
+            "topic": "Kafka",
+            "difficulty": "easy",
+            "text": "Em qual formato principal de arquitetura comunicativa o Kafka baseia suas interações com o Consumidor?",
+            "options": [
+                {
+                    "text": "Modelo PULL: o consumidor solicita ativamente (puxa) os lotes de dados do broker em seu próprio ritmo.",
+                    "isCorrect": true,
+                    "explanation": "Ao contrário de sistemas tradicionais de mensagens (RabbitMQ em push mode), no Kafka o consumidor dita a taxa de consumo, evitando ser 'afogado' caso o produtor envie dados em excesso."
+                },
+                {
+                    "text": "Modelo PUSH: o broker empurra as mensagens diretamente de forma agressiva para a porta do consumidor assim que as recebe.",
+                    "isCorrect": false,
+                    "explanation": "O Kafka delega a iniciativa aos clientes consumidores via enquetes (`poll()`), preservando os recursos do broker e do cliente."
+                },
+                {
+                    "text": "Modelo REQUEST-RESPONSE: semelhante ao HTTP, exigindo aberturas e fechamentos de handshake de API a cada linha do log.",
+                    "isCorrect": false,
+                    "explanation": "É streaming assíncrono sobre TCP persistente, não requisição-resposta síncrona transacional no estilo HTTP."
+                },
+                {
+                    "text": "Modelo BROADCAST UDP: emissão aberta pela rede sem controle de estado.",
+                    "isCorrect": false,
+                    "explanation": "O Kafka usa TCP para garantir a entrega segura e ordenada (confiabilidade)."
+                }
+            ]
+        },
+        {
+            "id": "q-11",
+            "topic": "Docker",
+            "difficulty": "easy",
+            "text": "Qual é a diferença fundamental entre um Contêiner Docker e uma Máquina Virtual (VM) clássica?",
+            "options": [
+                {
+                    "text": "Contêineres compartilham o kernel (núcleo) do sistema operacional host com outros contêineres, sendo mais leves; VMs empacotam um kernel/SO inteiro com hipervisor, sendo pesadas.",
+                    "isCorrect": true,
+                    "explanation": "O isolamento do contêiner usa namespaces e cgroups do Linux, inicializando muito mais rápido, gastando menos RAM que uma VM inteira virtualizada."
+                },
+                {
+                    "text": "VMs são projetadas exclusivamente para Linux, enquanto Contêineres operam exclusivamente na arquitetura ARM do Windows.",
+                    "isCorrect": false,
+                    "explanation": "Ambos operam em ambos sistemas, e o Docker depende massivamente do kernel do Linux."
+                },
+                {
+                    "text": "Contêineres persistem arquivos permanentemente no disco por padrão, enquanto VMs descartam tudo ao reiniciar.",
+                    "isCorrect": false,
+                    "explanation": "Pelo contrário, contêineres são efêmeros (stateless) por padrão. O que é gravado no contêiner se perde ao matá-lo, a menos que se use volumes."
+                },
+                {
+                    "text": "Não há diferença arquitetural real, Docker é apenas a interface gráfica moderna para operar VMs como VirtualBox.",
+                    "isCorrect": false,
+                    "explanation": "Docker atua ao nível do Sistema Operacional; hipervisores atuam a nível de hardware simulado."
+                }
+            ]
+        },
+        {
+            "id": "q-12",
+            "topic": "Docker",
+            "difficulty": "medium",
+            "text": "Dentro de um Dockerfile, qual a diferença crítica entre as instruções RUN e CMD?",
+            "options": [
+                {
+                    "text": "RUN executa um comando durante o processo de construção (build) para preparar a imagem (ex: instalar um pacote); CMD define o comando padrão executado apenas quando a imagem virar um contêiner (run).",
+                    "isCorrect": true,
+                    "explanation": "RUN consolida uma nova camada no sistema de arquivos da imagem (ex: `RUN apt-get install`). CMD e ENTRYPOINT são para o ciclo de vida do contêiner executando (`CMD [\"java\", \"-jar\", \"app.jar\"]`)."
+                },
+                {
+                    "text": "CMD executa processos durante o build, enquanto RUN ativa os scripts no runtime do host.",
+                    "isCorrect": false,
+                    "explanation": "A afirmativa inverteu os papéis das diretivas."
+                },
+                {
+                    "text": "RUN suporta comandos shell Linux normais, enquanto CMD requer formatação JSON exclusivamente.",
+                    "isCorrect": false,
+                    "explanation": "Ambos suportam o formato exec (array JSON) e formato shell simples, não sendo essa a diferença central."
+                },
+                {
+                    "text": "RUN é usado apenas como usuário root temporário, e CMD obriga o uso de usuário de menor privilégio automático.",
+                    "isCorrect": false,
+                    "explanation": "O usuário é controlado pela instrução USER, independentemente de RUN ou CMD."
+                }
+            ]
+        },
+        {
+            "id": "q-13",
+            "topic": "Docker",
+            "difficulty": "medium",
+            "text": "Por que o recurso de Multi-stage Builds (múltiplos FROM no mesmo Dockerfile) revolucionou as práticas de CI/CD para linguagens compiladas como Java/Spring Boot?",
+            "options": [
+                {
+                    "text": "Permite compilar o código fonte em um estágio pesado inicial (trazendo o Maven/JDK) e copiar apenas o binário final (.jar) para um estágio limpo e minimalista final (apenas com JRE), produzindo imagens seguras e minúsculas.",
+                    "isCorrect": true,
+                    "explanation": "Evita vazar código-fonte para produção, descarta milhares de arquivos de dependência em cache (.m2) e previne falhas de segurança no host de runtime."
+                },
+                {
+                    "text": "Divide o servidor em múltiplas instâncias nativas do Tomcat executando requisições em paralelo dentro do mesmo container local.",
+                    "isCorrect": false,
+                    "explanation": "As camadas de stage existem puramente no momento da criação da imagem empacotada (docker build), não afetando concorrência (runtime)."
+                },
+                {
+                    "text": "Sincroniza múltiplos repositórios GitHub num único fluxo sem autenticação do desenvolvedor.",
+                    "isCorrect": false,
+                    "explanation": "É um conceito de compactação e separação limpa de passos lógicos, e não automação Git."
+                },
+                {
+                    "text": "Desativa as barreiras de cache locais forçando uma conexão ininterrupta aos bancos de dados de teste durante compilação cega.",
+                    "isCorrect": false,
+                    "explanation": "Pelo contrário, se beneficia imensamente do uso de cache entre os layers, e build não deve conectar com BD real."
+                }
+            ]
+        },
+        {
+            "id": "q-14",
+            "topic": "Docker",
+            "difficulty": "hard",
+            "text": "O que ocorre fisicamente com as camadas (layers) de uma Imagem Docker devido ao seu mecanismo de Union File System?",
+            "options": [
+                {
+                    "text": "As camadas da Imagem são somente leitura (read-only). Ao rodar um contêiner, o Docker sobrepõe apenas uma fina e única camada de leitura-gravação descartável no topo para as alterações temporárias.",
+                    "isCorrect": true,
+                    "explanation": "Por isso diversos containers iguais baseados numa imagem de 1GB não ocupam vários gigabytes; eles compartilham os layers de baixo e anotam mudanças só na camada efêmera do topo (Copy-On-Write)."
+                },
+                {
+                    "text": "Cada instrução no Dockerfile cria uma cópia completa mutável de todos os arquivos no disco, garantindo tolerância a falhas na corrupção de compilação.",
+                    "isCorrect": false,
+                    "explanation": "O uso agressivo de layers read-only partilhados otimiza espaço. Se criasse copias integrais de todo o OS a cada nova linha o docker seria inviável por disco lotado."
+                },
+                {
+                    "text": "As camadas somem logo em seguida que o build ocorre, sobrando apenas um binário binário monolítico opaco .exe finalizado em formato assembly.",
+                    "isCorrect": false,
+                    "explanation": "No formato OCI, as camadas mantêm-se segmentadas dentro do tarball do host no daemon permanentemente."
+                },
+                {
+                    "text": "O Host formata pendrives e discos secundários injetando fragmentos de swap memory dinâmico de forma imperceptível via hipervisor.",
+                    "isCorrect": false,
+                    "explanation": "Terminologia mista sem contexto, Docker layer usa diretórios locais overlay2 e copy-on-write."
+                }
+            ]
+        },
+        {
+            "id": "q-15",
+            "topic": "Docker",
+            "difficulty": "easy",
+            "text": "Em um arquivo 'docker-compose.yml' orquestrando seu ambiente de desenvolvimento backend e banco de dados, o que é mapeado no fragmento 'ports: - \\\"8080: 80\\\"'?",
+            "options": [
+                {
+                    "text": "Mapeia a porta física 8080 da máquina do desenvolvedor (Host) para conversar e encaminhar fluxos para a porta 80 exposta isolada dentro do Contêiner.",
+                    "isCorrect": true,
+                    "explanation": "A sintaxe Host:Container garante que acessando `localhost:8080` no seu browser, você acesse o app web do contêiner que escuta na 80 internamente."
+                },
+                {
+                    "text": "Mapeia a porta 80 do banco de dados na web para a porta 8080 do contêiner Tomcat do Spring Boot.",
+                    "isCorrect": false,
+                    "explanation": "As portas referem-se estritamente ao tráfego Local->Virtual, e não a portas intra-rede (entre contêineres usam-se redes virtuais abertas inteiramente pelo nome do serviço)."
+                },
+                {
+                    "text": "Limita o serviço a receber no máximo de 80 até 8080 conexões simultâneas concorrentes ativas.",
+                    "isCorrect": false,
+                    "explanation": "Não tem a ver com limitação paralela de tráfego (Rate Limit)."
+                },
+                {
+                    "text": "Abre um túnel SSH permanente entre os nós rodando o Compose, provendo uma cifra na conexão.",
+                    "isCorrect": false,
+                    "explanation": "Docker não criptografa nativamente tráfego de port forwards, apenas gerencia regras do iptables (NAT)."
+                }
+            ]
+        },
+        {
+            "id": "q-16",
+            "topic": "Docker",
+            "difficulty": "medium",
+            "text": "Como garantimos a persistência definitiva dos dados de um Banco de Dados MySQL num contêiner que pode ser destruído e recriado a qualquer momento em updates?",
+            "options": [
+                {
+                    "text": "Através da montagem de um Volume Docker (Docker Volume) apontando uma pasta do hospedeiro seguro para a pasta interna (/var/lib/mysql) que o DB escreve no contêiner.",
+                    "isCorrect": true,
+                    "explanation": "O Volume fura a bolha da camada efêmera do topo. Ao destruir o container, o disco local do host se mantém, e o novo contêiner se anexa a ele e volta a ver as tabelas."
+                },
+                {
+                    "text": "Executando o contêiner com privilégios super-user sudo `docker run --privileged`.",
+                    "isCorrect": false,
+                    "explanation": "Privileged mode da acesso irrestrito aos devices do host, não cuida de salvamento de tabelas de MySQL per se."
+                },
+                {
+                    "text": "Realizando commit `docker commit` do contêiner rodando para imagem estática sempre de 5 em 5 minutos em rotina cron job bash scripts.",
+                    "isCorrect": false,
+                    "explanation": "Este é um anti-pattern fatal que incharia as imagens. Dados transacionais pertencem a volumes dinâmicos."
+                },
+                {
+                    "text": "Injetando parâmetros pesados de cache no Dockerfile `RUN cache_db --persist-always`.",
+                    "isCorrect": false,
+                    "explanation": "O Dockerfile constrói estaticamente código. Dados ocorrem em runtime, fugindo do controle do arquivo de build."
+                }
+            ]
+        },
+        {
+            "id": "q-17",
+            "topic": "Docker",
+            "difficulty": "medium",
+            "text": "Qual a finalidade de usar a imagem base do 'Alpine' (ex: node:alpine, openjdk:17-alpine) na confecção dos seus microsserviços?",
+            "options": [
+                {
+                    "text": "Diminuir drasticamente o tamanho final do build (para míseros megabytes) e reduzir a superfície e os vetores potenciais para ataques hackers, usando a libc alternativa musl e o busybox nativo minimalista.",
+                    "isCorrect": true,
+                    "explanation": "Um SO comum como Ubuntu ocupa >150mb base, Alpine base tem 5mb. Mais enxuto significa deploy mais rápido nos clusters da nuvem e menos vulnerabilidades (CVEs) em pacotes não utilizados."
+                },
+                {
+                    "text": "Adicionar automaticamente suporte geolocalizado pra servidores baseados exclusivamente em datacenters da Europa (Alpes).",
+                    "isCorrect": false,
+                    "explanation": "Apesar do nome da cadeia de montanhas, não afeta em nada a zona de hospedagem em nuvem geográfica global."
+                },
+                {
+                    "text": "Garantir a criptografia automática SSL sem necessitar proxy reverso.",
+                    "isCorrect": false,
+                    "explanation": "A imagem do OS base não cuida do gerenciamento abstrato de certificados nas portas da aplicação isolada."
+                },
+                {
+                    "text": "Evitar o uso de linguagem C no núcleo e usar pacotes nativamente em JavaScript.",
+                    "isCorrect": false,
+                    "explanation": "Alpine é Linux derivado, focado em C leve (musl libc), não reescreve a linguagem core nativa do ecossistema shell posix."
+                }
+            ]
+        },
+        {
+            "id": "q-18",
+            "topic": "Docker",
+            "difficulty": "hard",
+            "text": "Na rede Bridge (padrão) do Docker Daemon, como dois contêineres irmãos instanciados na mesma máquina conseguem se enxergar em tráfego inter-serviço (ex: backend acessando redis) da forma mais resiliente?",
+            "options": [
+                {
+                    "text": "Criando uma Docker Network isolada comum aos dois e comunicando-se simplesmente via resolução de DNS interno embutido (ping nome-do-container), independentemente do IP aleatório flutuante que pegaram.",
+                    "isCorrect": true,
+                    "explanation": "O Docker DNS interno mapeia nomes de containers para IPs locais virtualizados. Hardcode de IP morre em restarts, nome DNS salva o dinamismo."
+                },
+                {
+                    "text": "Anotando o IP Fixo primário (172.17.x.x) e usando ele estaticamente nos properties do Java backend compilado.",
+                    "isCorrect": false,
+                    "explanation": "Ao recriar os contêineres na pipeline as ordens mudam e os IPs escorregam, o sistema fatalmente pararia."
+                },
+                {
+                    "text": "Expondo ambas as portas localmente no servidor Host (8080 e 6379) e forçando a comunicação dando a volta pelo gateway principal e internet.",
+                    "isCorrect": false,
+                    "explanation": "Ineficiente e perigoso. Entre irmãos roda-se internamente sem bater na tabela de rotas públicas por segurança."
+                },
+                {
+                    "text": "O Docker bridge impossibilita de forma nativa essa comunicação restrita, exigindo ferramentas pesadas como OpenVPN embutido nas imagens de serviço local.",
+                    "isCorrect": false,
+                    "explanation": "O bridge virtual default foi arquitetado exatamente para resolver e possibilitar a malha local e as comunicações simples das redes."
+                }
+            ]
+        },
+        {
+            "id": "q-19",
+            "topic": "Kubernetes",
+            "difficulty": "easy",
+            "text": "No Kubernetes, qual a menor unidade computacional e de infraestrutura implantável e gerenciável criada no ecossistema?",
+            "options": [
+                {
+                    "text": "O Pod. Ele é uma abstração que encapsula e abriga um ou mais contêineres interconectados fortemente e que partilham do mesmo volume de disco local efêmero virtual e IP.",
+                    "isCorrect": true,
+                    "explanation": "K8s não gerencia containers isolados diretamente da API, ele gerencia Pods. Se o aplicativo Java precisa de um sidecar proxy, os dois containers habitam harmonicamente o mesmo Pod base."
+                },
+                {
+                    "text": "O Node (Nó). K8s aloca processadores brutos unitários aos processos virtuais.",
+                    "isCorrect": false,
+                    "explanation": "Nó é a máquina (worker) subjacente gigante, não a unidade atômica lógica instanciada gerenciável pelas apps programadoras de microserviços."
+                },
+                {
+                    "text": "O Dockerfile manifest puro sem injeção.",
+                    "isCorrect": false,
+                    "explanation": "A abstração declarativa para o host é do Kubelet. Dockerfile é build abstrato."
+                },
+                {
+                    "text": "O Ingress Controller Proxy Route.",
+                    "isCorrect": false,
+                    "explanation": "Ingress cuida de roteamento macro web HTTP HTTPS público, e não implantação atômica virtual app."
+                }
+            ]
+        },
+        {
+            "id": "q-20",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Se você possui 3 instâncias de um Pod em execução (ReplicaSet) que frequentemente morrem e renascem em diferentes nós do Cluster com novos IPs locais randômicos, como aplicações clientes externas acham esses Pods para efetuar consumos e chamadas REST confiáveis?",
+            "options": [
+                {
+                    "text": "Cria-se um componente do tipo 'Service' associado aos Pods (via label selectors). O Service retém um IP virtual estável (ou DNS fixo) atuando como um Load Balancer transparente aos 3 mutáveis sob a capa lógica.",
+                    "isCorrect": true,
+                    "explanation": "A camada do Kube-proxy cuida de redirecionar o tráfego do Service Estável para os Endpoints (Pods) vivos por trás dele, suportando a dinamicidade horizontal natural."
+                },
+                {
+                    "text": "Cria-se uma regra imperativa que sempre fixa IPs estáticos manualmente atrelando MAC Addresses fixos na configuração dos ymls dos Pods.",
+                    "isCorrect": false,
+                    "explanation": "Total anti-pattern na era Cloud-native. Contêineres são efêmeros como gado, não cuidamos das suas identidades IP individualmente."
+                },
+                {
+                    "text": "Utilizando sempre WebSockets broadcast abertos pela internet aguardando os novos serviços anunciarem IPs num chat publico aberto.",
+                    "isCorrect": false,
+                    "explanation": "Embora service discovery nativo faça isso internamente (Etcd) via fofoca local segura controlada, requisições de clientes batem em balanceadores e não usam WS em chat para rota."
+                },
+                {
+                    "text": "Enviando logs diretos aos agentes no Prometheus Metrics Daemon Server local cluster master.",
+                    "isCorrect": false,
+                    "explanation": "Prometheus é focado em métricas observabilidade (monitoramento de CPU mem), não age em requisições rede ativas operacionais das rotas app."
+                }
+            ]
+        },
+        {
+            "id": "q-21",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Em um Deployment moderno do Kubernetes, qual é a principal vantagem da estratégia chamada 'Rolling Update' ao realizar deploy de uma nova versão (imagem v2) do seu código backend em produção?",
+            "options": [
+                {
+                    "text": "Atualizar gradualmente instâncias velhas do sistema pelas novas uma-a-uma, de modo cauteloso aguardando checagem, objetivando atingir tempo de inatividade zero (Zero-downtime) nas entregas e falhas aos clientes.",
+                    "isCorrect": true,
+                    "explanation": "Ele abaixa um V1 e sobe um V2 intercalados. Se o V2 não responder no start, ele interrompe e preserva o cluster respondendo nas réplicas antigas, sem matar tudo e perder tráfego das requisições na pipeline CI."
+                },
+                {
+                    "text": "Forçar um Wipe (apagão completo global de 30 segundos) na frota deletando todos os velhos primeiro para que o BD recupere fôlego garantindo consistência, e só subir a V2 num vácuo limpo local.",
+                    "isCorrect": false,
+                    "explanation": "Isso se assemelha a tática 'Recreate', que causa tempo fora do ar violento indesejado, o oposto de boas práticas."
+                },
+                {
+                    "text": "Aplicar a atualização somente aos Pods dos clientes com conta VIP (Premium) que o Ingress Router separa identificando na requisição paralela e em trânsito HTTP header session nativo.",
+                    "isCorrect": false,
+                    "explanation": "O Rolling Update atualiza componentes sistêmicos da capacidade cluster, e não aplica filtragens baseadas em faturamento em rotas lógicas individuais de business client."
+                },
+                {
+                    "text": "Exportar e comprimir os metadados brutos dos logs de acesso do console do dia anterior em blocos compactos para economia nos discos rígidos (GZIP rolling append).",
+                    "isCorrect": false,
+                    "explanation": "Terminologia comum em configurações de Rolling Logs (como Log4j rolling file appender), não deploys do K8S."
+                }
+            ]
+        },
+        {
+            "id": "q-22",
+            "topic": "Kubernetes",
+            "difficulty": "hard",
+            "text": "Qual o propósito principal dos Liveness Probes configurados nos manifestos yaml de um Pod?",
+            "options": [
+                {
+                    "text": "Consultar intermitentemente a aplicação. Se ela falhar nesse teste repetidas vezes (ex: deadlock em thread base ou loop infinito web route memory break), o Kubelet a detecta como doente e a REINICIA matando localmente o container para recuperá-la ativamente.",
+                    "isCorrect": true,
+                    "explanation": "A Liveness prova a sobrevivência orgânica do contêiner. Diferente da Readiness que cessa rotas de tráfego, a Liveness manda uma bala de Restart para salvar sistemas travados."
+                },
+                {
+                    "text": "Garantir unicamente que a aplicação só vai começar a receber HTTP de usuários se bancos auxiliares terminarem de iniciar a compilação paralela remota do provedor relacional estrito em background longo.",
+                    "isCorrect": false,
+                    "explanation": "Isso descreve precisamente a Readiness Probe, e não a Liveness."
+                },
+                {
+                    "text": "Notificar ativamente o administrador da plataforma via canais Slack com webhooks injetados disparando alertas automáticos sobre performance da latência de pacotes de redes locais.",
+                    "isCorrect": false,
+                    "explanation": "Aviso é de softwares de alertas (Grafana Alerts/Alertmanager), a Liveness reage imperativamente executando resets."
+                },
+                {
+                    "text": "Monitorar acessos indevidos de invasores checando validade de tokens e certificados digitais nas fronteiras de segurança local em firewalls.",
+                    "isCorrect": false,
+                    "explanation": "Liveness testa apenas vitalidade técnica primária por rotas simples como /actuator/health e porta de rede tcp ping simples de integridade processamento."
+                }
+            ]
+        },
+        {
+            "id": "q-23",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Em K8s, onde é a melhor prática isolada para armazenar de forma um pouco mais resiliente e ofuscada dados estritamente confidenciais, como senhas de bancos de dados ou Chaves de API externas da Stripe para o seu sistema carregar em variáveis de ambiente nativas limitadas?",
+            "options": [
+                {
+                    "text": "No objeto 'Secret' local, onde ele empacota metadados encodificados em Base64 nos manifests, separando esse valor sensível explícito das engessadas lógicas hardcode e repositórios de source code.",
+                    "isCorrect": true,
+                    "explanation": "Apesar do Base64 nativo simples ser fraco isolado sem as configs Master (KMS em núvem forte) ativas subjacentes, a primitividade em K8S isola ele logicamente longe da view dos arquivos textuais ConfigMaps comuns não-sensíveis do admin comum RBAC namespace acessos."
+                },
+                {
+                    "text": "Nos ConfigMaps convencionais misturados, usando apenas nomes confusos nas keys para os hackers não inferirem e ofuscar o valor sem chaves base.",
+                    "isCorrect": false,
+                    "explanation": "Nunca grave segredos em plain text puro acessível para quem consome ConfigMaps ordinariamente visualizável livremente."
+                },
+                {
+                    "text": "No arquivo README.md da base repositório principal no Git, orientando e facilitando a carga na máquina manual.",
+                    "isCorrect": false,
+                    "explanation": "Incidente grave base corporativa (Leak), expondo tokens."
+                },
+                {
+                    "text": "Gravados rigidamente num `.env` dentro do diretório `/etc` da Imagem base do Docker build nativo inicial final finalizado commitado.",
+                    "isCorrect": false,
+                    "explanation": "O empacotamento vaza chaves pra qualquer engenheiro que possua permissões de puxar (docker pull) a imagem. Configurações devem vir no Runtime."
+                }
+            ]
+        },
+        {
+            "id": "q-24",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Se o seu aplicativo sofrer subitamente de um pico maciço orgânico de tráfego numa campanha de Black Friday (alta carga contínua), qual componente K8s gerencia de forma inteligente a escala adicionando Pods a mais sozinho monitorando a CPU local?",
+            "options": [
+                {
+                    "text": "HPA (Horizontal Pod Autoscaler).",
+                    "isCorrect": true,
+                    "explanation": "Ele avalia métricas fornecidas pelo Metrics Server (como Uso de Memória 80%) e altera declarativamente a 'desired replicas' no objeto ReplicaSet de 3 para 30 (limitados em specs predefinidos)."
+                },
+                {
+                    "text": "Ingress Controller Controller genérico default.",
+                    "isCorrect": false,
+                    "explanation": "Ele distribui e balanceia (roteia HTTP) entre os recursos criados vivos, mas não gerencia implantação local orgânica de novos corpos computacionais de containers baseados em saturações CPU nativa das aplicações."
+                },
+                {
+                    "text": "StatefulSet",
+                    "isCorrect": false,
+                    "explanation": "Statefulset ordena instâncias persistentes ordinais e volumosas mas não atua em autoscale nativo métrico sem o HPA interligado as APIs macro."
+                },
+                {
+                    "text": "Virtual Private Cloud Route Router VPC.",
+                    "isCorrect": false,
+                    "explanation": "Infra macro cloud (AWS VPC), sem vínculo as especificidades contextuais atômicas intra cluster K8S metric management services."
+                }
+            ]
+        },
+        {
+            "id": "q-25",
+            "topic": "Kubernetes",
+            "difficulty": "easy",
+            "text": "Se desejamos rodar perfeitamente um único agente coletor de log da infraestrutura (Fluentd, Datadog agent) operando rigorosamente em CADA máquina física (Node) do nosso extenso cluster, que Workload nós aplicamos na plataforma?",
+            "options": [
+                {
+                    "text": "DaemonSet.",
+                    "isCorrect": true,
+                    "explanation": "Garante nativamente e imperativamente na API que todos (ou selecionados por roles) os Worker Nodes, velhos ou que brotem via auto scale cloud de hardware base nova gerada sob demanda na rede recebam uma única réplica atrelada estritamente à máquina hospedeira servindo funções básicas subjacentes."
+                },
+                {
+                    "text": "Job.",
+                    "isCorrect": false,
+                    "explanation": "Job opera um batch processor rápido de tempo fechado efêmero (completes and finishes execution status to zero restart policy run success and sleep end). Não é coletor rodando forever como serviço da base orgânica hospedeira nativo ininterrupto C daemon Linux base."
+                },
+                {
+                    "text": "CronJob.",
+                    "isCorrect": false,
+                    "explanation": "Dispara jobs puros por tempo agendado, não lida com garantias de espalhamento topológico máquina a máquina persistente como agentes locais exigem para varrer diretórios raw sys de logs e repassar aos dashboards remotos de análise geral de sistema de controle corporativos internos visuais logs centralizados Elastic Stack base loggers integrados em clouds."
+                },
+                {
+                    "text": "StatefulSet replicado com replicas=100 manual no bash.",
+                    "isCorrect": false,
+                    "explanation": "Gambiarra terrível alocaria ordinais repetidos que não necessariamente habitariam e caçariam nós carentes de forma descentralizada base hardware natural nativa."
+                }
+            ]
+        },
+        {
+            "id": "q-26",
+            "topic": "Kubernetes",
+            "difficulty": "hard",
+            "text": "Qual é a função da 'Etcd' na arquitetura Master Control Plane do Kubernetes?",
+            "options": [
+                {
+                    "text": "Atuar como a fonte primária da verdade absoluta altamente disponível (Key-Value Datastore confiável distribuído Raft), armazenando o estado global do cluster, os metadados brutos subjacentes dos manifests e das métricas vitais configurações.",
+                    "isCorrect": true,
+                    "explanation": "Se o Etcd falha, o cluster perde memória. Ele é o cérebro espinhal de retensão (banco de dados) onde os demais controladores e o API Server guardam os dados vitais para operarem."
+                },
+                {
+                    "text": "Ele é o Agente residente que aplica instruções Docker dentro do hardware individual efetuando a construção material pull imagem.",
+                    "isCorrect": false,
+                    "explanation": "Este é o agente Kubelet interagindo com containerd no worker local das bases instanciadoras."
+                },
+                {
+                    "text": "Prover balanceamentos sofisticados TCP e mascaramentos no IPTABLES e IPVS no node do usuário localizando IPs efêmeros internos virtuais em malha CNI de base plugin de rede isolada particular da VPC principal da aws/google local.",
+                    "isCorrect": false,
+                    "explanation": "Isto faz referência primordial ao kube-proxy local operando nos Nodes para as interfaces lógicas base."
+                },
+                {
+                    "text": "Aplicar o Agendamento purista abstrato avaliando nós desocupados processadores livres livres nas memórias de hardware em ram.",
+                    "isCorrect": false,
+                    "explanation": "Essa função é desempenhada estritamente de maneira otimizada avançada robusta sofisticada complexa no core pelo Kube-Scheduler controller primário mestre manager node base."
+                }
+            ]
+        },
+        {
+            "id": "q-27",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "O que o componente Kubelet executa primariamente na topologia?",
+            "options": [
+                {
+                    "text": "É o capitão primário principal na máquina Node (agente), ele atua certificando que os contêineres e os Pods descritos nas especificações declarativas do API Server estejam de fato funcionando materialmente instanciados e vivos na infra hardware rodando o OS local virtualmente limpo e alocado na base local real física base.",
+                    "isCorrect": true,
+                    "explanation": "O Kubelet é a ponte do K8s com o motor (Docker/containerd). Ele checa a saúde local e envia status report para o mestre painel."
+                },
+                {
+                    "text": "Atua como painel frontend web GUI oficial (Dashboard visual admin open source visual ui UX console client base nativo local cloud native interface default orgânica principal original base root cluster master component) dos engenheiros de site operacionais (SRE).",
+                    "isCorrect": false,
+                    "explanation": "Não é UI GUI, é um processo de daemon silencioso Linux invisível operário estrito nas máquinas servas basais da rede local de processamento pesado de ram cpu workers."
+                },
+                {
+                    "text": "Garante resolução estrita das chaves criptografadas de autorização RBAC nas rotinas de admissões.",
+                    "isCorrect": false,
+                    "explanation": "Fica nos admissions controllers base."
+                },
+                {
+                    "text": "Conecta redes físicas aos roteadores de nuvem nativos provedores terceiros base.",
+                    "isCorrect": false,
+                    "explanation": "O plugin CNI lida com IP / roteamento físico de subredes e provedores cloud controllers, Kubelet delega."
+                }
+            ]
+        },
+        {
+            "id": "q-28",
+            "topic": "Infraestrutura",
+            "difficulty": "easy",
+            "text": "Numa arquitetura orientada a microsserviços 'Stateless', qual destas premissas de desenho lógico dita a lei comportamental dos aplicativos backend instanciados em cluster na infra nuvem limpa global?",
+            "options": [
+                {
+                    "text": "A aplicação ou servidor local não salva, memoriza, reage com base ou detém informações transientes dos clientes em RAM nativa local na requisição primária (Sessões HTTP Memory array estático etc) ou disco local contêiner virtual volátil solto pra requisições secundárias dependentes lógicas sequenciais em cadeia transacionais puras estritas interligadas de base.",
+                    "isCorrect": true,
+                    "explanation": "Estado zero. Exige que todas as requisições (com JWT auth) tragam seu contexto autossuficiente nela ou busque do cache Redis central, possibilitando roteamento pra qualquer das n réplicas e matar pods sem pânico local e perda deslogando cliente por erro de sessões mortas no container 3 em scale in scale out de infra auto scaling grupo aws ec2 instance manager pods K8S control replicas pods set."
+                },
+                {
+                    "text": "O software base opera de forma síncrona aguardando chamadas locais recursivas lentas nativas de processador restritas exclusivas em memória estática global do host hospedeiro virtual máquina pesada.",
+                    "isCorrect": false,
+                    "explanation": "Não tem a ver com sincronicidade restrita thread JVM."
+                },
+                {
+                    "text": "A rede principal de processamento salva instantaneamente chaves seguras ativas criptográficas em bancos embutidos de SQLite acoplados e fundidos in line sem isolamento dos arquivos centrais lógicos de domínio de negócio em camadas hexagonais de service adaptors repositórios classes instâncias singulares singleton estáticas de java context local global application run.",
+                    "isCorrect": false,
+                    "explanation": "Antipattern."
+                },
+                {
+                    "text": "As transações exigem que todos os microsserviços do ambiente atualizem o mesmo banco global monolítico de forma serial unificada e atômica pesada central forte estrutural de dependência forte pesada maciça monolítica espaguete bola de lama grande base.",
+                    "isCorrect": false,
+                    "explanation": "Refere se a BD monolito transacional, mas Stateless remete a sessão client server local flow."
+                }
+            ]
+        },
+        {
+            "id": "q-29",
+            "topic": "Infraestrutura",
+            "difficulty": "medium",
+            "text": "Por que o uso estrito de Sessões baseadas em Cookie ligadas à memória RAM (ex: Tomcat HttpSession) se torna o maior pesadelo prejudicial para escalabilidade horizontal em K8S ou balanceadores de tráfego (Load Balancers originais sem stick sessions hardcoded properties de rota afunilada de hardware virtual)?",
+            "options": [
+                {
+                    "text": "Se a requisição inicial 1 cai no container A logando o cliente, a requisição subsequente 2 pode cair no container B (por Load Balancing) onde a sessão é nula e não existe materialmente na RAM daquela instância instanciada lá do zero, forçando o cliente a refazer todo processo e perdendo estado gerando bugs de autorização cíclicos eternos confusos quebrando rotinas de UX web front end lógicas normais esperadas básicas comuns tradicionais de site.",
+                    "isCorrect": true,
+                    "explanation": "O container A memorizou na JVM. O B é cego. Sticky Sessions afunila no A quebrando real balance livre. Usar JWT ou Redis globalizado em nuvem externa central evita o desastre mantendo os N contêineres web limpos amnésicos e iguais Stateless genéricos trocáveis."
+                },
+                {
+                    "text": "As sessões nativas são sempre expostas a ataques SQL injection imediatos quando hospedadas no disco host e transferidas por RPC protocols base.",
+                    "isCorrect": false,
+                    "explanation": "SQLi ataca input banco, não sessões em RAM."
+                },
+                {
+                    "text": "Eles consomem o IP primário local exaurindo as ranges MAC de rede virtual docker network bridge pool address subnet limits configurados globais por escassez ip nativa global.",
+                    "isCorrect": false,
+                    "explanation": "Falso."
+                },
+                {
+                    "text": "Ocorre erro na JVM travando Garbage collector no momento exato em que Thread Context envia ao pool restrito local final finalizado destruído local memória grid de JVM instanciado na alocação base principal matriz de cluster JNI base OS call layer inter system message passing local C API limit resources open file limit overflow exception kernel panic bash run time fatal stop break halt system error local memory leak estático restrito de processamento de filas.",
+                    "isCorrect": false,
+                    "explanation": "Irreal verbose logic fallacies."
+                }
+            ]
+        },
+        {
+            "id": "q-30",
+            "topic": "Infraestrutura",
+            "difficulty": "hard",
+            "text": "Em K8S (Kubernetes orgânico declarativo yaml configs), se nosso sistema inevitavelmente PRECISAR ser Stateful (Com estado rígido local vital, como um cluster de Redis nativo master slave shard base de replicação ou Banco PostgreSQL), que workload declarativo da engine nós obrigatoriamente usamos ao invés de Deployments descartáveis comuns de front end services efêmeros lógicos base?",
+            "options": [
+                {
+                    "text": "StatefulSet.",
+                    "isCorrect": true,
+                    "explanation": "StatefulSets fornecem identidades de rede consistentes e imutáveis duráveis (pod-0, pod-1 em vez de hash aleatório instável) e volumes de PersistentVolumeClaim ordenados rigorosos essenciais essenciais críticos para bancos saberem quem é master quem é slave sem baralhar a rede nos crashes imprevisíveis diários infra cloud."
+                },
+                {
+                    "text": "StatelessReplicaDaemon Controller.",
+                    "isCorrect": false,
+                    "explanation": "Workload nativo de kubernetes library inexistente false statement name logic API server endpoints manifest struct config kinds kinds objects abstract structs primitives basic roots base types schema registry valid schemas native cloud kubernetes IO references documentations manual help commands basic knowledge fundamentals core basic principles base logics abstractions default generic kinds definitions core.",
+                    "isCorrect": false,
+                    "explanation": "Inexistente."
+                },
+                {
+                    "text": "StatefulIngress Virtual Service Routing Proxy Mesh Component.",
+                    "isCorrect": false,
+                    "explanation": "Termo aglutinado confuso entre Ingress e meshes como Istio, não um workload pod launcher primitivo master do k8s api apps/v1 de implantação ativa de código container hardware alocação node resources base root process local thread containers groups pods namespaces config types objects manifests local local base.",
+                    "isCorrect": false,
+                    "explanation": "Falso misturado termo."
+                },
+                {
+                    "text": "Docker Compose Stateful volumes file YAML.",
+                    "isCorrect": false,
+                    "explanation": "Nós perguntamos em K8S. E compose é docker básico."
+                }
+            ]
+        },
+        {
+            "id": "q-31",
+            "topic": "Infraestrutura",
+            "difficulty": "easy",
+            "text": "Na essência do protocolo universal da teia mundial web HTTP, o que o define como padrão original primário raiz de comportamento comunicacional de rede OSI application layer?",
+            "options": [
+                {
+                    "text": "Protocolo de rede originalmente Stateless (Sem Estado). O servidor atende, processa, envia os dados base HTML/JSON de volta numa porrada síncrona curta e esquece quem você é imediatamente a cada ida e vinda fechando conexão socket sem lembrar de requisições antepassadas base lógicas lógicas locais.",
+                    "isCorrect": true,
+                    "explanation": "Essa amnésia natural do HTTP (resolvida com Cookies em 1994 Netscape) permite que um site atenda bilhões por dia sem lotar toda ram lembrando da vovó navegando página a página eternamente no loop process server memory resources management core."
+                },
+                {
+                    "text": "Protocolo Stateful raiz persistente (Mantém Estado). Onde fica travado em Handshake ativo eternamente no servidor aguardando comandos secundários TCP base local rede global LAN virtual proxy gateway roteador switch hardware rede.",
+                    "isCorrect": false,
+                    "explanation": "Isso descreve coisas como WebSockets puristas, RPC base em parte, ou TCP puro cru de conexão duradoura."
+                },
+                {
+                    "text": "Protocolo focado exclusivamente para transferência de arquivos físicos binários executáveis enormes ISO files base sem cabeçalhos texto strings.",
+                    "isCorrect": false,
+                    "explanation": "Isso seria o velho e querido e esquecido FTP protocolo puro e não Hypertext."
+                },
+                {
+                    "text": "Protocolo encriptado de base ponta a ponta sem capacidade de interceptação de texto local puro texto plano de leitura simples nativa rede humana debug pacote wireshark sniffing fácil nativo nativamente base original root core base lógica TCP TCP porta oitenta local HTTP raiz básica primordial internet inicial base.",
+                    "isCorrect": false,
+                    "explanation": "HTTP puro é TEXTO PLANO legível para hackers e Wireshark. Cripto veio no HTTPS."
+                }
+            ]
+        },
+        {
+            "id": "q-32",
+            "topic": "Infraestrutura",
+            "difficulty": "medium",
+            "text": "Em REST APIs arquitetadas em Backends contemporâneos robustos Java Spring ecossistema moderno, a 'Idempotência' das operações garante segurança de retry no front end. Qual verbo de requisição HTTP NÃO PODE DE FORMA ALGUMA ser considerado Idempotente por natureza raiz do design de padrão especificativo de uso oficial e semântica pura HTTP?",
+            "options": [
+                {
+                    "text": "POST.",
+                    "isCorrect": true,
+                    "explanation": "Idempotente significa 'posso rodar 10x sem mudar o efeito colateral a partir da 1ª'. O verbo PUT envia 'Mude o Nome pra Joao' (10 vezes a pessoa continua João apenas alterado). Mas POST geralmente significa 'Crie uma nota fiscal', rodar 10x acidentalmente cria 10 notas novas, duplicando e destruindo contas do cliente local base error duplicidade grave no banco BD."
+                },
+                {
+                    "text": "GET.",
+                    "isCorrect": false,
+                    "explanation": "GET é apenas leitura limpa passiva segura pura sem mutação side effect no banco."
+                },
+                {
+                    "text": "PUT.",
+                    "isCorrect": false,
+                    "explanation": "Substitui estado num ID fixo. O resultado é idêntico se rodado em loop n vezes seguidas cegas repetidas timeout retry redes instáveis celulares 3G redes."
+                },
+                {
+                    "text": "DELETE.",
+                    "isCorrect": false,
+                    "explanation": "DELETE(ID) apaga. Bater a segunda vez no id já apagado e sumido não apaga outro, apenas diz que não existe mais, não piora nem expande efeito destrutivo a mais objetos. Idempotente."
+                }
+            ]
+        },
+        {
+            "id": "q-33",
+            "topic": "Infraestrutura",
+            "difficulty": "hard",
+            "text": "Como funciona magicamente de forma orgânica criptográfica base e veloz o famoso 'Handshake SSL/TLS' (Aperto de mão de chaves) que confere a letra 'S' fortificadora de segurança de rede ao HTTPS protocolo?",
+            "options": [
+                {
+                    "text": "Eles usam Criptografia Assimétrica (Chave Pública do Server/Privada secreta do Server) no milissegundo inicial só pra trocar e combinar secretamente de modo seguro uma nova Chave Simétrica (mais leve rápida CPU friendly efêmera da sessão) que a partir dali vai criptografar a grande massa gigante do Payload HTTP de fato velozmente ponta a ponta em túnel fechado cego.",
+                    "isCorrect": true,
+                    "explanation": "Assimétrica é segura para compartilhar segredos pela rede crua vigiada, mas pesada na conta matemática. Simétrica é super veloz mas o risco era como o front end ia contar pro backend o password. Eles fundiram os dois mundos no Handshake inicial das requisições modernas."
+                },
+                {
+                    "text": "Usa Hashings fixos puros e irreversíveis (BCRYPT SHA256) na mensagem inteira, permitindo ao servidor remontar o texto perfeitamente usando Brute force hardware nativo cloud parallel gpu cluster base render math engine local.",
+                    "isCorrect": false,
+                    "explanation": "Hash serve pra salvar senhas (são irreversíveis propositais), não para dados da conexão web normal que exigem leitura (via desencriptação chave-fechadura simétrica original bidirecional) clara pelo navegador."
+                },
+                {
+                    "text": "Ele embute a chave simétrica privada secreta inteira exposta em formato texto aberto na primeira mensagem de contato POST via DNS port 53 aberta base nativa para validar e acelerar o cache de requisição web sem perder performance síncrona TCP base local tcp rede tcp handshake base rede internet IP infraestrutura local infra roteador base roteamento básico DNS base DNS rede original core base net rede interna.",
+                    "isCorrect": false,
+                    "explanation": "Entregar a chave em texto puro é enviar o cadeado aberto pro bandido sniffer rede local man in the middle hack de Starbucks wi-fi público base ataque."
+                },
+                {
+                    "text": "Apenas compacta e embaralha o pacote base64 simples padrão de string e confia cegamente que firewalls físicos intermedíarios de rotas da CloudFlare tratam de manter integridade dos switches globais internet backbones fibra submarina física local rotas BGP de provedores de trânsito ASN globais de internet roteamento base hardware nativo local purista.",
+                    "isCorrect": false,
+                    "explanation": "Base64 não é criptografia, é decodificação de strings. Https não confia na nuvem, confia na pura fria estrita exata matemática dos algoritmos locais instalados."
+                }
+            ]
+        },
+        {
+            "id": "q-34",
+            "topic": "Infraestrutura",
+            "difficulty": "easy",
+            "text": "Na comunicação inter-serviços base em integrações de pagamentos e eventos na Cloud (Stripe, GitHub), o que caracteriza substancialmente arquiteturalmente o uso da técnica WebHook em prolição oposta direta contra o Polling clássico cansativo de requests infinitas (enquete) no tempo?",
+            "options": [
+                {
+                    "text": "Webhook atua ativamente e de forma assíncrona passiva e reativa do nosso lado: Fornecemos uma URL nossa a um sistema terceiro, e este ativamente dispara POSTs na nossa aplicação avisando IMEDIATAMENTE (Event-Driven web request) o exato segundo em que um evento ocorreu lá, evitando bater na API deles 10x ao dia atoa aguardando estado.",
+                    "isCorrect": true,
+                    "explanation": "Polling = O backend fica num for loop batendo e incomodando \\\"já pagou? já pagou?\\\". Webhook (Reverse API) = Ele avisa quando paga, economizando 99% da rede."
+                },
+                {
+                    "text": "Webhooks são essencialmente túneis fechados de conexão bidirecional ativa WebSocket TCP de jogos em tempo real (gaming multiplayer rts) base rede restrita socket rede fechada protocolo local ws:// porta nativa restrita estrita ws ws de tráfego de dados TCP ws protocolo.",
+                    "isCorrect": false,
+                    "explanation": "Webhooks viajam na malha normal HTTP 80/443 de requisição resposta unidirecional da ponta externa para nosso controller. WebSocket que é full duplex bidirecional canal livre conexões mantidas TCP nativo local web tcp nativo web conexões ativas ping pong frame control base socket socket."
+                },
+                {
+                    "text": "WebHook baixa arquivos estáticos .hook via protocolo FTP ftp base para dentro do conteiner k8s local volume host path bind de forma asíncrona com cron jobs periódicos ativadores temporizados local batch run base crontab shell bash.",
+                    "isCorrect": false,
+                    "explanation": "Invenção descritiva de bash cron. WebHook é REST simples."
+                },
+                {
+                    "text": "Consiste puramente no padrão arquitetural monolítico REST sem JSON onde retornamos HTML ao invés de mensagens de formato genérico legível local nativo simples limpo.",
+                    "isCorrect": false,
+                    "explanation": "Normalmente trafegam JSON estruturados de notificação eventais nos payloads dos bodys."
+                }
+            ]
+        },
+        {
+            "id": "q-35",
+            "topic": "Infraestrutura",
+            "difficulty": "hard",
+            "text": "Na hora de desenhar uma API segura (Consumer provider webhook pattern design API rest) que REBECE payloads de Webhooks de provedores críticos que rebatem o pagamento em conta (ex MercadoPago local bank gateway), qual o risco de segurança primário e técnica de segurança base que garante que não seja apenas um hacker mandando \\\"pago=true\\\" do Postman falso para URL exposta?",
+            "options": [
+                {
+                    "text": "Usar HMAC Secret assinaturas em metadados Headers criptográficos (X-Signature-Hash). O servidor externo assina o payload JSON inteiro criptograficamente com uma Secret combinada das contas, o seu servidor backend decifra validando proveniência autêntica e inalterada exata em rede antes de faturar e dar baixa sistêmica base negócio core banco financeiro logica restrita local do CRM base.",
+                    "isCorrect": true,
+                    "explanation": "Ao processar webhooks de banco, você tem que validar se quem originou aquele pacote HTTP veio da Stripe. Se a assinatura não bater no Hmac validation code custom header validation, o controller dá Reject 401 Unauthorized."
+                },
+                {
+                    "text": "Impedir com CAPTCHA de google picture base de desafios gráficos manuais click e arraste na porta da web route endpoint base pública url aberta aberta web pública controller web pública router endpoint web server route gateway roteador proxy.",
+                    "isCorrect": false,
+                    "explanation": "APIs server-to-server robotizadas e autônomas do mercadopago não tem olhinhos e mãos para apertar na 'faixa de pedestre' nos capchas."
+                },
+                {
+                    "text": "Não tem risco, o certificado TLS do HTTPS cobre isso garantindo o nome da empresa na URL interna privada VPN secreta proxy túnel roteado de base internet provedor NAT gateway internet local rede gateway.",
+                    "isCorrect": false,
+                    "explanation": "TLS criptografa o canal em si contra espionagem (interferências). Mas se o hacker descobre SUA URL RECEBIDA (sua api controller), o seu webhook está aberto pra postagens forjadas e maliciosas diretas de fontes falsas."
+                },
+                {
+                    "text": "Instalar rotinas Java Thread.Sleep(5000) nos blocos interceptors filter security config beans local AOP aspects web para o timeout desarmar o hacker limit rate de requisição tcp limite de fluxo de carga pesada ddos limit base proxy ddos flood tcp connection pool overflow prevention system local engine server base.",
+                    "isCorrect": false,
+                    "explanation": "Retardar não previne o roubo e efetivação do dado do bypass da lógica de negócio. Validação digital signature resolve de forma absoluta o trust trust domain logic local trust identity service."
+                }
+            ]
+        },
+        {
+            "id": "q-36",
+            "topic": "Status Codes",
+            "difficulty": "easy",
+            "text": "O que indica fundamentalmente na web um código HTTP 404 de resposta final?",
+            "options": [
+                {
+                    "text": "Not Found (Não encontrado) - Aquele recurso (Página, Imagem, Entidade ID de BD de um GET de controller backend) simplesmente não existe de fato ou não foi localizado pela lógica de rotas do hospedeiro ativo e vivo.",
+                    "isCorrect": true,
+                    "explanation": "Ao tentar GET /clientes/9999 e o ID sumiu do sistema BD, o Java Backend RestController moderno joga exceções em @ControllerAdvice e cospe um belo 404 para o cliente na responseEntity base nativa do HTTP Rest status standards."
+                },
+                {
+                    "text": "Internal Server Error (O servidor Backend queimou ou a Exception não tratada estourou em Null Pointer geral do Java quebrando o loop em stack trace log console console console log de trace bash server output error system err stream buffer break limit log sys err system base local).",
+                    "isCorrect": false,
+                    "explanation": "Este é o doloroso clássico 500."
+                },
+                {
+                    "text": "Unauthorized (Você está sem o token na cabeça do JWT request).",
+                    "isCorrect": false,
+                    "explanation": "Isso remete ao 401."
+                },
+                {
+                    "text": "Bad Request (O JSON recebido veio quebrado em vírgulas na desserialização do body de Jackson parser mapping exceptions local no mapeador da rota local).",
+                    "isCorrect": false,
+                    "explanation": "Isto é 400."
+                }
+            ]
+        },
+        {
+            "id": "q-37",
+            "topic": "Status Codes",
+            "difficulty": "medium",
+            "text": "Qual a diferença precisa na semântica padrão oficial do REST arquitetural HTTP entre o 401 Unauthorized e o 403 Forbidden lançados numa requisição com Spring Security ativado rígido?",
+            "options": [
+                {
+                    "text": "401 significa Não Autenticado (Quem é você? O JWT tá errado ou ausente); e o 403 Forbidden significa Não Autorizado (Sei quem você é e seu login logou no banco de dados autêntico, mas você é Role=USER tentando acessar rota Admin Role=ADMIN, te bloqueei por permissão fraca).",
+                    "isCorrect": true,
+                    "explanation": "401 foca Identidade (Authentication failed login wrong pass auth), 403 foca Autorização/Acesso (Authorization Role Scope falha)."
+                },
+                {
+                    "text": "O 401 atua em banco de dados MongoDB local NoSQL base dados, e 403 apenas atua nos servlets container Tomcat apache gerando blocos TCP fechados reset flag network block socket drop.",
+                    "isCorrect": false,
+                    "explanation": "Esses erros são HTTP spec standards originais e transversais a stack de linguagens."
+                },
+                {
+                    "text": "Não há diferença. São exatamente o mesmo status duplicado para compatibilidade retroativa de versões prévias do HTML HTTP 1.0 antigo velho inicial nativo web web rede local nativa web html browser parser.",
+                    "isCorrect": false,
+                    "explanation": "São completamente distintos e guiam como o app front end reage (401 envia pra tela de login redirecionar, 403 exibe modais sem acesso local alert permissões limitadas visual UI)."
+                },
+                {
+                    "text": "401 é quando o provedor Google Cloud falha a máquina K8S kubernetes cluster pods down; e o 403 falha quando Docker daemon cai o service interno rede virtual restrita restrição isolada rede rede limit base local isolamento namespaces local nativo limits limit resources hardware cpu limits memory limit pod eviction event error error.",
+                    "isCorrect": false,
+                    "explanation": "Esses seriam erros 502/503 Service Unavailable / Gateway erro, e não 4xx que são erros de CLIENTE e lógica permissão cliente originados dele erro restrito de payload context credentials auth user contexts business rules layer controller filter security contexts holder security chains."
+                }
+            ]
+        },
+        {
+            "id": "q-38",
+            "topic": "Status Codes",
+            "difficulty": "easy",
+            "text": "Ao completar positivamente e ativamente uma transação POST RESTful no backend inserindo os dados com sucesso criando uma NOVA Entidade local (Ex: Salvando o cliente novo no BD relacional local nativamente persistido e com ID AutoIncremented no fim da transação spring data nativa), qual Status Code correto oficial REST deve retornar o Rest Controller do projeto nas conformidades?",
+            "options": [
+                {
+                    "text": "201 Created.",
+                    "isCorrect": true,
+                    "explanation": "O 201 é explícito sobre o efeito colateral ser a GERAÇÃO e instanciação e persistência limpa e eficaz resoluta de UM NOVO RECURSO na base URI /cliente/{id_novo} da plataforma original de nuvem da empresa local."
+                },
+                {
+                    "text": "200 OK genérico puro e universal sem descrições adicionais locais contextuais de base retorno de semântica abstrata pragmática simplória.",
+                    "isCorrect": false,
+                    "explanation": "Embora 200 funcione (sucesso genérico), REST API Guidelines dizem que criações resultam elegantemente e estritamente no 201 Created local pattern best practices design api REST standards guidelines patterns HTTP verbs logic."
+                },
+                {
+                    "text": "301 Moved Permanently redirigindo o front page para home route page redirect proxy gateway ngrok rotas reverso proxy redirect engine local nativo root redirect flow loop local network HTTP header location header router frontend react router history push location event listener url web bar base browser update page base.",
+                    "isCorrect": false,
+                    "explanation": "301 é redirecionamento permanente SEO cache local url path update link mudou address, não é criação no BD de registro."
+                },
+                {
+                    "text": "500.",
+                    "isCorrect": false,
+                    "explanation": "Isso seria catastrófico erro de base log backend exception."
+                }
+            ]
+        },
+        {
+            "id": "q-39",
+            "topic": "Status Codes",
+            "difficulty": "hard",
+            "text": "Qual erro 5XX é classicamente ativado pelo Cloud API Gateway nativo ou balanceador NGINX/ALB ingress proxy local quando a aplicação backend java interna em que ele aponta travou completamente por estar sofrendo vazamento na memória restrita e demora infinitos 60 segundos tentando e falhando sem completar e enviar os bytes de resposta HTTP de base timeout limite excedido limite base configurado na policy network proxy limits tcp tempo excedido tempo de resposta timeout configurado time?",
+            "options": [
+                {
+                    "text": "504 Gateway Timeout.",
+                    "isCorrect": true,
+                    "explanation": "O Proxy Reverso Ingress é rápido e está saudável. Ele espera a resposta do backend pesado. O Backend demora, então o proxy se cansa do timeout threshold limit confg e solta o 504 no cliente frontend sem travar o usuário."
+                },
+                {
+                    "text": "500 Internal Server Error originado gerado emitido postado criado e enviado puramente puramente do gateway base local originador da rota original de base lógica proxy master controller reverse eng internet rotas BGP roteador virtual nativo.",
+                    "isCorrect": false,
+                    "explanation": "O gateway tenta traduzir as especificidades: 502 (Bad Gateway, tomou lixo e falhou rede no target), 503 (Target mortinho Service unavailability load balancer targets empty), 504 (Timeout, demora da porra local backend freeze cpu 100 limit deadlock java JVM base travada threads restritas blocadas blocked). O 500 é erro gerado no código falho do origin server backend e transmitido."
+                },
+                {
+                    "text": "400 Bad Request client bad JSON format string falha formatacao erro base payload incorreto falha cliente client culpa input err input form limit limit size input max upload exception filter local base validator exception.",
+                    "isCorrect": false,
+                    "explanation": "4XX são erros DO CLIENTE (mandou ruim). 5XX são erros do SERVIDOR / INFRA (quebrou no cano)."
+                },
+                {
+                    "text": "429 Too Many Requests limite de carga ddos limite de taxa de pacotes rate limiting security throttle throttled connections security limit max attempts ban blacklist ip ban rule firewall aws waf limit config limit base ip route ban limite base local request rate de entrada cliente user limit security security policy local route nativa waff limite base.",
+                    "isCorrect": false,
+                    "explanation": "429 não foca no timeout da demora interna do java em RAM. Foca no excesso quantitativo abusivo vindo do client em pouco tempo seguidos clicks floods."
+                }
+            ]
+        },
+        {
+            "id": "q-40",
+            "topic": "Status Codes",
+            "difficulty": "medium",
+            "text": "Se a requisição for um verbo DELETE em API Rest arquitetural local original base nativa local e você efetivamente apaga a entidade local nativa banco de forma indolor eficaz eficiente silêncio nativo local do backend sem que precise enviar o json dela como retorno pro front-end (um body response text vazio), que status você atrela em conjunto na resposta base de response entity customizada limpa semântica base core REST HTTP HTTP1.1 base nativo web design pattern rest best practices base?",
+            "options": [
+                {
+                    "text": "204 No Content.",
+                    "isCorrect": true,
+                    "explanation": "204 atesta sucesso positivo e pleno da operação mas explicita via cabeçalho limpo puramente que \\\"olha, não há corpo na resposta payload body content lenght 0 base, mas funcionou perfeitamente\\\". Utilizado demais em DELETE nativos elegantes limpos leves payload economy rede base rest API payload."
+                },
+                {
+                    "text": "202 Accepted. (Apenas aceitei sua proposta local e jogarei fila e foda-se vou processar depois no kafka asíncrono em batch jobs process event processor listener async listener base event local local memory batch batch base core nativo evento base fila asíncrona local mensagem base producer listener message bus broker).",
+                    "isCorrect": false,
+                    "explanation": "202 indica recebido mas incompleto status processing no futuro incerto. Não é 'deletado e fim'. 204 indica a finalização resoluta plena da operação rest."
+                },
+                {
+                    "text": "201 Created local base criacao.",
+                    "isCorrect": false,
+                    "explanation": "Deletar = destruir base e não criar objetos novos registros linhas records data base sql inserts."
+                },
+                {
+                    "text": "410 Gone (Recurso se evaporou localmente).",
+                    "isCorrect": false,
+                    "explanation": "410 avisa que a coisa se perdeu ou foi abandonada do mundo. O Delete atua como ação transacional direta limpa que responde o autor positivamente e com sucesso final."
+                }
+            ]
+        },
+        {
+            "id": "q-41",
+            "topic": "Infraestrutura / Protocolos",
+            "difficulty": "easy",
+            "text": "Qual protocolo base subjacente que garante que o HTTP chegue inteiro, na ordem certa, sem pedaços faltando na requisição pelo navegador ao servidor?",
+            "options": [
+                {
+                    "text": "TCP (Transmission Control Protocol), através de pacotes de garantias ativas checksum retry retransmissão de segmentos ordenados logicamente local tcp base network osi layer quatro nativo.",
+                    "isCorrect": true,
+                    "explanation": "HTTP senta e cavalga no topo sólido do TCP pra confiar cegamente que o corpo e JSON não serão truncados desordenados aleatórios embaralhados falhos na comunicação rede instável mundial web roteadores de internet hardware backbone."
+                },
+                {
+                    "text": "UDP (User Datagram Protocol) jogando os pedaços na rede e confiando cego rápido.",
+                    "isCorrect": false,
+                    "explanation": "UDP é rápido mas não confere integridade ordem (usado em gaming/video chamada fast streaming frame discard real time latency focus nativo, HTTP requer integridade arquivo 100% data focus nativo)."
+                },
+                {
+                    "text": "IPX SPX protocol novel netware token ring base old systems limit network local lan ring bus.",
+                    "isCorrect": false,
+                    "explanation": "Legado obscuro obsoleto pre TCP IP world wide web history protocols local net limits closed box proprietary history."
+                },
+                {
+                    "text": "RTP Real time protocol base streaming local.",
+                    "isCorrect": false,
+                    "explanation": "Restrito a voz e fluxos audiovisuais, não web pages requests json apis local."
+                }
+            ]
+        },
+        {
+            "id": "q-42",
+            "topic": "Infraestrutura / HTTP",
+            "difficulty": "medium",
+            "text": "O que ocorre no cabeçalho HTTP de uma requisição para resolver o problema estrutural do Cross-Origin Resource Sharing (CORS) bloqueando origens externas de frontend de acessarem a API local do backend diferente separada isolada porta domínios?",
+            "options": [
+                {
+                    "text": "O navegador emite uma pré-requisição super leve de método OPTIONS (pre-flight request) checando no backend os cabeçalhos 'Access-Control-Allow-Origin' pra ver se o backend (ex: Java em 8080) aceita conversas e acessos advindos da URL web (ex: Angular/React porta 3000 Front-end base public web web).",
+                    "isCorrect": true,
+                    "explanation": "CORS é policy de browser local segurança isolamento domínios web context. O Options verifica a paz entre as partes antes do browser atirar o POST carregado de dados confidenciais pesados locais JWT credentials senhas restrito local payload json body data request."
+                },
+                {
+                    "text": "Envia um ping ICPM físico no roteador da base e analisa resposta latência base.",
+                    "isCorrect": false,
+                    "explanation": "Isso é ping nativo cmd bash ip util, CORS atua nivel 7 HTTP application layer logical restrictions base headers."
+                },
+                {
+                    "text": "O Frontend instala plugins flash macromedia active X components drivers locais java applets sandboxes local base limit browser plugin extensions base code nativo browser local client restrito.",
+                    "isCorrect": false,
+                    "explanation": "Obsoleto. CORS é nativo base W3C HTTP modern browsers engine limit sandbox sec rules base."
+                },
+                {
+                    "text": "Substitui os tokens JWT ativamente apagando-os para forçar autenticação passiva cookie base local.",
+                    "isCorrect": false,
+                    "explanation": "Falso."
+                }
+            ]
+        },
+        {
+            "id": "q-43",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "Dentro do ecossistema Kafka local base nativo de clusters escalados gigantes robustos de microservicos orientados a evento em fluxo event sourcing arquiteturas CQRS, qual utilidade primordial pragmática da 'Dead Letter Queue' (DLQ) padrão (geralmente custom implementada nos frameworks como Spring Kafka Spring Cloud Stream e afins locais da rede)?",
+            "options": [
+                {
+                    "text": "Evitar o entupimento venenosos (Poison Pill). Quando o Consumer não consegue desserializar ou falha iterativamente vezes seguidas em erros de parse processamento lógico de negócios exception local restrito no evento recebido, ele descarta a mensagem suja enviando e isolando ela na fila da morte separada DLQ Topic secundário para auditorias e análise manual do dev SRE de sistemas admin local, liberando a fila original para o cluster prosseguir lendo eventos bons sadios da partição.",
+                    "isCorrect": true,
+                    "explanation": "Sem a DLQ o Kafka pararia (devido ao loop do retry local forever ou falha bloqueando offset avanços) e toda pipeline congelaria atrasando pagamentos clientes envios e fluxos críticos de processos event flows do core biz local. DLQ joga pra escanteio o problema."
+                },
+                {
+                    "text": "Guardar registros deletados de sistema (soft deletes lógicos nativos boolean false flags update queries base) para recuperação de HD interno cluster storage logs base files log base.",
+                    "isCorrect": false,
+                    "explanation": "DLQ lida com falhas em tempo de consumo stream falhas poison pills e exceções deserializator format errors base null pointer handler errors format string local, e não backups soft delete de app."
+                },
+                {
+                    "text": "Gerar estatística gráfica de UI base nativa log metrics time series de forma asincrona em background limit grafana prometheus exporter endpoint local kafka exporter metrics endpoint base.",
+                    "isCorrect": false,
+                    "explanation": "DLQ guarda a própria mensagems falha em bytes raw json originais puros text bytes para replay futuro, não gera grafico nem atua metricas time series base UI ux."
+                },
+                {
+                    "text": "Armazenar mensagens em standby ativamente esperando transações globais abertas COMMIT ou ROLLBACK 2PC two phase commits XA specs protocolos bancos distribuídos limites restritos bases lógicas distribuídas core sys base.",
+                    "isCorrect": false,
+                    "explanation": "Isto são logs transacionais coordenadores, DLQ é pra error bypass isolation e error handler retries exhausted handler limit reached local base stream framework layer."
+                }
+            ]
+        },
+        {
+            "id": "q-44",
+            "topic": "Kafka",
+            "difficulty": "hard",
+            "text": "O recurso nativo do Kafka conhecido como 'Idempotent Producer' (enable.idempotence=true) nativo da API garante qual benefício matemático exato essencial às transações em sistemas como bancos e faturamentos ao enviar requisições na rede TCP instável?",
+            "options": [
+                {
+                    "text": "Atua sob a capa nativa provendo Sequence Numbers da origem no produtor local e identificação para evitar Duplicidade. Se o ACK der timeout, e o producer reenviar via retry, o Broker já tem o hash número em memória e não adiciona e grava 2 vezes silenciosamente a grana no log principal de bytes do servidor append log limit.",
+                    "isCorrect": true,
+                    "explanation": "Exatamente-uma-vez (Exactly Once semantics) inicia nesse passo. Retries automáticos duplicariam notas fiscais e pagamentos na falha de rede ACK. O broker rastreia a sequência do producer e rejeita o duplo post silenciosamente."
+                },
+                {
+                    "text": "Criptografa localmente por hardware cpu e AES GCM chaves locais criptográficas o buffer e a serialização do pacote.",
+                    "isCorrect": false,
+                    "explanation": "TLS criptografa rede, e cripto payload exige libs do app, idempotence cuida de duplicata rede tcp retries."
+                },
+                {
+                    "text": "Deleta metadados Zookeeper znode antigos para limpar logs de leader leader epoch cache local memoria cluster limits garbage zookeeper old znodes restritos limits size limits file nodes base limit clean memory clean sweeps base.",
+                    "isCorrect": false,
+                    "explanation": "Isto não faz sentido, não afeta brokers coordination cluster state logic base znodes epochs versions watchers local base znode base sys."
+                },
+                {
+                    "text": "Comprime via Snappy GZIP no kernel tcp nativo antes da JVM alocar heap max memoria string pool builder char array string buffers locals restritos.",
+                    "isCorrect": false,
+                    "explanation": "Este é o recurso compression.type. Idempotência foca falha duplicada."
+                }
+            ]
+        },
+        {
+            "id": "q-45",
+            "topic": "Docker",
+            "difficulty": "medium",
+            "text": "A diretiva .dockerignore é amplamente recomendada por guias de boas práticas e experts de devops container pipelines ao redor do mundo do mercado de TI local web base tech. O que ocorre negativamente se não usarmos e omitirmos e esquecermos dela no build do Dockerfile root na raiz da app Java/Node gigante do pc host desenvolvedor?",
+            "options": [
+                {
+                    "text": "No comando `docker build .`, o Docker CLI copia e engole desesperadamente a pasta inteira local do disco host para a memória do Daemon Contexto limit context base (Context Build). Gigabytes inúteis locais temporários como `node_modules`, pastas IDE `.idea` e `.git` enormes de anos e `target/` vão todos inflar o build local atrasando horrores em minutos de IO limit read disk limit throughput limite base do host process kernel delay limit tempo.",
+                    "isCorrect": true,
+                    "explanation": "A instrução `COPY . .` carrega tudo que está no build context. O dockerignore blinda pastas inúteis pesadas que o host usa, focando apenas no src código bruto pro docker buildar levemente."
+                },
+                {
+                    "text": "Permitiria que IPs externos acessassem livremente as pastas internas abertas base shell limits web restritas proxy config apache ngix routes open source limits base roteador virtual dns limit access block firewall nativo limites limits.",
+                    "isCorrect": false,
+                    "explanation": "Não afeta portas. dockerignore otimiza unicamente build context size footprint."
+                },
+                {
+                    "text": "Bloqueia o sistema operacional hospedeiro nativo Windows MacOS Linux Ubuntu Debian base system core limits kernel driver acesso local limits memory leak virtual limits local hardware limits base cpu local.",
+                    "isCorrect": false,
+                    "explanation": "O contexto docker daemon opera a nível local arquivo io context build root path, dockerignore apenas lista excluidos regex path exclude limits file ignore copy layer layer base."
+                },
+                {
+                    "text": "Faz a VM K8s cair o pod memory limits overflow exception erro restrito erro erro falha memory OOM killer daemon kills base limits pod limite.",
+                    "isCorrect": false,
+                    "explanation": "Runtime OOM Kills afeta Kubernetes Pods por gasto mem app, dockerignore ajuda estritamente o empacotador de imagem em build time pipeline local runner tools local limits pipeline execution build."
+                }
+            ]
+        },
+        {
+            "id": "q-46",
+            "topic": "Docker",
+            "difficulty": "medium",
+            "text": "Qual a grande diferença substancial sintática técnica e prática nativa sutil entre a instrução ADD e a instrução COPY que movem arquivos no seu amado build de Dockerfiles?",
+            "options": [
+                {
+                    "text": "Ambas puxam arquivos locais pro container em build da camada layer overlay. Contudo, o `ADD` tem super poderes complexos e pode extrair nativamente automágico arquivos tarball zip tar.gz `.tar.gz` para dentro espalhando o conteúdo limpo além de baixar e buscar via requisição wget arquivos via URL da web remota rede externa diretamente in line nativo build command param arg options limit.",
+                    "isCorrect": true,
+                    "explanation": "A regra de ouro de Docker guidelines diz: Use COPY para operações rotineiras previsíveis limpas simples seguras, e deixe o ADD ativamente isolado para uso apenas quando requerer o feature de auto-descompactação mágica de tarballs locais root."
+                },
+                {
+                    "text": "ADD é comando restrito e rodado apenas do lado de fora do bash cli daemon host command limit terminal shell linux, e COPY opera estritamente nas entranhas da máquina container OS filesystem mount limits read only overlay layer image sys root overlay limit cgroup file local namespace chroot pivot chroot base sys.",
+                    "isCorrect": false,
+                    "explanation": "Ambas habitam o dockerfile syntax specs limits commands parse tokens list limit config base layer creation build sequence list."
+                },
+                {
+                    "text": "COPY deleta os arquivos base no root local, movendo nativamente (CUT paste logic sys limit mv command bash mv limit). ADD apenas replica (COPY CP command bash limits).",
+                    "isCorrect": false,
+                    "explanation": "Nenhum comando dockerfile altera o sistema original do desenvolvedor deletando os repositórios dele git dele limit base IDE files host base local mac linux windows limits dev limits host local machine."
+                },
+                {
+                    "text": "Não há diferença técnica, COPY é o alias semântico purista criado no docker v2 pra compatibilidade legacy limit bash script old docker 1.0 limits limits versions base legacy base.",
+                    "isCorrect": false,
+                    "explanation": "Eles se diferem ativamente pelo magic auto tarball extract web pull power support nativo."
+                }
+            ]
+        },
+        {
+            "id": "q-47",
+            "topic": "Docker",
+            "difficulty": "hard",
+            "text": "Como o comando `docker run -d -p 80:80 myapp` trabalha o roteamento subjacente dentro do SO Linux Host (Máquina base do servidor) local para possibilitar o tráfego da rede principal da porta entrar de forma roteada nativa no container isolado namespace restrito do app web?",
+            "options": [
+                {
+                    "text": "O Docker Daemon injeta e adiciona regras ativas de NAT (Network Address Translation) na tabela purista do `iptables` do firewall nativo nativo do Linux do Host da máquina servidora roteando o fluxo mágico.",
+                    "isCorrect": true,
+                    "explanation": "O segredo do Docker não é magia, é manipular as primitivas do Kernel Linux e as firewalls locais como Iptables/Netfilter roteando a porta Host Port Forward transparente."
+                },
+                {
+                    "text": "Ele ativa um cabo cruzado virtual físico na interface PCI express do hypervisor rodando Vmware ESXi emulação driver restrito firmware layer nativa assembly hardware limit base chipset config bios sys pci route.",
+                    "isCorrect": false,
+                    "explanation": "Não é hipervisor VM, e sim namespaces iptables linux firewall user land daemon rules."
+                },
+                {
+                    "text": "Baixa pacotes binários NGINX de proxy cloud proxy limits proxy aws load balancer local nativo cloud api call sys base proxy roteador cisco virtual switch limits route route route tables base route limit BGP routing local limit.",
+                    "isCorrect": false,
+                    "explanation": "O proxy -p usa as defesas padrões e tools já no SO cru (iptables)."
+                },
+                {
+                    "text": "Acorda e inicia manualmente Threads virtuais threads Java Project Loom limits virtual CPU core allocation nativo local hyper threading OS driver base sys call sys limit OS API linux syscall driver driver limits base process list PID route process bash limit sh shell sh c system call base.",
+                    "isCorrect": false,
+                    "explanation": "Falso. Port forward no docker lida com rede e rotas firewalls."
+                }
+            ]
+        },
+        {
+            "id": "q-48",
+            "topic": "Kubernetes",
+            "difficulty": "easy",
+            "text": "O componente Kubectl do desenvolvedor e o painel Dashboard base web admin se comunicam nativamente estritamente REST chamadas locais cloud com qual grande cérebro central restrito componente componente mestre master control plane Kubernetes cluster manager node api local base system?",
+            "options": [
+                {
+                    "text": "Kube-API-Server (O API Server REST).",
+                    "isCorrect": true,
+                    "explanation": "Ele é o porteiro, recepcionista e cérebro centralizador. Todo e qualquer comando (kubectl get pods) acerta a API RESTful dele e ele gerencia autenticação e distribui."
+                },
+                {
+                    "text": "Kube-Scheduler.",
+                    "isCorrect": false,
+                    "explanation": "O Scheduler foca em observar de canto quem precisa de CPU e RAM livre e encaixa PODS na Tetris board, ele se comunica com o API Server e não escuta tráfego de kubectl cli admin dev direto externo."
+                },
+                {
+                    "text": "O DaemonKube Docker Daemon containerD engine cri crio podman limite limite api base sock limits unix socket linux syscall unix file lock limits unix sys limit pipe ipc ipc sys calls.",
+                    "isCorrect": false,
+                    "explanation": "As CLIs dos clientes DevOps falam no Kube-API-server."
+                },
+                {
+                    "text": "Ao Prometheus Metric Grafana Dash central restrita isolada limite limit base web view painel metric server limit api time series db base influx sql tsdb time series.",
+                    "isCorrect": false,
+                    "explanation": "O kubectl talks to api server k8s kubernetes api."
+                }
+            ]
+        },
+        {
+            "id": "q-49",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Qual a forma ideal na cultura Cloud Native K8S manifests para você passar variáveis sensíveis flexíveis do ambiente base do seu projeto (Como a URL do banco HOST_DB ou o NOME_AMBIENTE=PROD prod dev limits env variaveis local java system properties envs variables) pro código java capturar em runtime nativo application run context base bean spring profile?",
+            "options": [
+                {
+                    "text": "Usa-se o injetor objeto K8s nativo chamado ConfigMap, referenciando-o injetado na forma elegante e mapeada dentro do arquivo de Deployment.yaml YAML em blocos de env: configMapKeyRef ou montando ele virtual como arquivo arquivo virtual volume host volume nativo read only file json yaml property sys path bind limit namespace limits environment limits base configs.",
+                    "isCorrect": true,
+                    "explanation": "Aplica 12-Factor App methodology separando config do source code. ConfigMaps injetam variáveis de ambiente limpas em pods sem precisar recompilar imagem jar zip binário OCI build local bash commit image layer."
+                },
+                {
+                    "text": "Modifica o arquivo Application.properties ativamente durante runtime do servidor linux container acessando o terminal pod kubectl exec -it limits vi nano edições text limits file update restart local container bash limit root hack bypass root limits.",
+                    "isCorrect": false,
+                    "explanation": "Containers são imutáveis e efêmeros, exec e nano é anti-pattern e você perde em restart evicção de nó k8s scheduler."
+                },
+                {
+                    "text": "Gera um pull no GitHub Actions workflow action step local limit e compila uma V3 V4 V5 do Dockerfile hardcoded limits local base ENV HOST_DB=hardcode em cada pull request commit main commit base limits git flow base flow limits branches merge request config.",
+                    "isCorrect": false,
+                    "explanation": "Isso força re-build e vaza no docker history. Configurações transitam e mutam externamente no orchestrador K8s deploy e não no build empacotamento fechado binário lacrado hermético OCI spec."
+                },
+                {
+                    "text": "Puxa via comandos de banco sql puro direto de uma API master de tabelas globais no MongoDB cloud instance base limits atlas db no init code limits runtime.",
+                    "isCorrect": false,
+                    "explanation": "Ainda precisaria de um login inicial do BD base, que exige passar como parâmetro. O ConfigMap resolve o ovo ou galinha local injetando environment variables base posix standard sys limits bash process child limits runtime local limit core properties."
+                }
+            ]
+        },
+        {
+            "id": "q-50",
+            "topic": "Infraestrutura / Protocolos",
+            "difficulty": "medium",
+            "text": "Em HTTP/2 moderno habilitado nativo nas arquiteturas de proxy Ingress nginx gRPC microservicos base cloud proxy tcp limit roteadores web cloudflare WAF limit performance, qual recurso central revoluciona os gargalos latentes do HTTP/1.1 puro local antigo quebra-galho?",
+            "options": [
+                {
+                    "text": "O Multiplexing Bidirecional binário paralelo das streams sobre UMA única base TCP de Conexão nativa restrita limite conexões tcp handshake. Permite que múltiplos arquivos json imagens assíncronas viagem na mesma faixa única de rodovia da rede sem Head-Of-Line blocking bloqueio espera nativo HTTP1 limite conexoes abertas base tcp limite local limits port port limits sys kernel tcp buffer max open socket max sys port limit max.",
+                    "isCorrect": true,
+                    "explanation": "Antes o navegador abria 6 conecções pesadas. O HTTP/2 cria uma estrada binária e atira os carros e caminhões paralelamente misturados e monta do outro lado sem sofrimento."
+                },
+                {
+                    "text": "A tradução do JSON para XML nativa base no hardware de conversões de firewall WAF proxy API gtw hardware base aws nativo cisco limits proxy gateway proxy route xml limits format parsers base string base.",
+                    "isCorrect": false,
+                    "explanation": "O protocolo atua no transporte rede formato frame OSI binário multiplex streaming. E não em formatação payload application."
+                },
+                {
+                    "text": "A supressão do TLS SSL criptografia forçada desativando ativamente limites SSL handshakes para trafegar aberto e 10x mais veloz.",
+                    "isCorrect": false,
+                    "explanation": "Muito pelo contrário, HTTP/2 no mercado exige TLS 1.2+ mandatório rígido (h2 over tls) para funcionar em navegadores majoritários mainstream global W3C IETF specs RFC base RFC specs originais base standards limites restritos rules."
+                },
+                {
+                    "text": "Remove completamente REST e baseia em GraphQL SOAP xml limits limit SOAP WSDL RPC purista fechado nativo local schemas rígidos fortes WCF windows foundation limits C# limites limits net limits restritos base core restritos base de roteamentos lógicos abstratos web methods calls api spec local.",
+                    "isCorrect": false,
+                    "explanation": "Não confunda padrão de API (GraphQL Rest SOAP) com protocolo de transporte web bytes internet rede TCP layer HTTP."
+                }
+            ]
+        },
+        {
+            "id": "q-51",
+            "topic": "Docker",
+            "difficulty": "hard",
+            "text": "Como o comando `docker system prune` age salvando os SRE e engenheiros backend quando os discos cloud ficam vermelhos de OOM e Disco Cheio no limit max inodes max storage EBS aws linux root file space 100% full capacity sys alert page limit error break limits?",
+            "options": [
+                {
+                    "text": "Ele funciona como o lixeiro geral automático agressivo do daemon (Garbage Collector manual) varrendo ativamente todos os Containers parados (exited status), redes bridge não atreladas a nada puras soltas, Imagens suspensas soltas dangled untagged sem referências e caches pesados de builds antigos estáticos abandonados recuperando os GBs HD espaço nativo livre linux ext4 zfs local file limits core linux shell free sys command base info free.",
+                    "isCorrect": true,
+                    "explanation": "A limpeza remove o lixo oculto do cache que lota o HD ao longo das dezenas de builds de pipeline e pipelines runners que enchem a máquina host local."
+                },
+                {
+                    "text": "Ele zera imediatamente 100% do cluster do Docker Swarm matando nodes hosts servidores remotos ssh command remote ssh local network base e formata format c format dev sda1 format disk linux limit bash disk partition reset.",
+                    "isCorrect": false,
+                    "explanation": "O Docker prune não atua em deleção de hosts e formatação rígida OS level kernel blocks filesystem wipe file limits bash."
+                },
+                {
+                    "text": "Ele limpa APENAS o buffer RAM limite top buffer top limits htop linux memory free memory drop caches drop pages linux memory tuning config sysctl kernel tuning limit memory buffers linux swap swap limits local nativo limits process PID drop nativo limites bash command kill -9 processes pids.",
+                    "isCorrect": false,
+                    "explanation": "Ele foca em objetos persistentes em HD da abstração daemon do docker (arquivos em /var/lib/docker) e não memória sys ram free e swap clear tuning OS level pages caching mem cache os base native linux root tuning command clear echo drop cache sys command."
+                },
+                {
+                    "text": "Apaga puramente todos os volumes persitentes do postgres e mysql rodando pra desbugar corrupções no bd limits sql data drop tables cascade data loss sys limits data loss drop schema delete files bd files var mysql limits db local drop base volume files linux limit file IO data block corrupt exception fsck disk checking file system error local fix tools chkdsk limits limit bash disk limits errors local check.",
+                    "isCorrect": false,
+                    "explanation": "Ele PROTEGE volumes (a menos que voce use a flag agressiva extra --volumes) porque os engenheiros da ferramenta sabem que lá fica o ouro da empresa (os bancos de dados persistidos). O Prune foca no efêmero descartável cache lixo."
+                }
+            ]
+        },
+        {
+            "id": "q-52",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "No fluxo complexo do Kubernetes Network Policies nativas locais cluster networking base firewalls IP table nativo, qual afirmativa dita a premissa de acesso entre Pods no cenário virgem e padrão sem edições iniciais de um cluster recém subido limpo cloud padrão base infra vanilla k8s limits default default behaviour?",
+            "options": [
+                {
+                    "text": "Por padrão limpo virgem de fábrica default, TODOS os Pods de todos os Namespaces dentro da plataforma global do Cluster conversam e podem se conectar entre si de forma LIVRE aberta e não restritiva TCP/UDP IP livre roteamento CNI mesh ping aberto.",
+                    "isCorrect": true,
+                    "explanation": "Tudo é liberado. Até que você escreva o primeiro arquivo YAML yaml k8s de 'NetworkPolicy' bloqueando algo, qualquer pod A bate no pod B mesmo que no namespace de Dev para Prod (o que é um perigo de segurança e requer a implementação do Zero-trust CNI calico cilium policies default deny ingress egress flow controls limit network base mesh microsegmentation network limits base root)."
+                },
+                {
+                    "text": "Pods de um namespace DEV estão isolados ativamente e magicamente dos Pods no namespace PROD fisicamente em roteamentos iptables firewalls bloqueios de gateway bloqueios dns drop de tráfego base nativos limpos padrão drop tcp limits.",
+                    "isCorrect": false,
+                    "explanation": "O isolation default do K8s é lógico em Namespaces mas de REDE ele é plano e universal aberto. Precisa de NetworkPolicies pra criar muros iptables Calico cilium limit isolations strict firewall rules in k8s."
+                },
+                {
+                    "text": "Pods de front ends não acessam porta alguma por padrão, só nodes worker hosts conversam tcp linux base iptables limit default drop chain nativos linux ufw limit host fw base limits host firewall.",
+                    "isCorrect": false,
+                    "explanation": "O conceito fundamental que a especificação K8s exige do plugin de rede (CNI) é: \"Todo Pod fala com todo Pod sem NAT cruzado no setup inicial\"."
+                },
+                {
+                    "text": "K8S desativa DHCP ping limits dns icmp nativo bloqueio mac level limits arp spoof lock dns lockdown security limits network base nativa base restrição nativa default base kubernetes network design core principles kubernetes limits default route limits.",
+                    "isCorrect": false,
+                    "explanation": "A malha default base nativa CNI K8S é livre de base roteamento ping."
+                }
+            ]
+        },
+        {
+            "id": "q-53",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Em qual cenário e tipo de abstração a criação estrita do objeto Kubernetes Storage Class (Classe de armazenamento) SC base pvc storage provisioner provê automação gigante reduzindo o cansaço dos SRE's e Ops infra teams?",
+            "options": [
+                {
+                    "text": "Provisionamento Dinâmico nativo em clouds. Quando o app dev pede em um arquivo YAML um pedaço de disco e espaço 10GB de SSD (`PersistentVolumeClaim`), a SC orquestra junto ao provedor da nuvem externa ativamente em API da cloud ligando o motor e criando o disco EBS da amazon (o `PersistentVolume`) ativamente lá e associando sozinho plugando automaticamente no Kube.",
+                    "isCorrect": true,
+                    "explanation": "Antes a galera tinha que criar o disco manual lá no painel azul da aws EBS, voltar no cluster, atachar manual. A StorageClass faz essa chamada externa mágica sob demanda de forma declarativa e invisível simplificando escaladas massivas stateful clusters bases sys storage blocks network disk volumes."
+                },
+                {
+                    "text": "Ajuste e otimização nativos automáticos de CPU e Memoria RAM limits limites request e limit JVM memory swap drop caches linux memory nativo.",
+                    "isCorrect": false,
+                    "explanation": "Isso é LimitRanges, ResourceQuotas ou Vertical Pod Autoscaler (VPA) limit sys resource controllers e não storage block disc volume controllers provisioners limits EBS disks efs disks cloud native storage limits."
+                },
+                {
+                    "text": "Roteamento sofisticado e roteamento TCP de requisições de carga balancer externo cloud API internet load balancer HTTP proxy reverso limits host nativos gateway limit roteamento base routing routes.",
+                    "isCorrect": false,
+                    "explanation": "Isto são Ingresses e Services type LoadBalancer controlando network flow limit. E não storage disk EBS volume control flow classes."
+                },
+                {
+                    "text": "Deploy ativo automagico do Git Push Jenkins CI CD argoCD limits nativos de build em clusters locais pipeline base actions runner actions nativas restritas pipelines de build steps runner K8S limits nativo.",
+                    "isCorrect": false,
+                    "explanation": "StorageClass gerencia discos rígidos e IO block volumes, não lida com Gitops CI CD pipelines."
+                }
+            ]
+        },
+        {
+            "id": "q-54",
+            "topic": "Status Codes / Protocolos",
+            "difficulty": "hard",
+            "text": "O Status HTTP 304 Not Modified é fundamental para economia de banda em servidores de frontend e API REST gigantes ativas com CDN caching nativo local redis base limit internet limit edge aws edge limits edge cache cloud front WAF proxy caching limits. O que ele informa de fato subjacente e silencioso pragmático pro seu navegador web client base mobile nativo app react local?",
+            "options": [
+                {
+                    "text": "Você Client navegador pergunta: 'O servidor backend mudou aquele arquivo JSON gigante desde minha última visita (usando os cabeçalhos ETag ou If-Modified-Since)?'. O servidor avisa rápido: 304, 'Olha, nada mudou não, usa a sua cópia que tá salva aí no cache da sua memória do PC local mesmo e foda-se vou poupar a rede, não vou enviar os 10 megabytes denovo atoa body payload vazio payload vazio!'.",
+                    "isCorrect": true,
+                    "explanation": "O 304 responde sem o corpo da mensagem. É um sinal de 'use o que você já tem'. Isso destrava o React/Angular renderizações na web super rápidas puxando assets imensos dos discos locais dos clientes sem consumir megas e rede cara dos provedores AWS transfer costs limits data egress charges limites financeiros cloud bills fatura internet limit."
+                },
+                {
+                    "text": "304 Redireciona o pacote HTTP temporariamente de 1 em 1 dia para balancear limites de CPU do NGINX nativo apache load balancer local gateway nativo base web.",
+                    "isCorrect": false,
+                    "explanation": "Redirecionamento temporário na família 3xx é o código 302 Found/307 Temporary Redirect limits router base url update base redirecionamento de navegação redirect url base. 304 não navega, apenas confere validade caching de arquivo."
+                },
+                {
+                    "text": "Afirma estritamente ativamente positivamente que o usuário não pode modificar aquele registro com PUT PATCH no banco local error base DB local error transação abort rollback jdbc limit lock local nativo table row limit.",
+                    "isCorrect": false,
+                    "explanation": "Esses erros seriam bloqueios de regras lógicas de negócios transacionais devolvidas via códigos REST de erro tipo 403 / 409 Conflict / 422 Unprocessable Entity limites restritos validações validators base validation framework limit erro de banco erro negocio erro client base lógica negócio limit exceptions errors response entity errors limit."
+                },
+                {
+                    "text": "Erro fatal restrito do DNS roteamento roteador route table limite ip limits base route lock error network interface failure local nativo roteador proxy error limit.",
+                    "isCorrect": false,
+                    "explanation": "Totalmente incoerente a specs HTTP limits."
+                }
+            ]
+        },
+        {
+            "id": "q-55",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "Qual o papel essencial das estruturas 'ZooKeeper' e 'KRaft' numa plataforma e rede inteira gigante complexa distribuída do Apache Kafka broker stream base event limit log engine nativo big data streaming engine local data lakes pipelines data flow limits message limits bus?",
+            "options": [
+                {
+                    "text": "São sistemas puramente responsáveis por orquestrar e memorizar como a rede cérebro opera (Consenso): Eles armazenam quem são os brokers Kafka que estão vivos pulsando coração, onde estão e quem são os verdadeiros 'Líderes' das partições espalhadas distribuídas e qual é o estado de configurações em um log coordenado Raft Paxos base.",
+                    "isCorrect": true,
+                    "explanation": "O Kafka é um monte de trabalhadores mudos. Eles precisam de um coordenador (Zookeeper antigamente, KRaft modernamente embutido) pra definir quem manda na partição 5 e onde ela fisicamente mora pra rede não desmoronar em inconsistências de estado no caso de quedas aleatórias cabos e fogo em hardware de data centers."
+                },
+                {
+                    "text": "Forçam a compressão dos payloads em binários compactos leves snappy gzip limits network tcp nativo socket limite limits network limites bytes message chunk buffer tcp limits socket buffers network optimizations limits base limit bytes de pacotes rede pacotes puros limits base local limits.",
+                    "isCorrect": false,
+                    "explanation": "Quem comprime é o Produtor antes de enviar no driver bash sdk library spring boot kafka limits e o broker só arquiva bruto as is."
+                },
+                {
+                    "text": "Traduz os bancos de dados DB2 DB oracle legados nativos e converte as tabelas ativamente lógicas convertendo os tipos int string var char em tópicos e keys nativas mágicas conectores base Debezium connector local CDC data capture limit log events stream CDC magic converter engine.",
+                    "isCorrect": false,
+                    "explanation": "Isso descreve o Kafka Connect (Connectors de source data sync e CDC). Zookeeper lida com state do cluster e metadados admin controle coordenação controller base brokers estado clusters base election."
+                },
+                {
+                    "text": "Painel Visual em React JS admin nativo front end portal interface gráfica local base visual kafka drop view topic control dashboard base react material ui dashboard console base.",
+                    "isCorrect": false,
+                    "explanation": "Zookeeper/KRAFT não são UI front ends (AKHQ, Kafka UI provêem isso), são os cérebros motores core C e Java purista rodando distribuído logs tcp daemon base silent workers processes."
+                }
+            ]
+        },
+        {
+            "id": "q-56",
+            "topic": "Docker",
+            "difficulty": "easy",
+            "text": "Quando construímos e enviamos as amadas imagens de contêineres e projetos locais finalizadas usando o comando local `docker push`, para onde exatamente de fato material esses pesados pacotes binários estão viajando para serem guardados de forma segura distribuída internet?",
+            "options": [
+                {
+                    "text": "Para um Registry Docker (Docker Hub, Amazon ECR Elastic Container Registry AWS cloud GCP Google cloud registry Nexus Harbor etc) atuando puramente qual um 'GitHub' gigantesco para as imagens lacradas das aplicações binárias compiladas da sua empresa.",
+                    "isCorrect": true,
+                    "explanation": "Os registries guardam os arquivos e servem downloads `docker pull` rápidos aos servidores de K8S ou instancias na nuvem e maquinas ec2 docker run pulls deploy na ponta das pipelines da cloud web public restrita local rede base cloud native registry host limit."
+                },
+                {
+                    "text": "Direto e reto puro para a CPU principal local hardware do computador cluster virtual kubernetes engine deploy imediato execute limit runner executor limit docker daemon base.",
+                    "isCorrect": false,
+                    "explanation": "Ele não empurra pra a máquina que executa ativo. Ele arquiva num estante cofre e dps a máquina puxa quando for criar o pod deployment."
+                },
+                {
+                    "text": "A Amazon EC2 instancia criadora lambda functions bash nativa host linux cloud instance vm máquina limpa EC2 base aws machine image limit ami nativa local root limit bash limit OS limit AWS aws services core.",
+                    "isCorrect": false,
+                    "explanation": "A máquina não roda diretamente no push registry, e docker usa registry registries específicos e não instancias raw ec2 puras puros arquivos iso vmdk vdi linux os local."
+                },
+                {
+                    "text": "A um repositório clássico de texto purista fonte source code manager bitbucket github limit code base local text limits text files limit file sync git version controls limit text control history limit logs de edições branch manager merges pull requests PR reviews git ops.",
+                    "isCorrect": false,
+                    "explanation": "Git lida com texto (.java, dockerfile source yaml). Registry de docker foca no artefato tarball binário bin layers limits root fs image file archives tar tar.gz compress images limit binary."
+                }
+            ]
+        },
+        {
+            "id": "q-57",
+            "topic": "Status Codes",
+            "difficulty": "medium",
+            "text": "Seu frontend web acusa um estranho e obscuro status genérico falho no login local JWT base nativo: `400 Bad Request` retornado pela nova API do Spring Boot. Analisando as semânticas oficias da RFC HTTP web standards protocol limits base local W3C IETF, quem de fato fez merda em 99% das vezes para a ocorrência da falha?",
+            "options": [
+                {
+                    "text": "O Client (Seu código Javascript React Frontend / ou o dev montando a payload do Postman). Você certamente enviou a ele e jogou pro backend um JSON quebrado (uma vírgula sobrando, aspas vazando json limits sintaxe de conversão parse string errors exception, ou um campo String enviado num lugar que o Java e banco esperavam Integer number data limits validations nativos Jackson exceptions limit). O Java rejeitou a lixeira e abortou limit validation format exception throw limit validation base framework response local handle exceptions validation limit handle error global custom limits exception controller advice advice errors base local response entity payload local body validation body error list validation messages errors base format format exception limits limits local format JSON format errors string conversion type map limits type exceptions local limit base map limit base JSON parser limits exceptions Jackson mapping validation error list list of exceptions format validation formats rules annotations constraint violation format rule local validation api local limits JSON exception limit exceptions limit JSON limits base errors validation format.).",
+                    "isCorrect": true,
+                    "explanation": "O grupo 4XX grita sempre e puramente: 'Culpa do Cliente web requester frontend ou client API server requisitante que formou a request burramente local limit formatação errada URL sintaxe errada ou limites restritos faltando header headers params params limits body body limits format type wrong type exception validations constraints limit exception base error handle limit spring framework native handle validations base limit'."
+                },
+                {
+                    "text": "O Banco de Dados RDS local MySQL AWS Aurora instanciado cluster postgres master node limits timeout sql limites tcp nativo sql driver limites base nativo conexao timeout socket drop timeout limite sql base limit lock local deadlock exception base local exception lock exception transação lock thread locked local transação exception timeout lock row limit timeout error base exceptions limit lock base JDBC limites local limit errors framework errors exception rollback limits base exception limits local base error SQL limit limit errors errors exceptions base errors.",
+                    "isCorrect": false,
+                    "explanation": "Erros no lado banco gerariam um 500 no lado controller se não tratado elegantemente ou retornos HTTP lógicos tratáveis, 400 bad request é malformação explícita originária do payload inicial mal formatado semântica form limits json format errors headers limits url parser string errors regex constraints."
+                },
+                {
+                    "text": "Os roteadores da AWS Amazon Internet VPC limit base WAF Web application firewall rate limit rules base DOS anti ddos guard rules limite cloudflare ddos proteção limites WAF exceptions limit exception bloqueio route drop base network drop tcp limits tcp drop limit tcp local limits nativa drop base tcp local reset flag network limit block route base drop proxy limit limit.",
+                    "isCorrect": false,
+                    "explanation": "Erros de proxy geram 50X ou bloqueios de firewall cospem 403 HTTP custom errors waf blocks nativos HTML blocks captchas cloudflare. 400 Bad request é a aplicação originária cuspindo pra fora."
+                },
+                {
+                    "text": "A aplicação mobile sofre de lentidão processador hardware limit limit ram mobile processamento ui limits ux process local threads android thread UI thread limit bloqueio async limits main thread block mobile os exceptions limit java crash local limite local device limit mobile os device limits local limit crash app exception limit local app.",
+                    "isCorrect": false,
+                    "explanation": "Apesar do frontend errar na sintaxe a lentidao n gera bad request de parse JSON jackson parser exception string errors types validations exception rules validation exceptions type constraint."
+                }
+            ]
+        },
+        {
+            "id": "q-58",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "O que ocorre fisicamente materialmente e logicamente quando se atualiza o 'ConfigMap' do Kubernetes já existindo N replicas velhas antigas de 'Pods' ativos rodando vivos nativos e operando felizes da vida desde a semana passada lendo aquelas variáveis de ambiente locais env vars bash limtas memory limits configs environment vars OS envs linux limits?",
+            "options": [
+                {
+                    "text": "Eles não são reiniciados sozinhos automagicamente pelo cluster e ficam estáticos com a variavel e valor antigos nativamente no env process memory isolado local na memória antiga original injetada no primeiro start boot bash. Você SRE dev admin que tem que forçar a reinicialização dos workers (rollout restart dos deployments manual) pra eles subirem ativamente relendo a key map config nova fresca nova no cluster do zero limpo e reprocessando env vars context application base.",
+                    "isCorrect": true,
+                    "explanation": "Ao alterar secrets ou Configmaps a k8s engine api nao mata ninguem de forma nativa padrão e as env vars nos linux kernel processos rodando ficam atadas a hora que ligaram o motor. Um restart de rollout deployment forceja a re-criação atualizada dos corpos computacionais novos Pods limpos."
+                },
+                {
+                    "text": "O Master Node atira ativamente em tempo real e re-inicia o Bash Linux das maquinas ativamente e edita o `/etc/environment` forçando as java apps Spring Boot a usarem Hot Swap memory classes reloads reloads ativamente e instantâneo live in line sem travamentos paradas restart base boot start OS context limits local memory java heap context env map reload sys properties OS properties reload spring boot actuators live reload property configs context map OS limit configs base local.",
+                    "isCorrect": false,
+                    "explanation": "Não há automagica Hot Swap nativa de container linux process env em kubernetes Kubelet limit update configs API base local api server object edits nativas k8s. As imagens OCI são imutaveis base env var memory bind linux namespaces cgroup isolated processes limit."
+                },
+                {
+                    "text": "A Nuvem AWS destroí o ec2 EBS e gera maquina limpa nova aws EC2 limit AMI config userdata limit ec2 boot scripts cloud init config cloud init boot bash ubuntu init ec2 host limit.",
+                    "isCorrect": false,
+                    "explanation": "O Configmap atua em camada kubernetes pod local e não em nuvem host virtual machine root AMI init."
+                },
+                {
+                    "text": "Dá crash imediato loop OOM Crash Loop Back off exception status pod crash fatal error system exit 1 abort process limit bash error pod restart event OOM killer nativo limits error.",
+                    "isCorrect": false,
+                    "explanation": "Ele simplesmente ignora e segue rodando saudável mas desatualizado no config. Não gera erro material fatal nativamente só pela edição solta de objeto API k8s base limits yaml API manifest update rest PUT patch API requests base master plane."
+                }
+            ]
+        },
+        {
+            "id": "q-59",
+            "topic": "Infraestrutura / Stateful",
+            "difficulty": "easy",
+            "text": "Ao escalar horizontalmente para 20 microserviços cópias idênticas e amnésicos (Stateless instances) de nossa arquitetura de validação backend nativo do banco logica core limit backend limits core bank transactions local limit rest java node cluster replica pods swarm instances limits, como repassamos e gerimos as 'sessões de usuário login cliente' dos usuários navegadores apps mobile client logados com segurança veloz cache cloud cache memory fast in memory database cache limits restrita nativa cluster?",
+            "options": [
+                {
+                    "text": "Utilizando um servidor e solução e estrutura de armazenagem puramente dedicada pra isso fora dali: Redis. Guardamos as sessões na memória rápida central isolada externa e 20 instancias do backend cegas velozes perguntam pontualmente no REDIS 'quem é o dono deste cookie logado?' e o REDIS confirma rápido síncrono limpo distribuindo o estado global isolado da arquitetura do serviço web local backend limit instances memory stateless services instances local.",
+                    "isCorrect": true,
+                    "explanation": "O Redis atua como o central state do sistema descentralizado. Mantém os front ends microservices com carga zero stateless limpos sem sobrecarregar bancos de dados grandes como SQL RDS limit memory local nativo CPU overhead RDS overhead queries limit com consultas tolas de token logins sessões leves cookies states temporários base volátil key value in memory store Redis cluster limits caching systems cache limit local memory cache limit."
+                },
+                {
+                    "text": "Escrevendo cookies puros salvos e embutidos nativamente no HTML do servidor local nativo HDD limite filesystem linux base write disco local HDD Ssd EBS volume nativo container isolamento files volumes docker limites limits fs limits mount path container fs layer overlay local limits.",
+                    "isCorrect": false,
+                    "explanation": "Gravar localmente quebra a lei base stateless do microservico. O proximo servidor q atender n tera acesso e o cliente perde a logica da sessao gerando erro limit state."
+                },
+                {
+                    "text": "Salvando de forma permanente em Banco de dados relacional clássico Oracle Data warehouse com dezenas de JOINS locks row transaction ACID isolation level serializable transaction limits JDBC driver locks table locking limites de banco base transactions commit rollback restrito.",
+                    "isCorrect": false,
+                    "explanation": "Usar banco SQL parrudo pesado para sessões efêmeras ativas logadas na ram base de sites rápidos gera gargalo (bottleneck) violento e destrói arquiteturas escaláveis. Usa-se DB em memória (NoSQL in memory Redis / Memcached cache limits memory)."
+                },
+                {
+                    "text": "Os clientes carregam estritamente fisicamente todos os dados bancários na URL base url limit params base query string local limites GET request GET route paths params open public web limits internet query string format limitations base local browser path URL restritas limits get base limit limits strings browser history cache browser limits URL limits REST HTTP get base.",
+                    "isCorrect": false,
+                    "explanation": "Expor senhas JWT dados logados banco nas urls (query params) salva log do roteador mundial expondo tudo texto plano limit url logs access nginx proxy access base network security failure grave. JWT viaja e sessões ficam em HTTP ONLY Secure cookies POST ou HEADER Authorization auth token token Bearer limits HTTP headers limit rest specs header base local limits security."
+                }
+            ]
+        },
+        {
+            "id": "q-60",
+            "topic": "Status Codes / Protocolos",
+            "difficulty": "medium",
+            "text": "A resposta oficial HTTP 502 Bad Gateway ocorre classicamente numa infra de sistemas web nativos em nuvens e rede proxy servers limites proxies reversos quando o que acontece entre os computadores em cascata web roteamento base rotas limits api routes api route manager gateway limits roteador load balancer base load balancers proxy proxy roteador rede limite?",
+            "options": [
+                {
+                    "text": "O servidor principal externo frente mar (o Reverse Proxy, Nginx ou Ingress Load balancer API Gateway Cloud AWS gateway) vai e atua como mensageiro do client e efetua o pedido pro servidor backend interno dele. A resposta que o Java backend interno dá pro Gateway vem toda cagada formatada bizarra (erro no header cru TCP limit format error invalid rest format invalid protocol response) ou quebrou rede no meio do TCP base e o Gateway não entende, se irrita e solta pro cliente 'Fui lá pro Backend mas aquele cara deu a resposta muito lixo pra mim e eu to estressado, tome um 502 BAD GATEWAY meu irmão não posso entregar o lixo pra frente não e foda-se'.",
+                    "isCorrect": true,
+                    "explanation": "Bad Gateway (502) sinaliza que o cara da frente que faz o intermédio entre você client app navegador base local react e o app final tomou um retorno inesperado bizarro lixo error socket do parceiro alvo e ninguem da frente soube digerir pra completar o fluxo proxy."
+                },
+                {
+                    "text": "Ele retorna que a senha está incorreta base autenticaçao errada base login credentials limite base error 401 fail senha usuario restrita limit.",
+                    "isCorrect": false,
+                    "explanation": "Autenticacao é 401 base. E de cliente, n infra layer server proxy proxy limits proxy exception base proxy error roteador."
+                },
+                {
+                    "text": "Ele reporta puramente q a base de dados SQL esta cheia disco espaço EBS postgres data exception IO full file limits SQL error exceptions transacoes limits base error database connection error pool limit hikari pool limits.",
+                    "isCorrect": false,
+                    "explanation": "Erro banco puro backend java cospe erro 500 no proxy base limit error e repassa e proxy daria 500 ou time out 504 no pior scenario congelar JVM. 502 é retorno network proxy proxy socket tcp erro bizarro payload limit."
+                },
+                {
+                    "text": "Ele alerta explicitamente explicit limitation de bloqueio de permissão de pasta acesso negado limit root privileges base authorization file limits file system limit linux rw x permission bash local limit exception denied limits base ugo rwx limits linux chmod chown permissions files limit exception limits base.",
+                    "isCorrect": false,
+                    "explanation": "Acesso a diretorios negado dentro geraria 500 nas logicas apis locais ou 403 HTTP. Bad gateway diz erro network route gateway roteadores layer osi layer network rotas proxies load balancers error in cascata proxy chain flow tcp request loop rotas."
+                }
+            ]
+        },
+        {
+            "id": "q-61",
+            "topic": "Docker",
+            "difficulty": "easy",
+            "text": "O que acontece na abstração e gerência Docker host memory limit local ao utilizarmos a preciosa e importantíssima flag `-v` (Volume Bind Mount / Volume native limit mapping mount limit data) ou a instrução equivalente em `docker-compose.yml` volumes array em blocos limitados configs data local bind mount limit no mundo Linux / Docker host runtime limit execution de run app run command runner executor container container base limit limit mount limits config layer limit volume layer overlay override file mapping base local map limite mapping host docker?",
+            "options": [
+                {
+                    "text": "A mágica onde você interliga ativamente uma pasta normal do PC Host do desenvolvedor de forma simbiótica com um diretório virtual interno limit do container. O que é alterado no bash de dentro é ativamente e instantaneamente salvo e lido no bash do HD fisico HD fora no Host. Salvando e possibilitando o famoso Hot-Reload de códigos Node React Java dev vivo editando vivo limit code edit in line limits save persist local dev environment local sandbox docker mount bindings host limits file system.",
+                    "isCorrect": true,
+                    "explanation": "Bind mount volumes (-v /host/path:/container/path) são a salvação. Perfuram a bolha chroot da camada virtual. Essenciais em BD persistance e DEV modes com arquivos vivos que nao param."
+                },
+                {
+                    "text": "Ativa apenas um bloqueio rígido de pasta readonly readonly local linux permission ugo rw limite base limits rw file read only read permission block chown linux acl ACL permissions files limit rw restrita nativo bloqueio.",
+                    "isCorrect": false,
+                    "explanation": "Volumes mapeiam pontes I/O, não apenas lidam primariamente com locks puristas. Permissão local RW RO options são param extras opcionais no flag volume base map file limits binding mapping local disk."
+                },
+                {
+                    "text": "Comprime em tar tar.gz gzip file compact zip file nativo base limit files linux bash tools tarball archive nativo compact string compress zipping base algorithm compression disk compression file disk storage savings base storage savings.",
+                    "isCorrect": false,
+                    "explanation": "Mapping (-v) n zipa nada. Fica transparente RAW files puros puros base nativos."
+                },
+                {
+                    "text": "Transforma e edita o texto do formato JSON configs property em yaml de forma automática in stream live linux format parsers yq jq bash tools limits conversion string files parse base native.",
+                    "isCorrect": false,
+                    "explanation": "O comando trata estritamente pontes block I/O de pastas file system. Parse de texto quem faz e bibliotecas do backend da aplicacao limit json yaml properties."
+                }
+            ]
+        },
+        {
+            "id": "q-62",
+            "topic": "Kubernetes",
+            "difficulty": "medium",
+            "text": "Onde nós orquestramos, especificamos os certificados TSL SSL Criptografia de rede HTTPS Https nativa web HTTPS limits rotas rotas HTTP HTTP web limits HTTP hosts base regras domínios name dominios rules DNS route e conectamos os dominios limpos (ex: api.empresa.com) da arquitetura global de tráfego K8S web base roteador cloud front nginx traefik load balancer rules base routing mesh proxy reverso proxy base do cluster para os micros sistemas locais dos nossos Deployment Pod Services de base e microservicos base API Rest Java e node js local pods service endpoints backend base K8S api rules definitions?",
+            "options": [
+                {
+                    "text": "No objeto yaml declarativo nativo 'Ingress'. Ele fica na front door. Lá você põe a regra: \"Quem bater no dominio api.br/pagamentos no HTTP path nativo host e url uri base string host roteamento joga o fluxo tcp para o component K8S Service do Java de nome 'svc-pagamentos' porta 80. E amarra e pluga no TLS base secret o certificado Https do Ingress rules route limits annotations base limits router limit proxy regras de rede route.\".",
+                    "isCorrect": true,
+                    "explanation": "Ingress atua primariamente na Camada 7 OSI lidando explicitamente em HTTPS TLS offloading terminação de SSL ssl roteamentos de URI path mappings paths sub domínios rotas limpas transparentes reverse proxy K8S API resources. Se o Service expoe o App, o Ingress expoẽ os services ao mundão aberto de fora pro DNS roteador base local WAF load balancers publicos."
+                },
+                {
+                    "text": "Nos arquivos Bash do Linux Node worker nativo limit ufw firewalls ufw firewall ufw port limit iptables regras rules firewall ufw roteadores hardware base switches rede limits firewall cisco limits base router port nat virtual ip roteamento ip route route ip.",
+                    "isCorrect": false,
+                    "explanation": "A filosofia do orquestrador nativa Cloud k8s diz pra gente abandonar configurações manuais em nós e adotar os YAML configs virtuais limit Ingress resources que a cloud e K8S master lidam no back ground criando load balancers cloud alb nginx no back."
+                },
+                {
+                    "text": "No objeto 'CronJob' da malha interna K8S base schedule batch system limit temporizadores bash shell schedule time cron limits crontab linux daemon limit jobs execution pods.",
+                    "isCorrect": false,
+                    "explanation": "Cronjob agenda execução por tempo limits hora dia date. Ingress resolve rotas de redes Https host names domain DNS roteamentos base web proxy limits routing."
+                },
+                {
+                    "text": "Nos repositórios locais configmap Config Maps do cluster limit database connections string url limits variaveis limits bash bash environments limits pods pod yaml containers args env variaveis base environment env block.",
+                    "isCorrect": false,
+                    "explanation": "Configmaps apenas geram env variables e files base properties. Quem roteia o mundao https dns proxy é o resource INGRESS ingress controller proxy reverso gateway load balancer gateway HTTP limits."
+                }
+            ]
+        },
+        {
+            "id": "q-63",
+            "topic": "Kafka",
+            "difficulty": "hard",
+            "text": "O que garante nativamente, internamente sem mágica a resiliência global distribuída no armazenamento do Kafka limits logs cluster disk brokers storage limit hardware disk loss aws disco fisico queima limits limit disk efs limites contra catástrofes hardware base limites local limits hardware errors network limits base de maquinas brokers kafka base de clusters aws kafka local nodes hardware errors storage error block storage errors failure limit data fails loss limits limits exceptions limit loss limit base nativa disaster recovery local cluster data consistency data lost failures fault tolerant engine limits storage limits architecture limit Kafka?",
+            "options": [
+                {
+                    "text": "Fator de Replicação (Replication Factor). Se eu mandar replicationFactor=3 na configuração criação criador limits CLI script config do Tópico, as partições (o líder) vão copiar perfeitamente assincrona/sincrona limits todos os eventos de dados sujos bytes pra mais dois 2 servidores brokers brokers secundários (Followers nativos in-sync replicas). Se 2 data centers aws zonas queimarem pegar fogo AZ burn e o broker e disco mestre sumirem do radar zookeeper limits timeout error limit error lost limits fail zookeeper death crash os seguidores vivos promovem liderança promovem leader election e ninguem perde a grana logs data base.",
+                    "isCorrect": true,
+                    "explanation": "Replicação é a resposta universal de resiliência base do kafka cluster data storage distribuído e seguro e durável base fault tolerance do ecossistema kafka original base."
+                },
+                {
+                    "text": "O fato de armazenar obrigatoriamente forçadamente tudo na RAM base JVM string max limite memory limits memory JVM local string byte buffers arrays pool memory limites nativos limits gc garbage limits restrita ram max pool ram limites limit garbage memory ram memory limits memory max limits java max memory RAM.",
+                    "isCorrect": false,
+                    "explanation": "Kafka foca pesado e rápido (Zero copy IO limits base bypass OS limits caches page cache linux) EM DISCO (Hard Drive) puramente persistente limits durável file logs disk base filesystem OS limit. Nao confie só em ram (kafka perde grana na queda se só ram sem write disks storage OS buffers limits sync). A resposta base local Kafka de resiliencia é replicas fatores factors replicas base."
+                },
+                {
+                    "text": "Efetuar dumps de zip nativo SQL sql dumps pg_dump pg dump limit databases backup file local mysqldump sql bash scripts cron sql dumps archives arquivos limits zip arquivos gzip linux shell zip zip file bases bd sql.",
+                    "isCorrect": false,
+                    "explanation": "Kafka n tem nd a ver com postgresql exports pg dump file. Kafka mantem nativamente base replicas followers leaders factors config replicas brokers brokers base cluster logs logs log files directories files append limits log log files."
+                },
+                {
+                    "text": "Mandar logs texto brutos pro Elastic Search Kibana logs visual view base dashboards kibana ELK limites limits metrics logs dashboard base grafana logs logs error metrics logs.",
+                    "isCorrect": false,
+                    "explanation": "Isso é pra analise log system limit observability log info debug trace. Resiliencia original dos business data logs kafka brokers é mantida nas réplicas limits factors replication factors configurations followers ISRs in sync replicas brokers."
+                }
+            ]
+        },
+        {
+            "id": "q-64",
+            "topic": "Status Codes / API",
+            "difficulty": "medium",
+            "text": "Qual erro HTTP standard indica nativamente um bloqueio (Geralmente no gateway, WAF limit proxy proxy ou middleware framework local backend controller rest controller base rules security filter chain rules limits framework token rules filter) informando assertivamente pro Front end Mobile React JS limit app que o seu app web ultrapassou a quantia financeira de requests combinada no plano SLA limits quota api quotas rate limit rate quotas billing limits base limits traffic throttle limit rate gateway base error limit error tcp firewall waf base rate aws limit limits aws api gateway?",
+            "options": [
+                {
+                    "text": "429 Too Many Requests. O Gateway intercepta nativamente: 'Opa opa limit, cliente do IP limit header token limit JWT limit cliente tenant local. Seu plano e algoritmo de leaky bucket ou token bucket bucket rate rate config bateu em 100 requests por minuto. Vo bloquear tudo temporariamente e cuspir 429 Retry-After com paciencia espera de timeout 60 segundos limits tempo limit local response HTTP protocol limit response nativo e dar bypass e evitar a explosao limit do BD backend java cpu ram memory cost money bill aws billing costs limit limits'.",
+                    "isCorrect": true,
+                    "explanation": "Padrão de indústria ouro de throttling rate limit. Ele não quebra com 500, protege ativamente a carteira aws com o belíssimo e semântico 429 Retry After Too many Requests HTTP standard RFC base limit web limits standards limit architecture architecture API gateway throttle rule exception."
+                },
+                {
+                    "text": "503 Service Unavailable limits indisponibilidade local base limits nativo exception downtime error error nativo limits infra server master.",
+                    "isCorrect": false,
+                    "explanation": "503 seria o estrago depois do ddos ddos limite, o server caiu. O 429 atua preventivamente e fala que O CLIENTE mandou muito e o server ta bloqueando de propósito pra sobreviver limites API quotas limit API limits."
+                },
+                {
+                    "text": "206 Partial Content limit limites limits conteudo restrito limite pacotes file files tcp chunks nativos stream limites streaming chunks data chunks.",
+                    "isCorrect": false,
+                    "explanation": "206 é download resumido partes de videos youtube mp4 bytes chunks byte range limits streaming web local. Nada a ver com quota limits API limit security waf throttling limits base rest API."
+                },
+                {
+                    "text": "402 Payment Required limit limits limites limit billing local nativo limite bloqueio pagamento base limit stripe base gateway bloqueio bloqueio nativo web limite api limit base.",
+                    "isCorrect": false,
+                    "explanation": "402 foi desenhado para micro transações originais w3c web limits originais ideias velhas base history e não rate limit throttle traffic network tcp limits waf rate limit api limits quotas limit throttle base 429 limite limits rate."
+                }
+            ]
+        },
+        {
+            "id": "q-65",
+            "topic": "Kubernetes / Docker",
+            "difficulty": "easy",
+            "text": "Em K8s limits deploy resources limits YAML e orquestração de imagens limits images container image containers limits runtime cri containerd podman limites orquestração docker limits images hub registries repositories registries, como um Pod K8S executa materialmente uma aplicação em nodeJS/Java na máquina Node worker base hardware cpu ram linux limits processes linux PID namespace namespace limit system limite process isolation namespace limits cgroup linux groups base linux process namespace limit linux cgroup limit linux base isolations limit?",
+            "options": [
+                {
+                    "text": "O Kubelet lê a instrução, pede ao Container Runtime Engine daemon (o containerd / CRI-O da vida limit limit docker limits docker daemon restrito engine runtime daemon processo limits background service OS process linux) que realize ativamente o `pull` do download puro de rede do Registry da Imagem empacotada binária final compactada isolada local base web web cloud registry. Depois, pede que instancie rodando crie a jaula namespace o contêiner virtual usando isolamento linux limpos OS resources Cgroups memory limits cpu quota limits ram e Namespace limits linux OS isolamento base filesystem network process isolation OS level virtualization limits limits local linux system tools base OS primitives base kernel features limits isolations nativas linux limits limits limites de kernel.",
+                    "isCorrect": true,
+                    "explanation": "Docker e K8S operam enganando os processos. Não é uma VM com hardware simulado. É o kernel linux comum usando `cgroups` (controla quanto hardware pode usar limit ram cpu max limit memory ram limite cpu cpu limit base kernel sys limits cgroups base OS primitives sys) e `namespaces` (controla os olhos e visao isolada de IP roteamento pastinha file system chroot mounts pids isolations process hiding container isolation limit linux namespaces linux OS sys limits OS level isolation features primitives base linux primitives limits)."
+                },
+                {
+                    "text": "Eles criam ativamente e fisicamente hardware via AWS limites aws hardware provision limits bare metal hardware allocation limits roteadores cisco switch roteadores cabos limits rack racks limites server limits.",
+                    "isCorrect": false,
+                    "explanation": "K8S atua em cima do hardware pronto como OS cluster de SO linux limits software layer abstraction virtualization limits virtualização de OS linux abstraction container engine limit limit software linux virtualization container container process."
+                },
+                {
+                    "text": "Compilam ativamente código .C e assembly de maquina limit cpu registers ASM limits limits limits base gcc compilador clang limite source code bash compiler gcc gcc limits linux gnu gcc compiler limit code limites source code compiler.",
+                    "isCorrect": false,
+                    "explanation": "Containers lidam com os artefatos ja finalizados em registros registros images limits binários. Não compilam em produção e não atua nativo em assembly limits assembler codes limits OS."
+                },
+                {
+                    "text": "Criam Virtual Machines com Virtual box VMWare limits oracle VM limits windows linux hardware limits hardware simulation hypervisor layer 1 hypervisors layer 2 limits vm limits virtual hardware disk simulation simulation bios UEFI base limit limits hardware simulator virtual.",
+                    "isCorrect": false,
+                    "explanation": "A regra 1 do cloud native container engine é n usar e ser pesado como hypervisors de VM hardware emulation. Cgroups e namespace garantem a leveza rodando linux host linux base root OS limits linux features limits local kernel system OS system limits primitives local limits OS limits."
+                }
+            ]
+        },
+        {
+            "id": "q-66",
+            "topic": "Infraestrutura / Protocolos",
+            "difficulty": "medium",
+            "text": "Nas arquiteturas assíncronas assíncronas streams eventos limites limits web hooks rest api integrações sistemas distribuídos limits integrações asíncronas web limit api call asincronas, qual modelo dita a relação base e interacao das peças peças de software na rede HTTP REST limits TCP Kafka queues filas rede base tcp?",
+            "options": [
+                {
+                    "text": "Pub/Sub (Publish Subscribe base pub sub topics broker topics event limits events event stream event event router topics events router). O Produtor publica e vai embora rápido da thread sem block CPU lock livre de trancas sem travar UI user browser limit fast process lock free limit async flow lock async asincrono non blocking non blocking io tcp flow limit assíncrono decoupling system limits. O Consumer ou Consumers leem depois do tópico isolado quando quiserem ou no ritmo deles sem amarrações síncronas limits sync rest api tcp connection open conexões síncronas fechadas limites lock timeout timeouts limits time out tcp limit retry limits síncrono limits sync lock limits de acoplamentos fortes síncronos limits acoplamento síncrono api rest limits.",
+                    "isCorrect": true,
+                    "explanation": "O Desacoplamento é a vantagem. Se vc ligar por REST (Req Res HTTP), se o parceiro backend A cai limite down limits timeout limit error down limits down API down 500 error limits gateway limits, a requisiçao principal do site no backend B aborta da exception trava usuário 500 erro de sistema time out limite exception limite tcp tcp base connection timeout. No event base pub sub (KAFKA SQS Rabbit pub sub pub sub topics brokers), o A avisa 'venda efetuada' pub no broker rapidao local return limits ui interface react js happy limits local user feliz limits limit UX feliz limite return 200 limits sucesso base, se o emissor de notas B ta fora do ar, foda-se a nota emite a noite lendo a fila na calma limpa limite assincronia base de resiliência base local."
+                },
+                {
+                    "text": "Request/Response Sincrono Síncrono RPC base REST limits SOAP limits lock TCP bloqueio de thread limites wait time out limits.",
+                    "isCorrect": false,
+                    "explanation": "Isto não é assíncrono, é comunicação direta síncrona acoplada ponto a ponto bloqueio rede limite tcp limite timeout time outs threads block thread wait limits wait limits java threads java pool thread local limite cpu processamento tcp limit tcp base conexões sockets locks limites sockets limit sockets conexao aberta local wait limits local limits base bloqueio bloqueios bloqueio de requisições base limits api."
+                },
+                {
+                    "text": "FTP limits file server linux limits ftp ports limite firewall ftp passive ports passive tcp ftp limits network linux bash command bash file download wget curl ftp.",
+                    "isCorrect": false,
+                    "explanation": "FTP lida de download e não de streams streams pub sub e events events mensagerias base brokers limits message limit bus enterprise service bus micro service limits limits base events base streams broker queues."
+                },
+                {
+                    "text": "Banco SQL Oracle DB limits connection jdbc limit ODBC limite conexão nativa local SQL JDBC local limit queries SELECT insert queries db limits local limits SQL.",
+                    "isCorrect": false,
+                    "explanation": "Driver de banco não orquestra asincronismo de rede entre front back app api limit integrações."
+                }
+            ]
+        },
+        {
+            "id": "q-67",
+            "topic": "Status Codes",
+            "difficulty": "medium",
+            "text": "Em operações de autenticação token JWT de um backend Spring Boot API Limits web security controller advice limit rest security filter filters exception limit local proxy limits exception limits, quando um usuário de um app Web tenta e efetua ativamente o envio do seu Bearer token Expirado e velho no tempo de clock limite time limites validation exp time exception jwt validation fail limite exp limits date expire limite time exception limit JWT limits limit exp e envia num endpoint GET para pegar seu dashboard de extrato de banco limites ui fetch get base fetch limits limits extratos, o que a API limpa semanticamente deve cuspir puramente limite erro limits base error http error HTTP?",
+            "options": [
+                {
+                    "text": "401 Unauthorized.",
+                    "isCorrect": true,
+                    "explanation": "A semântica dita 'Sua credencial é inválida, nula, errada, quebrada ou fora do tempo base exp expiration expirada local limits validation base limits'. O front end pega o 401 e desloga o cara forçando redirecionamento log out clean cache token limits clean session storage redirection logic window loc path react react dom route route redirect router login."
+                },
+                {
+                    "text": "403 Forbidden.",
+                    "isCorrect": false,
+                    "explanation": "Forbidden pressupõe um login JWT Válido OK valid check ok limits limit ok. Mas que bateu o nariz e bateu na porta do muro de PERMISSÂO limits role filter role admin local role permissions access logic checks rules. Expirado bate na fase 1 e morre com Unauthorized (401 limits error falha auth identity identity exceptions fail)."
+                },
+                {
+                    "text": "500 Internal Error Java exception base trace trace limite log de erros base limits error limit local exception error runtime.",
+                    "isCorrect": false,
+                    "explanation": "O Dev tem que evitar as JWT expiration exception limits spring jwt limits parser io exception base e formatar no filterchain pra Response status status limit error handle advice local e nao soltar tela feia de servidor base stack stack limits limit Tomcat exception traces white labels error page html white label limites error page limit spring error error limits error UI error views html."
+                },
+                {
+                    "text": "301 Redirect.",
+                    "isCorrect": false,
+                    "explanation": "3xx e pra SEO url redirects. Apis enviam e deixam o frontend router fazer os navlinks local limites browser DOM ui limits web reacts components local limits nav rules limit hooks limits hooks routers base nav limits client browser local limit url URL routes base limits UI."
+                }
+            ]
+        },
+        {
+            "id": "q-68",
+            "topic": "Docker",
+            "difficulty": "hard",
+            "text": "Em contexto puro local limit bash linux daemon docker daemon limits cli dockerd processo sysctl daemon system daemon linux OS limit daemon processo systemd linux limit docker daemon daemon, qual é o papel essencial crucial prático fundamental do Containerd limite runtime limits docker limits docker history linux history namespaces limites limits crio runc runc base container runtime core limits base?",
+            "options": [
+                {
+                    "text": "Containerd atua como o motor de força baixo nível abstrato do daemon, é ele quem cria supervisiona orquestra e derruba ativamente via runc bash limit syscall as jaulas namespaces e puxa e gerencia os files limits network limits life cycle de ciclos do container local nas APIs de kernell limits linux kernel primitives sys calls OS API local bash OS limit process base.",
+                    "isCorrect": true,
+                    "explanation": "Antes tudo era num bololô monolith o docker docker daemon monolithic limit limites engine. Hj em dia o daemon é a interface amigável e o containerd foi cindido separadão como standard universal leve que só lida puramente em conversar com as entranhas do linux namespaces criando o processo runtime isolado limits OCI specs. O k8s amou e trocou o docker gordo inteiro por esse containerd magrinho e limpo limit runtime limits CRI containerd base OCI specs limites limits container runtime linux limit linux isolations daemon daemon linux limits."
+                },
+                {
+                    "text": "É um repositório cloud online e remoto nativamente AWS de armazenar tarball e binarios local base limites aws amazon registry base hub cloud repository repository registry public online limites cloud registry aws ECR registry hub hub docker aws amazon cloud registry.",
+                    "isCorrect": false,
+                    "explanation": "Este ai é o Docker Hub Amazon ECR registry repositories limits docker daemon push operations limits pull pull registry image registry aws limit pull limit network pull download."
+                },
+                {
+                    "text": "Uma VPN firewall proxy ngnix local nativo limits limit roteamento portas ports limits fw firewalls ufw cisco vpn base aws roteador dns routing virtual subnet roteamento de portas cisco network tcp roteamentos.",
+                    "isCorrect": false,
+                    "explanation": "Lida primariamente na virtualização de processo chroot namespaces. Nao de rotas proxy web load balancers. Network e outro namespace lida por plugins CNI limits."
+                },
+                {
+                    "text": "App react electron interface UI GUI desktop limit electron visual painel web painel limits dashboard GUI UI UX design interface limits dashboard.",
+                    "isCorrect": false,
+                    "explanation": "O containerd n tem interface limpa de UI amigável, n tem GUI desktop (tipo Docker Desktop GUI limites ui portainer). Ele roda na telinha preta em daemon systemd OS linux cli daemon OS sysctl processo C process process limits linux."
+                }
+            ]
+        },
+        {
+            "id": "q-69",
+            "topic": "Kafka",
+            "difficulty": "medium",
+            "text": "O que ocorre no ecossistema interno local da rede de cluster Kafka limits log bytes limits limits log partitions events logs cluster ao configurar o 'Retentions.ms' ou 'retention.bytes' ativamente limites limit config tópicos configs broker broker limits cleanup policy limits limits política limits disk limits?",
+            "options": [
+                {
+                    "text": "Define a limitação purista e rígida de quanto tempo no relógio cronológico (dias semanas ms ms time base limits limit time limits retention policies) ou qual tamanho máximo do armazenamento no HD disco limites file bytes OS limit (gigabytes size block storage limits bytes) as partições daquele tópico vão guardar o lixo histórico os eventos passados antes do expurgo automático Kafka background garbage thread cleanup thread remover excluir ativamente apagando os bytes velhos silencioso liberando gigas na aws EBS local limits disk limits hardware limites block limits hardware base disk cleanup aws file storage limit EBS aws volume limits block data loss disk drop storage limits limits cleanup log limit.",
+                    "isCorrect": true,
+                    "explanation": "O Kafka guarda. Mas o disco n é infinito cloud money limits fatura conta de storage AWS bill billing limits money limit cost AWS ec2 limits EBS volume limit limits storage gigabytes. Retention expurga dados de 7 dias (exemplo padrão antigo). Você pode setar `retention.ms=-1` (infinito, fica la para sempre, custa mt caro disco money limit EBS EBS disk) ou reter por GB."
+                },
+                {
+                    "text": "Controla a memória heap java limits jvm pool string buffers JVM RAM ram ram limit garbage gc tuning G1GC limits memory gc linux memory free ram java limit JVM tuning memory drop memory drop limit ram heap max max xmx limits base XMS limits config java args.",
+                    "isCorrect": false,
+                    "explanation": "As políticas lidam com o DISCO STORAGE file systems linux volumes. JVM memoria heap é param xms e xmx broker start shell limits java args OS memory. Kafka cache OS buffer foca no sistema os linux system caching e n na heap do GC tuning JVM limits memory JVM base RAM limite ram limit java limit mem gc tuning."
+                },
+                {
+                    "text": "Controla quantas conexões TCP tcp limits porta tcp portas network tcp limites socket buffers portas linux limits tcp limits network os limites network tcp ports max connection sockets tcp limits limits roteador fw drop limits nativos firewall firewall aws security limits TCP TCP limit port block base TCP open TCP port limits linux limit ufw ufw limits base ufw.",
+                    "isCorrect": false,
+                    "explanation": "Limitacao retention cleanup lida puramente cm o log file OS log byte file storage limites log efs ebs limit data drop limits drop disk filesystem ext4 zfs ext2 block block storage file io. E n de sockets max network de internet local limit router limit OS socket networking tcp connection."
+                },
+                {
+                    "text": "Define limits max usuarios kafka UI portal login restrito ACL limits permissions login limit access user control roles roles login rules login UI admin base user base login web view portal admin login portal portal permissions portal user token limits limit limits limit limits login.",
+                    "isCorrect": false,
+                    "explanation": "Retentention atua nos discos dados file systems limites storage logs records base. O ACL ACL Kafka policies atua na rede e acesso client e consumer produces users local base autenticacao TLS scram limites rules authentication."
+                }
+            ]
+        },
+        {
+            "id": "q-70",
+            "topic": "Status Codes / Protocolos",
+            "difficulty": "hard",
+            "text": "Qual das definições base abaixo representa precisamente o status HTTP limite nativo 418 oficial da listagem IETF RFC internet web nativo protocols limit base local limit HTTP protocol limites web history joke limite w3c HTTP error local status code HTTP base limits IETF RFC limits base web specs rest limits web base?",
+            "options": [
+                {
+                    "text": "I'm a teapot (Sou um bule de chá).",
+                    "isCorrect": true,
+                    "explanation": "É um código de erro piada 1º de Abril da internet (RFC 2324). Se tornou famoso e todos os frameworks Spring Java e Node Express tem ele implementado. O servidor bate e recusa responder qqlq coisa 'foda se n vou fazer cafe n eu sou um bule web limits joke easter egg RFC base internet protocol history limits web limits 418 status limits status HTTP base limit HTTP joke limit'."
+                },
+                {
+                    "text": "Payment Failed Stripe limit limit api billing limit limits payment decline limite limite bloqueio nativo limite api payment limits stripe cloud exception error web.",
+                    "isCorrect": false,
+                    "explanation": "Isto não existe puramente com 418. 402 lida com premissa de micro payments limit 402 history web payment exception."
+                },
+                {
+                    "text": "Data base offline error DB error JVM exception error jdbc limite local transação limit limit transação abort JDBC sql errors limit base SQL sql tcp timeouts sql exception sql error db down error db local db local.",
+                    "isCorrect": false,
+                    "explanation": "500/503 englobariam exception de JVM error controller local base proxy limit limits limit base proxy error."
+                },
+                {
+                    "text": "Token JWT invalid token auth expirado falha login exception limits erro rules filter local limit erro login erro exception jwt limit limit filter exceptions error limit local limite rules limits rules rules base proxy limits gateway error filter limits filter exception web token token proxy token.",
+                    "isCorrect": false,
+                    "explanation": "401 base."
+                }
+            ]
+        }
+    ]
+}
