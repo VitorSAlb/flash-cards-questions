@@ -1,0 +1,1405 @@
+{
+"theme": "Estruturas de Dados e Algoritmos",
+"questions": [
+{
+"id": "q-01",
+"topic": "Array",
+"difficulty": "easy",
+"text": "Qual é a complexidade de tempo para acessar um elemento em um Array pela sua posição (índice)?",
+"options": [
+{
+"text": "O(1)",
+"isCorrect": true,
+"explanation": "Arrays armazenam elementos em blocos de memória contíguos. Sabendo o endereço base e o índice, o cálculo do endereço de memória do elemento é direto e ocorre em tempo constante."
+},
+{
+"text": "O(n)",
+"isCorrect": false,
+"explanation": "O(n) seria a complexidade para buscar um valor específico (sem saber o índice) em um array não ordenado."
+},
+{
+"text": "O(log n)",
+"isCorrect": false,
+"explanation": "Esta é a complexidade de uma busca binária em um array ordenado, não do acesso direto pelo índice."
+},
+{
+"text": "O(n^2)",
+"isCorrect": false,
+"explanation": "O acesso a um elemento não exige loops aninhados."
+}
+]
+},
+{
+"id": "q-02",
+"topic": "Array",
+"difficulty": "medium",
+"text": "Qual é a principal desvantagem de um Array estático tradicional em comparação com uma Lista Encadeada?",
+"options": [
+{
+"text": "O tamanho é fixo e inserções/remoções no meio da estrutura exigem o deslocamento de múltiplos elementos.",
+"isCorrect": true,
+"explanation": "Arrays alocam memória contígua e fixa. Inserir no meio requer mover todos os elementos subsequentes, custando O(n)."
+},
+{
+"text": "O acesso aos elementos é mais lento do que em uma Lista Encadeada.",
+"isCorrect": false,
+"explanation": "É o oposto: arrays têm acesso O(1), enquanto listas encadeadas têm acesso O(n)."
+},
+{
+"text": "Consome mais memória por elemento devido aos ponteiros adicionais.",
+"isCorrect": false,
+"explanation": "Listas encadeadas é que consomem mais memória por elemento devido ao armazenamento dos ponteiros (referências)."
+},
+{
+"text": "Não permite armazenar tipos primitivos de dados.",
+"isCorrect": false,
+"explanation": "Arrays podem armazenar tipos primitivos em quase todas as linguagens de programação."
+}
+]
+},
+{
+"id": "q-03",
+"topic": "Array",
+"difficulty": "hard",
+"text": "Em um array circular utilizado para implementar uma fila, como é calculada a próxima posição disponível para inserção (enqueue), considerando 'rear' como o índice final e 'n' como a capacidade do array?",
+"options": [
+{
+"text": "(rear + 1) % n",
+"isCorrect": true,
+"explanation": "A operação de módulo (%) garante que, ao atingir o final do array (n-1), o índice retorne para 0, criando o comportamento circular."
+},
+{
+"text": "rear + 1",
+"isCorrect": false,
+"explanation": "Isso causaria um erro de 'Index Out of Bounds' ao tentar inserir após o último elemento."
+},
+{
+"text": "(rear % n) + 1",
+"isCorrect": false,
+"explanation": "A fórmula matematicamente incorreta para o avanço circular do índice."
+},
+{
+"text": "rear / n",
+"isCorrect": false,
+"explanation": "Divisão não mapeia os índices corretamente para um comportamento circular."
+}
+]
+},
+{
+"id": "q-04",
+"topic": "Array",
+"difficulty": "medium",
+"text": "O que caracteriza um Array Multidimensional (ex: Matriz 2D)?",
+"options": [
+{
+"text": "É uma estrutura onde cada elemento é acessado utilizando múltiplos índices, frequentemente representada na memória como um array contíguo (Row-major ou Column-major order).",
+"isCorrect": true,
+"explanation": "Matrizes 2D usam dois índices (linha e coluna) e, por debaixo dos panos, o compilador as achata em um único bloco contíguo de memória."
+},
+{
+"text": "É um array que cresce infinitamente em tamanho durante o tempo de execução.",
+"isCorrect": false,
+"explanation": "Isso descreve um array dinâmico (como ArrayList em Java), não necessariamente multidimensional."
+},
+{
+"text": "É um array que pode armazenar múltiplos tipos de dados primitivos simultaneamente.",
+"isCorrect": false,
+"explanation": "Isso descreve estruturas como Tuplas ou Structs/Objetos, arrays estáticos tipados exigem dados do mesmo tipo."
+},
+{
+"text": "É um grafo onde todos os nós estão totalmente conectados.",
+"isCorrect": false,
+"explanation": "Isso descreve um Grafo Completo, não um array."
+}
+]
+},
+{
+"id": "q-05",
+"topic": "Array",
+"difficulty": "easy",
+"text": "No contexto de Arrays Dinâmicos (como ArrayList em Java ou vector em C++), o que ocorre sob o capô quando a capacidade máxima do array atual é atingida?",
+"options": [
+{
+"text": "Um novo array maior (geralmente com o dobro do tamanho) é alocado na memória, e os elementos do array antigo são copiados para ele.",
+"isCorrect": true,
+"explanation": "O redimensionamento automático é o que torna o array dinâmico. O custo dessa operação é O(n), mas o tempo amortizado de inserção permanece O(1)."
+},
+{
+"text": "A inserção falha e lança uma exceção de memória cheia.",
+"isCorrect": false,
+"explanation": "Isso ocorreria em um array estático tradicional sem tratamento, não em abstrações de arrays dinâmicos."
+},
+{
+"text": "O array atual pede ao sistema operacional para expandir seu endereço de memória original sem mover os dados.",
+"isCorrect": false,
+"explanation": "Geralmente não é possível garantir que a memória contígua à frente esteja livre, forçando a criação de um novo array."
+},
+{
+"text": "O primeiro elemento inserido é removido para abrir espaço para o novo.",
+"isCorrect": false,
+"explanation": "Isso descreveria o comportamento de uma estrutura do tipo Cache LRU ou buffer circular restrito, não de um ArrayList comum."
+}
+]
+},
+{
+"id": "q-06",
+"topic": "Fila",
+"difficulty": "easy",
+"text": "Qual é o princípio de ordenação de elementos seguido pela estrutura de dados Fila (Queue)?",
+"options": [
+{
+"text": "FIFO (First In, First Out) - O primeiro a entrar é o primeiro a sair.",
+"isCorrect": true,
+"explanation": "Em uma fila, os elementos são inseridos no final (rear) e removidos do início (front), exatamente como em uma fila do mundo real."
+},
+{
+"text": "LIFO (Last In, First Out) - O último a entrar é o primeiro a sair.",
+"isCorrect": false,
+"explanation": "Este é o princípio de uma Pilha (Stack)."
+},
+{
+"text": "Aleatório - Os elementos são removidos de forma randomizada.",
+"isCorrect": false,
+"explanation": "Filas possuem ordem estrita, não remoção aleatória."
+},
+{
+"text": "LILO (Last In, Last Out) - O último a entrar é o último a sair.",
+"isCorrect": false,
+"explanation": "Embora logicamente equivalente ao FIFO (o primeiro entra e sai primeiro, logo o último entra e sai por último), o termo técnico da ciência da computação usado para Filas é sempre FIFO."
+}
+]
+},
+{
+"id": "q-07",
+"topic": "Fila",
+"difficulty": "medium",
+"text": "Quais são as operações básicas padrão usadas para manipular uma Fila?",
+"options": [
+{
+"text": "Enqueue (enfileirar) e Dequeue (desenfileirar).",
+"isCorrect": true,
+"explanation": "Enqueue adiciona um elemento ao final da fila, e Dequeue remove o elemento da frente da fila."
+},
+{
+"text": "Push (empilhar) e Pop (desempilhar).",
+"isCorrect": false,
+"explanation": "Esses termos são tradicionalmente usados para Pilhas (Stacks)."
+},
+{
+"text": "Insert (inserir) e Delete (deletar).",
+"isCorrect": false,
+"explanation": "Termos genéricos demais, aplicáveis a bancos de dados ou arrays gerais, mas 'Enqueue' e 'Dequeue' são específicos da semântica de Filas."
+},
+{
+"text": "Shift (deslocar) e Unshift (reverter deslocamento).",
+"isCorrect": false,
+"explanation": "Termos frequentemente usados no JavaScript para manipular arrays pelo início, mas não os nomes conceituais clássicos de Filas."
+}
+]
+},
+{
+"id": "q-08",
+"topic": "Fila",
+"difficulty": "hard",
+"text": "Em uma Fila de Prioridade (Priority Queue), o que determina a ordem de remoção dos elementos?",
+"options": [
+{
+"text": "O valor de prioridade associado a cada elemento; o elemento de maior prioridade é sempre removido primeiro, independentemente de quando foi inserido.",
+"isCorrect": true,
+"explanation": "Filas de prioridade ignoram o conceito estrito de FIFO se os elementos tiverem prioridades distintas. Elas são geralmente implementadas usando Heaps."
+},
+{
+"text": "O tempo de permanência; os elementos mais antigos sempre ganham prioridade absoluta.",
+"isCorrect": false,
+"explanation": "Isso define uma fila FIFO comum, não uma fila de prioridade."
+},
+{
+"text": "O tamanho em bytes do elemento inserido na memória.",
+"isCorrect": false,
+"explanation": "O tamanho em memória não define a ordem lógica da estrutura de dados."
+},
+{
+"text": "Uma chave hash aleatória gerada no momento do enqueue.",
+"isCorrect": false,
+"explanation": "O uso de hash é característico de HashMaps ou HashSets, não determinando ordem de saída em filas."
+}
+]
+},
+{
+"id": "q-09",
+"topic": "Fila",
+"difficulty": "medium",
+"text": "Qual estrutura de dados interna é mais eficiente e comumente utilizada para implementar uma Priority Queue (Fila de Prioridade)?",
+"options": [
+{
+"text": "Heap (Min-Heap ou Max-Heap)",
+"isCorrect": true,
+"explanation": "Heaps permitem descobrir o maior/menor elemento em O(1) e inserir ou remover com complexidade O(log n)."
+},
+{
+"text": "Array não ordenado",
+"isCorrect": false,
+"explanation": "Em um array não ordenado, encontrar o elemento de maior prioridade para remoção custaria O(n)."
+},
+{
+"text": "Lista Simplesmente Encadeada",
+"isCorrect": false,
+"explanation": "Inserir mantendo a ordem ou buscar a maior prioridade custaria O(n)."
+},
+{
+"text": "Pilha (Stack)",
+"isCorrect": false,
+"explanation": "Pilha mantém ordem estrita de LIFO, sem capacidade de ordenar por prioridade de valores internamente com eficiência."
+}
+]
+},
+{
+"id": "q-10",
+"topic": "Fila",
+"difficulty": "easy",
+"text": "Qual das seguintes aplicações utiliza intrinsecamente a lógica de Fila (Queue)?",
+"options": [
+{
+"text": "Escalonamento de processos no Sistema Operacional e algoritmos de busca em largura (BFS).",
+"isCorrect": true,
+"explanation": "Sistemas operacionais gerenciam a fila de pronto (ready queue) em Round Robin, e a Busca em Largura de Grafos explora nós vizinhos em ordem FIFO usando uma fila."
+},
+{
+"text": "Avaliação de expressões matemáticas (notação pós-fixa).",
+"isCorrect": false,
+"explanation": "Isso é resolvido usando Pilhas (Stacks)."
+},
+{
+"text": "Mecanismo de 'Desfazer' (Undo) em editores de texto.",
+"isCorrect": false,
+"explanation": "O recurso Undo remove a última ação feita, seguindo LIFO (Stack)."
+},
+{
+"text": "Algoritmo de Busca em Profundidade (DFS) em grafos.",
+"isCorrect": false,
+"explanation": "DFS utiliza Pilhas (ou a pilha de chamadas da recursão)."
+}
+]
+},
+{
+"id": "q-11",
+"topic": "Pilha",
+"difficulty": "easy",
+"text": "Qual princípio de ordenação rege a estrutura de dados Pilha (Stack)?",
+"options": [
+{
+"text": "LIFO (Last In, First Out) - O último elemento a entrar é o primeiro a sair.",
+"isCorrect": true,
+"explanation": "Como uma pilha de pratos reais, você só pode retirar o prato que está no topo, ou seja, o último que foi colocado."
+},
+{
+"text": "FIFO (First In, First Out) - O primeiro a entrar é o primeiro a sair.",
+"isCorrect": false,
+"explanation": "Esse é o princípio da estrutura Fila (Queue)."
+},
+{
+"text": "FILO (First In, Last Out) - O primeiro a entrar é o último a sair.",
+"isCorrect": false,
+"explanation": "Apesar de estar logicamente correto (o primeiro que entra fica no fundo e sai por último), o termo universalmente adotado para descrever a estrutura é LIFO."
+},
+{
+"text": "Ordenação Natural Crescente.",
+"isCorrect": false,
+"explanation": "Pilhas não ordenam valores por grandeza, apenas por ordem temporal de inserção."
+}
+]
+},
+{
+"id": "q-12",
+"topic": "Pilha",
+"difficulty": "easy",
+"text": "Quais são os nomes das operações fundamentais para adicionar e remover itens de uma Pilha?",
+"options": [
+{
+"text": "Push e Pop",
+"isCorrect": true,
+"explanation": "Push empurra um novo elemento para o topo da pilha, Pop retira e retorna o elemento que está no topo."
+},
+{
+"text": "Enqueue e Dequeue",
+"isCorrect": false,
+"explanation": "Estas são as operações características de Filas."
+},
+{
+"text": "Insert e Remove",
+"isCorrect": false,
+"explanation": "Termos muito genéricos, não refletem a semântica de topo de pilha."
+},
+{
+"text": "Add e Slice",
+"isCorrect": false,
+"explanation": "Slice é uma operação de array em linguagens como JavaScript/Python."
+}
+]
+},
+{
+"id": "q-13",
+"topic": "Pilha",
+"difficulty": "medium",
+"text": "Na computação, o que causa o famoso erro 'Stack Overflow'?",
+"options": [
+{
+"text": "Quando a pilha de chamadas (Call Stack) do programa excede a quantidade de memória alocada para ela, frequentemente causado por uma recursão infinita (sem condição de parada).",
+"isCorrect": true,
+"explanation": "Cada chamada de função adiciona um 'frame' na pilha do sistema. Se as funções se chamarem sem parar, a memória dedicada à pilha esgota (transborda)."
+},
+{
+"text": "Quando tentamos remover um elemento (Pop) de uma pilha que já está vazia.",
+"isCorrect": false,
+"explanation": "Isso causa um 'Stack Underflow', não Overflow."
+},
+{
+"text": "Quando adicionamos um número inteiro maior que a capacidade de 32 bits no topo da pilha.",
+"isCorrect": false,
+"explanation": "Isso é um Integer Overflow (transbordamento de tipo), não relacionado à estrutura da pilha em si."
+},
+{
+"text": "Quando o Garbage Collector do Java falha em limpar listas encadeadas.",
+"isCorrect": false,
+"explanation": "Isso causaria um vazamento de memória gerando OutOfMemoryError no Heap, não na Stack."
+}
+]
+},
+{
+"id": "q-14",
+"topic": "Pilha",
+"difficulty": "medium",
+"text": "Qual problema clássico de análise de strings pode ser resolvido facilmente utilizando uma única Pilha de forma iterativa com complexidade O(n)?",
+"options": [
+{
+"text": "Validação de balanceamento de parênteses, chaves e colchetes.",
+"isCorrect": true,
+"explanation": "Ao encontrar um símbolo de abertura ('('), damos push. Ao encontrar de fechamento (')'), damos pop e checamos se os pares casam. Se a pilha ficar vazia no fim, está balanceado."
+},
+{
+"text": "Encontrar a substring mais longa sem caracteres repetidos.",
+"isCorrect": false,
+"explanation": "Isso é resolvido de forma eficiente usando a técnica de Sliding Window e HashSets."
+},
+{
+"text": "Verificar se duas palavras são anagramas perfeitos.",
+"isCorrect": false,
+"explanation": "Geralmente usa-se contagem de caracteres (HashMap ou arrays de frequências) ou ordenação para resolver anagramas."
+},
+{
+"text": "Comprimir strings sequenciais (ex: aaabbc -> a3b2c1).",
+"isCorrect": false,
+"explanation": "Resolvido iterativamente contando os itens em laços com ponteiros duplos, sem necessidade da estrutura de Pilha."
+}
+]
+},
+{
+"id": "q-15",
+"topic": "Pilha",
+"difficulty": "hard",
+"text": "É possível implementar o comportamento de uma Pilha (Stack) usando unicamente Filas (Queues) básicas (FIFO)? Como?",
+"options": [
+{
+"text": "Sim, utilizando duas Filas (ou uma fila e manipulando suas posições). Ao dar 'push', o elemento entra na fila, e logo em seguida todos os elementos pré-existentes na fila são removidos e re-enfileirados atrás do elemento novo.",
+"isCorrect": true,
+"explanation": "Isso garante que o elemento mais recentemente adicionado fique sempre na frente da Fila, simulando o comportamento LIFO da Pilha nas operações de desempilhar (dequeue disfarçado de pop)."
+},
+{
+"text": "Não, é matematicamente provado que FIFO e LIFO são mutuamente exclusivos e intratáveis estruturalmente.",
+"isCorrect": false,
+"explanation": "A abstração de estruturas de dados permite simulações entre elas com impacto apenas em complexidade de tempo de operação."
+},
+{
+"text": "Sim, bastando enfileirar elementos normalmente e, no momento do 'pop', acessar a fila pelo final ao invés do início usando ponteiros inversos.",
+"isCorrect": false,
+"explanation": "Filas clássicas (Queues) não expõem acesso ou remoção pelo final da estrutura (isso seria um Deque). A solução exige apenas operações nativas de enqueue/dequeue."
+},
+{
+"text": "Sim, desde que os elementos inseridos sejam apenas strings numéricas ordenadas previamente.",
+"isCorrect": false,
+"explanation": "A natureza da estrutura independe do tipo de dados que ela carrega."
+}
+]
+},
+{
+"id": "q-16",
+"topic": "Lista",
+"difficulty": "easy",
+"text": "O que define fundamentalmente uma Lista Simplesmente Encadeada (Singly Linked List)?",
+"options": [
+{
+"text": "Uma coleção de nós, onde cada nó contém um dado e um ponteiro de referência apenas para o PRÓXIMO nó na sequência.",
+"isCorrect": true,
+"explanation": "Ela é de via única; você só consegue iterar em uma direção (da cabeça - head - para a cauda - tail)."
+},
+{
+"text": "Uma coleção de nós, onde cada nó contém dados e ponteiros tanto para o próximo nó quanto para o nó anterior.",
+"isCorrect": false,
+"explanation": "Essa é a definição exata de uma Lista Duplamente Encadeada (Doubly Linked List)."
+},
+{
+"text": "Uma estrutura onde a memória de todos os nós é alocada lado a lado no hardware, sem a necessidade de ponteiros.",
+"isCorrect": false,
+"explanation": "Isso descreve um Array. Listas encadeadas espalham nós na memória e os unem por ponteiros dinâmicos."
+},
+{
+"text": "Uma árvore restrita onde cada pai pode ter até 2 filhos e nenhuma volta.",
+"isCorrect": false,
+"explanation": "Isto descreve uma Árvore Binária."
+}
+]
+},
+{
+"id": "q-17",
+"topic": "Lista",
+"difficulty": "medium",
+"text": "Qual é a complexidade de tempo para INSERIR um elemento no INÍCIO (Head) de uma Lista Simplesmente Encadeada?",
+"options": [
+{
+"text": "O(1)",
+"isCorrect": true,
+"explanation": "Basta criar o novo nó, fazer seu ponteiro de 'próximo' apontar para a atual Head, e então atualizar a referência Head para este novo nó. Tempo constante."
+},
+{
+"text": "O(n)",
+"isCorrect": false,
+"explanation": "Seria O(n) se você fosse inserir no final (Tail) SEM ter uma referência direta para a cauda armazenada, precisando percorrer a lista inteira."
+},
+{
+"text": "O(log n)",
+"isCorrect": false,
+"explanation": "Listas encadeadas não suportam operações logarítmicas baseadas em divisão ao meio porque não têm acesso aleatório direto."
+},
+{
+"text": "O(n^2)",
+"isCorrect": false,
+"explanation": "Inserção não requer loops alinhados."
+}
+]
+},
+{
+"id": "q-18",
+"topic": "Lista",
+"difficulty": "medium",
+"text": "Qual a principal vantagem da Lista Duplamente Encadeada (Doubly Linked List) sobre a Lista Simplesmente Encadeada?",
+"options": [
+{
+"text": "Permite a travessia dos nós nas duas direções (para frente e para trás) e facilita a remoção de um nó específico com complexidade O(1) se a referência do nó for conhecida.",
+"isCorrect": true,
+"explanation": "O ponteiro adicional 'previous' permite voltar na lista, o que resolve a deleção isolada onde você precisa alterar o ponteiro 'next' do nó anterior."
+},
+{
+"text": "Consome metade da memória da Lista Simples.",
+"isCorrect": false,
+"explanation": "Ao contrário, ela consome MAIS memória por nó devido ao segundo ponteiro (prev)."
+},
+{
+"text": "Garante acesso por índice direto (ex: list[5]) em O(1).",
+"isCorrect": false,
+"explanation": "O acesso por índice continua exigindo a travessia O(n) dos nós até chegar à posição."
+},
+{
+"text": "Evita o problema do 'Cycle' (Ciclos infinitos) na estrutura por projeto.",
+"isCorrect": false,
+"explanation": "Listas duplas também podem sofrer de ciclos se os ponteiros forem manipulados equivocadamente."
+}
+]
+},
+{
+"id": "q-19",
+"topic": "Lista",
+"difficulty": "hard",
+"text": "Qual algoritmo famoso é utilizado para detectar com eficiência (em O(n) de tempo e O(1) de espaço) a presença de um Ciclo (Loop) em uma Lista Encadeada?",
+"options": [
+{
+"text": "Floyd's Cycle-Finding Algorithm (Algoritmo da Tartaruga e da Lebre).",
+"isCorrect": true,
+"explanation": "Usa dois ponteiros: um move um passo (tartaruga) e outro move dois passos (lebre). Se houver um ciclo, o ponteiro rápido inevitavelmente alcançará o lento por trás e eles se encontrarão no mesmo nó."
+},
+{
+"text": "Algoritmo de Dijkstra.",
+"isCorrect": false,
+"explanation": "Dijkstra encontra caminhos mais curtos em grafos com pesos, não lida com ciclos de listas."
+},
+{
+"text": "Busca Binária Modificada.",
+"isCorrect": false,
+"explanation": "Não aplicável a listas encadeadas sem acesso direto ao meio da estrutura."
+},
+{
+"text": "Knuth-Morris-Pratt (KMP).",
+"isCorrect": false,
+"explanation": "KMP é utilizado para encontrar e mapear substrings em cadeias de texto, não para ciclos em estruturas de ponteiros."
+}
+]
+},
+{
+"id": "q-20",
+"topic": "Lista",
+"difficulty": "easy",
+"text": "O que ocorre quando se perde a referência para o nó inicial (Head) de uma Lista Encadeada não circular em linguagens com Garbage Collector (como Java)?",
+"options": [
+{
+"text": "Todo o encadeamento de nós torna-se inacessível para o programa e, subsequentemente, a memória inteira da lista é liberada pelo Garbage Collector.",
+"isCorrect": true,
+"explanation": "Se a raiz/Head é cortada e não há variáveis ativas apontando pra ela, todos os nós descendentes viram lixo na memória elegível para coleta."
+},
+{
+"text": "A lista reverte automaticamente para o formato de array como mecanismo de segurança do sistema operacional.",
+"isCorrect": false,
+"explanation": "O SO e a linguagem de programação não executam tais transformações milagrosas na perda de referências."
+},
+{
+"text": "Os nós permanecem para sempre na memória causando um Memory Leak crítico.",
+"isCorrect": false,
+"explanation": "Sistemas modernos com Garbage Collector rastreiam a árvore de referências a partir dos nós ativos (GC Roots). Se a Head some, os nós são destruídos corretamente, a menos que seja C/C++ sem gestão manual."
+},
+{
+"text": "O programa lança uma StackOverflowException.",
+"isCorrect": false,
+"explanation": "Isso causaria NullPointerExceptions ao tentar acessar, não estouro de pilha de execução (StackOverflow)."
+}
+]
+},
+{
+"id": "q-21",
+"topic": "Sorting / BubbleSort",
+"difficulty": "easy",
+"text": "Qual o mecanismo base de ordenação do algoritmo Bubble Sort?",
+"options": [
+{
+"text": "Percorre a lista múltiplas vezes, comparando elementos adjacentes e trocando-os (swapping) caso o da esquerda seja maior que o da direita, fazendo os maiores elementos 'flutuarem' para o fim.",
+"isCorrect": true,
+"explanation": "A imagem mental é que o elemento mais pesado borbulha para o fundo do array a cada passagem do loop externo."
+},
+{
+"text": "Divide o array repetidamente pela metade até obter arrays de um elemento, fundindo-os em ordem posteriormente.",
+"isCorrect": false,
+"explanation": "Este é o paradigma do Merge Sort (Dividir para Conquistar)."
+},
+{
+"text": "Seleciona o menor elemento do array e o move para a primeira posição, depois busca o segundo menor, sucessivamente.",
+"isCorrect": false,
+"explanation": "Este é o mecanismo do Selection Sort."
+},
+{
+"text": "Escolhe um pivô aleatório e separa os menores a esquerda e os maiores a direita de forma recursiva.",
+"isCorrect": false,
+"explanation": "Este é o funcionamento do Quick Sort."
+}
+]
+},
+{
+"id": "q-22",
+"topic": "Sorting / BubbleSort",
+"difficulty": "medium",
+"text": "Quais são as complexidades de tempo do Bubble Sort nos casos Pior (Worst-case) e Melhor (Best-case, se otimizado com flag booleana)?",
+"options": [
+{
+"text": "Pior caso: O(n^2) | Melhor caso: O(n)",
+"isCorrect": true,
+"explanation": "O pior caso (inversamente ordenado) exige dois loops completos O(n * n). Se o algoritmo rastrear trocas com uma flag (isSwapped) e o array já estiver ordenado (melhor caso), ele fará uma passagem apenas de verificação, caindo para O(n)."
+},
+{
+"text": "Pior caso: O(n log n) | Melhor caso: O(1)",
+"isCorrect": false,
+"explanation": "O Bubble Sort não alcança performance linear-logarítmica."
+},
+{
+"text": "Pior caso: O(n^2) | Melhor caso: O(n^2)",
+"isCorrect": false,
+"explanation": "A versão ineficiente crua não otimizada seria O(n^2) sempre, mas a implementação com a flag de curto-circuito salva o best-case."
+},
+{
+"text": "Pior caso: O(n) | Melhor caso: O(1)",
+"isCorrect": false,
+"explanation": "Complexidade impossível para algoritmos baseados em comparação genérica."
+}
+]
+},
+{
+"id": "q-23",
+"topic": "Sorting",
+"difficulty": "medium",
+"text": "Na teoria de ordenação, o que define que um algoritmo de ordenação é 'Estável' (Stable)?",
+"options": [
+{
+"text": "Garante que elementos com valores iguais de chave manterão a ordem relativa exata que possuíam no array original.",
+"isCorrect": true,
+"explanation": "Se 'A(idade 20)' aparecer antes de 'B(idade 20)', o sort estável manterá A antes de B na lista finalizada. Exemplos: Merge Sort, Bubble Sort."
+},
+{
+"text": "Garante que não haverá Memory Leaks ou travamento do sistema durante a ordenação em produção.",
+"isCorrect": false,
+"explanation": "Estabilidade se refere à ordem dos dados em chaves empatadas, não à estabilidade de crash do SO."
+},
+{
+"text": "O tempo de execução do algoritmo será idêntico para arrays ordenados, desordenados ou inversamente ordenados.",
+"isCorrect": false,
+"explanation": "A variação de tempo define a performance (melhor, médio, pior), não a propriedade de Estabilidade dos dados."
+},
+{
+"text": "O algoritmo realiza a ordenação inteiramente sem o uso de Arrays auxiliares ou memória externa.",
+"isCorrect": false,
+"explanation": "Isto define um algoritmo In-Place (no mesmo lugar). Merge Sort é Estável, mas consome O(n) espaço (Não in-place)."
+}
+]
+},
+{
+"id": "q-24",
+"topic": "Sorting",
+"difficulty": "hard",
+"text": "Sobre o algoritmo QuickSort, qual destas afirmações sobre sua complexidade é verdadeira?",
+"options": [
+{
+"text": "Tem complexidade média de O(n log n), mas pode degradar para O(n^2) no pior caso se a escolha do pivô for pobre (ex: array já ordenado e o último elemento como pivô).",
+"isCorrect": true,
+"explanation": "Se o pivô for os extremos repetidas vezes, as partições ficam desequilibradas (0 a n-1 itens), gerando loops completos recursivos caríssimos."
+},
+{
+"text": "Tem complexidade fixa de O(n log n) em absolutamente todos os casos possíveis.",
+"isCorrect": false,
+"explanation": "Isso descreveria o Merge Sort ou Heap Sort, não o QuickSort que sofre de variação acentuada."
+},
+{
+"text": "Tem pior caso em O(n log n) e melhor caso em O(1).",
+"isCorrect": false,
+"explanation": "A resposta não corresponde à matemática das árvores de recursão do Quicksort."
+},
+{
+"text": "É estritamente mais lento que o BubbleSort na prática para arrays acima de 10.000 itens.",
+"isCorrect": false,
+"explanation": "O QuickSort brilha exatamente em grandes volumes devido ao fator (log n), enquanto BubbleSort destrói a performance com volumes grandes."
+}
+]
+},
+{
+"id": "q-25",
+"topic": "Sorting",
+"difficulty": "medium",
+"text": "Qual paradigma de design de algoritmo o MergeSort utiliza primordialmente?",
+"options": [
+{
+"text": "Dividir para Conquistar (Divide and Conquer).",
+"isCorrect": true,
+"explanation": "O MergeSort divide o array ao meio até formar arrays de tamanho 1, resolve esses micro problemas fáceis (tamanho 1 está ordenado) e os funde (conquista) de volta."
+},
+{
+"text": "Programação Dinâmica (Dynamic Programming).",
+"isCorrect": false,
+"explanation": "Não usa memoização de subproblemas sobrepostos."
+},
+{
+"text": "Algoritmo Guloso (Greedy Algorithm).",
+"isCorrect": false,
+"explanation": "Greedy escolhe a opção que parece melhor localmente (como Dijkstra ou Prim), o que não se aplica ao desmonte recursivo completo do MergeSort."
+},
+{
+"text": "Backtracking.",
+"isCorrect": false,
+"explanation": "Backtracking lida com reversão de estado falho ao buscar caminhos viáveis (ex: Resolver Sudoku, N-Rainhas)."
+}
+]
+},
+{
+"id": "q-26",
+"topic": "Sorting",
+"difficulty": "hard",
+"text": "Qual algoritmo de ordenação geralmente é o mais rápido, inclusive superando O(n log n) rápido na prática, quando o array já se encontra 'quase totalmente ordenado' (com apenas poucos elementos fora do lugar)?",
+"options": [
+{
+"text": "Insertion Sort (Ordenação por Inserção).",
+"isCorrect": true,
+"explanation": "Em arrays quase ordenados, o Insertion Sort precisa fazer muito poucas trocas por elemento. Seu melhor caso atinge complexidade de tempo O(n), operando de forma mais natural e leve que a sobrecarga recursiva complexa do Quicksort/Mergesort para esse cenário."
+},
+{
+"text": "Selection Sort (Ordenação por Seleção).",
+"isCorrect": false,
+"explanation": "O Selection Sort é míope e executa todos os laços de busca ignorando se já está ordenado, travando fixamente no pior tempo O(n^2)."
+},
+{
+"text": "Heap Sort.",
+"isCorrect": false,
+"explanation": "A fase de desconstrução da árvore Heap sempre vai rodar complexo desconstruindo a raíz e reconstruindo O(log n), mesmo que a lista estivesse ordenada previamente."
+},
+{
+"text": "Bubble Sort (Na versão sem flags).",
+"isCorrect": false,
+"explanation": "Na versão não otimizada, ele também forçará O(n^2) rodando laços infinitos."
+}
+]
+},
+{
+"id": "q-27",
+"topic": "Arvore Binária",
+"difficulty": "easy",
+"text": "Qual a principal característica limitadora que torna uma Árvore qualquer ser classificada estritamente como uma 'Árvore Binária'?",
+"options": [
+{
+"text": "Cada nó na árvore não pode ter mais do que dois nós filhos (geralmente nomeados como filho esquerdo e filho direito).",
+"isCorrect": true,
+"explanation": "O prefixo 'bi' reflete a restrição máxima de dois descendentes (podendo ter zero, um ou dois filhos)."
+},
+{
+"text": "A árvore deve conter exatamente um número ímpar de nós em todos os níveis.",
+"isCorrect": false,
+"explanation": "Árvores binárias podem ter quantidades pares ou ímpares em total e níveis."
+},
+{
+"text": "Todos os nós filhos esquerdos devem ser menores que o pai, e filhos direitos maiores.",
+"isCorrect": false,
+"explanation": "Essa restrição descreve uma subcategoria estrita: a 'Árvore Binária de Busca' (BST). Nem toda árvore binária precisa ser ordenada."
+},
+{
+"text": "Apenas dados de formato binário (0 ou 1) podem ser alocados em suas posições de memória.",
+"isCorrect": false,
+"explanation": "O termo Binária se refere à ramificação da estrutura em 2 braços, independente do payload/dado que carrega."
+}
+]
+},
+{
+"id": "q-28",
+"topic": "Arvore Binária",
+"difficulty": "medium",
+"text": "Em uma 'Árvore Binária de Busca' (BST - Binary Search Tree), onde seria alocado naturalmente o valor 42, considerando que o nó raiz possui o valor 50?",
+"options": [
+{
+"text": "Necessariamente na subárvore à esquerda da raiz.",
+"isCorrect": true,
+"explanation": "A lei da BST é: Filhos à esquerda (e todos da subárvore descendente) contêm valores menores que o raiz do momento. Filhos à direita carregam os maiores."
+},
+{
+"text": "Necessariamente na subárvore à direita da raiz.",
+"isCorrect": false,
+"explanation": "O lado direito só abrigaria valores superiores a 50."
+},
+{
+"text": "No topo, assumindo a posição da raiz enquanto o 50 vai para baixo.",
+"isCorrect": false,
+"explanation": "O 50 permanece como raiz fixa inicial. Apenas em árvores autocompensáveis de balanceamento grave (AVL/Red-Black) haveria rotação da raiz, mas n por um simples 42 em inicio."
+},
+{
+"text": "Isso causa uma exceção pois não pode haver um número par seguido de um número par num nível adjacente.",
+"isCorrect": false,
+"explanation": "Árvores não possuem restrições inerentes matemáticas booleanas pares ou ímpares de ordem restritiva vizinha."
+}
+]
+},
+{
+"id": "q-29",
+"topic": "Arvore Binária",
+"difficulty": "medium",
+"text": "Quais são os três métodos mais clássicos e recorrentes de Travessia e leitura de Nós Baseados em Profundidade (DFS) numa Árvore Binária?",
+"options": [
+{
+"text": "Pre-order (Pré-ordem), In-order (Em-ordem), Post-order (Pós-ordem).",
+"isCorrect": true,
+"explanation": "A posição em que a visitação do Nó Raiz acontece dita os termos (Raiz primeiro: pré; Raiz no meio: in; Raiz no fim: post)."
+},
+{
+"text": "Top-down, Bottom-up, e Middle-out.",
+"isCorrect": false,
+"explanation": "Embora conceituais de direções, os termos técnicos adotados nas literaturas canônicas C.S são pre, in e post."
+},
+{
+"text": "Insert-order, Delete-order e Find-order.",
+"isCorrect": false,
+"explanation": "Tratam de operações modificadoras de repositório, não algoritmos passivos de travessia e exploração."
+},
+{
+"text": "Sequential, Random, e Linear.",
+"isCorrect": false,
+"explanation": "Modos aplicáveis em arrays convencionais, árvores exigem caminhos bidimensionais em grafos limitados de filhos."
+}
+]
+},
+{
+"id": "q-30",
+"topic": "Arvore Binária",
+"difficulty": "medium",
+"text": "Se aplicarmos o algoritmo de travessia In-order (Em-ordem) em uma Árvore Binária de Busca (BST), qual padrão surgirá na leitura resultante dos elementos impressos no console?",
+"options": [
+{
+"text": "A saída exibirá todos os elementos do conjunto perfeitamente ordenados do menor para o maior de forma crescente de valor.",
+"isCorrect": true,
+"explanation": "Travessia in-order vai na Esquerda extrema, Raiz, Direita extrema. Numa BST, os nós menores habitam a esquerda, então ele colherá todos os elementos sequencialmente na ordem de grandeza."
+},
+{
+"text": "A saída exibirá a árvore numa ordem puramente aleatória dependente da ordem em que os nós foram inseridos no passado.",
+"isCorrect": false,
+"explanation": "Independente de como foi montada as cegas de ordem, a travessia extrairá e forçará as vias de leitura crescente com base na posição gravidade relacional estrutural das arvores."
+},
+{
+"text": "A saída trará o número de níveis no começo seguido das folhas restantes.",
+"isCorrect": false,
+"explanation": "Imprime valores dos nós, não metadados da estrutura e alturas isoladas no console header string."
+},
+{
+"text": "A saída mostrará a raiz em primeiro plano, lendo do topo para baixo.",
+"isCorrect": false,
+"explanation": "A raiz no primeiro plano é alcançada pela travessia Pre-Order (Raiz, Esq, Dir)."
+}
+]
+},
+{
+"id": "q-31",
+"topic": "Arvore Binária",
+"difficulty": "hard",
+"text": "Por que estruturalmente árvores balanceadas restritas (como AVL ou Red-Black Trees) realizam rotações automáticas durante as operações contínuas de inserção?",
+"options": [
+{
+"text": "Para evitar que a árvore degenere e vire uma Lista Encadeada reta e profunda (Skewed Tree), garantindo a preservação da cobiçada complexidade O(log n) da busca natural da árvore em todos cenários.",
+"isCorrect": true,
+"explanation": "Se uma BST receber inputs de forma sequencial puramente crescente (1,2,3,4,5), as inserções formariam uma tripa reta pendendo apenas pra a direita resultando em O(n) na busca destrutiva. O balanceamento amassa e distrubui espalhando pra forçar profundidades parelhas simétricas logarítmicas limites em folhas baseadas."
+},
+{
+"text": "Para diminuir permanentemente o tamanho original contido do dado inserido e aplicar compressão bytes dos objetos salvos em memória limit base java limit memory size limits overhead.",
+"isCorrect": false,
+"explanation": "Balanceamento altera apenas o layout formativo relacional entre nós de ponteiros e parentescos, sem comprimir cargas ativas de payload objects na JVM base limites do objeto de instâncias java beans root."
+},
+{
+"text": "Para tornar ela equivalente a uma Tabela Hash O(1).",
+"isCorrect": false,
+"explanation": "Árvore de busca nunca chega em constante O(1), no limite ela mantém estritamente garantida o poder de log n logaritmos limite matemático de bifurcações divisoras caminhos e steps loop depths base steps math."
+},
+{
+"text": "Para deletar nós antigos nativamente na base limpa da memoria do heap base memory GC limt lixo e purificação.",
+"isCorrect": false,
+"explanation": "O balanceamento preserva os dados, ele muda o endereço referencial dos parentes filhos adotivos esquerdos ponteiros direitos rotations esq dir pivots AVL roots limits balances limit balance limits nodes re-parentings node links parent."
+}
+]
+},
+{
+"id": "q-32",
+"topic": "Arvore Binária",
+"difficulty": "hard",
+"text": "Qual a diferença exata da literatura técnica entre uma Árvore Binária Cheia (Full Binary Tree) e uma Árvore Binária Completa (Complete Binary Tree)?",
+"options": [
+{
+"text": "Uma Cheia exige que todo nó ou não tenha NENHUM filho (seja folha) ou possua EXATAMENTE DOIS filhos limitantes; Uma Completa dita que todos os níveis estejam preenchidos, exceto no último andar inferior que se tiver vão solto de folhas ausentes obriga preenchimento restrito apertado ordenado à partir da Extrema Esquerda contígua natural limite array representation limit heap base restrita limites arranjos visuais.",
+"isCorrect": true,
+"explanation": "Uma completa não tem buracos entre nós, todos são achatados para o canto esquerdo da visão. Já na Cheia não importa formato do teto para o chão, desde que não existam pais deficientes com um bracinho só balançando solto no meio."
+},
+{
+"text": "Uma Cheia armazena apenas números pares limites base payload de pares numéricos, e Completa foca em chaves de criptografias base completas array char limite.",
+"isCorrect": false,
+"explanation": "Diferenciam-se exclusivamente pelo layout geográfico geométrico posicional do shape limites visuais limites ramificações matematicas restritas links."
+},
+{
+"text": "São puramente sinônimos na computação sem distinções e diferem por origens inglesas base regionais limites nomenclatura limits limits regional naming base name base convention conventions text context convention history naming literature tech limit rules.",
+"isCorrect": false,
+"explanation": "A teoria provê uma especificação rigorosa definicional com implicações matemáticas em implementações de Heaps para o formato completeness base property."
+},
+{
+"text": "A cheia possui todas as pontas apontadas para uma lista encadeada subjacente (Threaded). A completa não possui ponteiros ponteiros null soltos memory pointers root pointers NULL ends limits limit ptr base.",
+"isCorrect": false,
+"explanation": "Árvore threaded costurada é um design isolado onde o null de folha vira pointer pra proximo InOrder node base optimization memory loop iterators. O cheia não lida c threads costuras nulls limit."
+}
+]
+},
+{
+"id": "q-33",
+"topic": "max-heap",
+"difficulty": "easy",
+"text": "O que estabelece e valida a propriedade magna principal definidora de um Max-Heap?",
+"options": [
+{
+"text": "O valor de todo e qualquer nó pai deve ser estritamente maior (ou igual) ao valor de todos os seus nós filhos ramificados diretos no nível abaixo.",
+"isCorrect": true,
+"explanation": "Dessa forma, é matematicamente garantido que o topo soberano isolado máximo superior (A Raiz index zero) seja incrivelmente o MAIOR elemento gigante contido em toda a massa da árvore."
+},
+{
+"text": "Os filhos mais novos adicionados devem ser maiores que o pai base insercao insercoes.",
+"isCorrect": false,
+"explanation": "Esse é o Min-Heap (o pai e os avos de cima são valores pequeninos humildes)."
+},
+{
+"text": "Todos os valores do lado direito da subárvore do root precisam ser absolutos globais maximos globais.",
+"isCorrect": false,
+"explanation": "A regra de separação direcional esquerda direita horizontal limit regras horizontais é pra Árvore de Busca (BST) limits. O heap aplica a restrição vertical e cima para baixo (pais > filhos) sem se importar em ordem esq/dir de irmaos vizinhos."
+},
+{
+"text": "O heap deve conter o número limite contável primitivo restrito MAX_INTEGER java numérico absoluto preenchendo todos slots limits.",
+"isCorrect": false,
+"explanation": "A expressão não é estática absoluta, mas uma métrica inter-relacional."
+}
+]
+},
+{
+"id": "q-34",
+"topic": "min-heap",
+"difficulty": "easy",
+"text": "Em um Min-Heap que acabou de sofrer 10 inserções aleatórias sem perdas, onde podemos encontrar garantidamente o elemento de menor valor total numérico sem necessitar executar nenhuma busca O(n)?",
+"options": [
+{
+"text": "No topo absoluto isolado da árvore e estrutura (O Nó Raiz / index 0 no array limit limits top limits peek O(1) peek method limit getRoot limit base).",
+"isCorrect": true,
+"explanation": "A base teórica central do heap é organizar os dados para que acessar o top (Mínimo no min, Máximo no max) seja uma chamada direta super veloz de complexidade temporal O(1)."
+},
+{
+"text": "Na extrema profundidade da ponta inferior lateral esquerda (extrema left tail tail extremidade limits end tip limits leaf leaf left).",
+"isCorrect": false,
+"explanation": "O menor não viaja, as borbulhas fazem ele nadar (Heapify up sifting up shift up limites float up heap) forçando seu alojamento no ápice da estrutura no zero root limits base."
+},
+{
+"text": "Na segunda raiz nivelada base filho esquerdo.",
+"isCorrect": false,
+"explanation": "Lá pode ser o segundo ou terceiro ou enésimo menor a depender dos inputs e shuffles nativos tree structures limits branches limits base."
+},
+{
+"text": "Não dá pra saber a posição certa, Heaps não controlam limites restritos base position e exigem loop O(n) array loops search loops list search limit limits loop.",
+"isCorrect": false,
+"explanation": "Sabemos com pura certeza que o 1º mais forte (ou mais fraco no min) senta na cadeira da ponta superior."
+}
+]
+},
+{
+"id": "q-35",
+"topic": "max-heap",
+"difficulty": "medium",
+"text": "Por que a grande maioria maciça das implantações técnicas nativas das linguagens preferem implementar Heaps como Arrays puros matemáticos em vez de alocar nós complexos com ponteiros esquerdos e direitos (objetos Node.java limit object mem overhead links limit)?",
+"options": [
+{
+"text": "O fato estrutural irredutível do Heap de sempre forçar visualmente ser uma Árvore Completa perfeita permite navegar pai filho sem ponteiros de classe utilizando puramente aritmética posicional de base linear indexada simples (filhoEq = 2i + 1, filhoDir = 2i + 2) no array economizando absurdo processamento RAM gc overhead memory pointers link memory limits mem heap.",
+"isCorrect": true,
+"explanation": "A completude (todos empurrados pro canto esquerdo nos teto e chão levels) transforma arvores perfeitamente em linhas de vetores previsíveis onde o espaço em array se adequa 1 pra 1 sem lacunas gaps memory limits e calculo base 2 array limits pos limits O(1) navigations CPU L1 caches optimize local base speed limit processor caches L2."
+},
+{
+"text": "Porque o criador da linguagem C limitou ponteiros em kernel em 1970 limites kernel limits C language unix limits POSIX limit specs originais base.",
+"isCorrect": false,
+"explanation": "Mito histórico e falso C amava ponteiros."
+},
+{
+"text": "Os arrays impedem hackers limit overflow buffers limit attacks buffer exceptions limites java bypass local nativos roteamento limites hardware roteador web.",
+"isCorrect": false,
+"explanation": "Arrays sao vitimas classicas de buffer overflow ataqs na era arcaica sem GC. Array em heap foca performace de tree sem o peso e travessia pointer ram random jumps cache misses memory cache jump ram OS memory pages faults limits cache speed."
+},
+{
+"text": "Heaps são imutáveis após criados, permitindo alocar bloco unico array limit freeze javascript arrays frozen base limits limit const tuple structures immutable final java final values static fields limits memory static zone.",
+"isCorrect": false,
+"explanation": "Priority queues heaps recebem e extraem intensamente items em loop mutáveis a vida inteira do servidor base limit mutabilidade base local states updates mutation."
+}
+]
+},
+{
+"id": "q-36",
+"topic": "max-heap",
+"difficulty": "medium",
+"text": "Qual o custo e o fluxo mecânico interno da operação 'Extract-Max' (Remover a raiz e reconstruir O maior elemento do Max Heap)?",
+"options": [
+{
+"text": "Tem custo O(log n). Você deleta e salva a Raiz forte pra retornar na função, e brutalmente arranca o último e último isolado coitado menor elemento humilde láá da folha do fim do array, copia ele forçadamente pra o lugar da Raiz no trono index 0 e começa o violento processo e purga de 'Heapify-Down' ou Sift-Down forçando ele a batalhar com seus novos filhos trocando de local até que o coitado menor ache seu lugar baixo natural onde deve pertencer equilibrado denovo estabilizando restrição da árvore base logic tree math rule rule heap property rule local base check limit math check conditions local logic loop limit rule check base.",
+"isCorrect": true,
+"explanation": "Cortou o líder. O ultimo recruta mais novo do fim da base sobe pro vazio trono por conta das rules the array. Daí o algoritmo olha a nova falsa raiz (o recruta fraco q ta no topo da piramide dos maiores) compara com os tenentes grandes lá vizinhos braços direitos, ve que ele e menor que a trupe e despenca afundando no mar de logs n comparações restritas em níveis."
+},
+{
+"text": "Custa O(1). Você apaga, e as células do array puxam magicamente todos do lado puxando e fechando o gap de bloco em memoria num block mem move cpu level asm instrução nativa restrita OS local limits limit asm base move array mem copy limits.",
+"isCorrect": false,
+"explanation": "A puxada linear em fila O(n) ou mem copy destruiria as relacoes matematicas do meio gerando arvore mal formata invalida quebra heap limits heap rules. Tem q fazer sift-down O(log n)."
+},
+{
+"text": "Custa O(n). Você deleta e a arvore vira um lixo. O java dispara garbage collector array limit gc rebuild memory array instanciando do zero sort function limit base memory instanciations java loop map for each sort array list native base.",
+"isCorrect": false,
+"explanation": "A otimização da O(log n) sifting garante que nao tenhamos que dar sort em toda a tralha toda a cada remoção minima do loop. Rebuild do zero mataria eficiencia da queue base."
+},
+{
+"text": "Exige lock do thread base sleep lock lock mutex O(10) seconds block array restrito local thread sync sync bloqueio.",
+"isCorrect": false,
+"explanation": "Concorrência não tem vinculo cm as leis de complexidade da teoria dos grafos/arvores isoladas math abstrata base restrita O bounds."
+}
+]
+},
+{
+"id": "q-37",
+"topic": "min-heap",
+"difficulty": "hard",
+"text": "Considere o algoritmo otimizado para a técnica de contrução massiva em lote chamada 'Build-Heap', e não usando o método burro demorado inserindo um a um individualmente base loop add no array n elementos. Quanto custa construir um Heap inteiro do zero a partir de uma array completamente não ordenado gigante confuso desarrumado base restrita usando as engenhocas baseadas em Floyd Heap algorithm limit math theory theory of bottom up algorithms limit up limits base sift down approach?",
+"options": [
+{
+"text": "Tempo incrível matemático estrito O(n). O truque de ignorar e pular iterativamente todas as folhas da base inferior pura livre bottom (que já são trivialmente heaps de um único elemento unitárias sem filhos ok) e realizar o doloroso processo sift-down (afundamento) estritamente apenas partindo comeca no nível N/2 de baixo indo retroativamente aos pais do meio pro teto Raiz topo topo teto produz limites integrados de somatório de série finita da profundidade convergir puramente em limite T(n) = O(n) math base calculus limits integration bound limits.",
+"isCorrect": true,
+"explanation": "Pode parecer estranho que a soma limite de vários O(log n) resulte em O(n), mas o macete é que a grande massa volumosa do cesto da pirâmide embaixo (as folhas folhagens que dão 50% dos dados N/2 em base) exige altura 0 ou 1 trocas e andares sift-downs pro chão final base fundo do array, equacionando e amortizando os passos de base da física limites theorema da complexidade math limit calculus series."
+},
+{
+"text": "Leva estritamente tempo O(n log n) e custa o mesmo tempo duro das N insercoes num array individualmente burro e inocente da base naive loop add push math limit O bounds limit theory O time limits base limits n loops limits.",
+"isCorrect": false,
+"explanation": "Sim, um 'for' dando N pushes insert na fila limpa vai dar custo O(n log n). Mas o Floyd Heap Build (construção por heapify array inteiro local) resolve e economiza atingindo o famoso custo linear limpo O(n)."
+},
+{
+"text": "Possui tempo O(1) e faz apenas uma cópia de pointer memoria swap string base java.",
+"isCorrect": false,
+"explanation": "Impossível criar ou varrer um arranjo local sem olhar cada bloco ao menos para processar. As constantes theóricas de limites exigem ao menos percorrer."
+},
+{
+"text": "Dá timeout timeout e cai limites limites limit memory erro erro memory RAM limit ram memory ram leak RAM limits limit local host limit host JVM limite ram O(n^2).",
+"isCorrect": false,
+"explanation": "Build Heap de n=milhões em memory blocks limit não gera quadrados O(n^2) em arvore tree array arrays list vector limit limit c++ heap stl base."
+}
+]
+},
+{
+"id": "q-38",
+"topic": "max-heap",
+"difficulty": "medium",
+"text": "Se em suas mãos habita um algoritmo de ordenação que utiliza o Max-Heap estrutural e local, conhecido canonicamente como Heapsort. Ele gera o array final das variáveis crescentes em ordem (ex: 1, 3, 5, 100). Como ele atinge e concretiza base limites o pulo do gato das extrações extração base sem usar memória auxiliar base adicional In Place array array final local limit base space limits array?",
+"options": [
+{
+"text": "Ele usa a vantagem oculta do array. A cada Extract-Max e exclusão da Raiz gigante pesada, o elemento menorzinho da cauda do heap e o index final base array desocupam o lote livre limite slot da ultima casa do array pra arvore diminuir de tamanho base N-1 limits limits tamanho. A Raiz (o 100 boladao) é movida esperta para a cauda limpa vagada do array onde agora será seu cemitério e destino final fixo como fim do array limite index limite limite index, e aí o for e array virtual tree loop varre ate zero iterativamente salvando in place no final as raizes maximas limitadas array base limit sort max limit bounds limit arrays base limit sort array max index.",
+"isCorrect": true,
+"explanation": "O HeapSort In Place isolado faz com que, em cada passo O(log n), ele puxe o grandão da Raiz (max), desaloje o n-1 da fila pro inicio e guarde o grandao max na gaveta final da base (no lote morto index n-1 do array). Fim das N rodadas, o ultimo elemento max ta no end do array, e vc ordenou crescentemente no array mesmo da maquina."
+},
+{
+"text": "Manda em listas JSON pro API local array JSON limits limites array listas string e parse int array.",
+"isCorrect": false,
+"explanation": "Nada na arquitetura do OS usa jsons rest rest JSON object nodes de memoria RAM nas camadas basais do assembler sort hardware. Faz no memory address local in place do C array limit c vector nativo local vector vector stl list base."
+},
+{
+"text": "Recria uma Array list base base limit Java Array object class reflection list e transfere limit os blocos em loop N^2 limit complexidade loop array insert base limit java util class object limits local array.",
+"isCorrect": false,
+"explanation": "O conceito fundamental que faz o HeapSort valioso (frente a ele e Mergesort q consome RAM e memoria N adicional) é que o Heap sort faz tudo In Place isolado no memory slot unico sem copia do vector base local limit bounds memory footprint free."
+},
+{
+"text": "Usa Recursividade pura local java thread thread execution limits threads locks local multithread threads sorting fork joins limit fork pool java parallel arrays limits limits limit fork join executor stream api limit java threads.",
+"isCorrect": false,
+"explanation": "Heapsort comum basico em vetor em algoritimo base não exige as APIs de paralelismo streams da linguagem para concretizar e rodar, é serial O(n log n) e usa theores for loop e math simples limite simple index base arithmetic calculations local limit array calculations i=2n limit bounds limits loop variables swap operations swap swap memory."
+}
+]
+},
+{
+"id": "q-39",
+"topic": "Grafos",
+"difficulty": "easy",
+"text": "A diferença vital arquitetural e primária entre um Grafo Direcionado (Directed Graph / Digraph) de um Grafo Não Direcionado (Undirected Graph) remete puramente à dinâmica de qual premissa base dos conjuntos da base de teoria dos grafos matemática limits?",
+"options": [
+{
+"text": "A natureza da Via de acesso e navegação entre o conjunto limite arestas E. No Não direcionado as arestas Edge entre nós (A, B) denotam rua dupla mão dupla amizade Facebook de mão de ida e volta base nativo vai e vem link bi directional link. No Digraph as arestas impõem setas vetor limitando o caminho como mão única link twitter seguir limit (A aponta pra B, logo de A chego em B mas B não pode pular pra A de volta limit flow limit base).",
+"isCorrect": true,
+"explanation": "Grafos de redes sociais como twitter, A seguir B não significa que B siga A (Mão Única = Direcionado). Em amizades whatsapp de contatos facebook se A é brother parceiro de B, automaticamente na plataforma B é bro de A (Via Dupla Simétrica Undirected sem flecha)."
+},
+{
+"text": "Os Não Direcionados não possuem numeração base inteiros ids limites limites UUID guid nativo ids limits numéricos index strings index string names limites names node id limit object map keys nos limites node labels.",
+"isCorrect": false,
+"explanation": "Tipagem e nomenclaturas de ID identificador não mudam nada do arcabouço direcional geométrico topológico restritivo matemático rules of networks rules of graphs rules of structures base theory edges vertices relationships map networks edges edge node vertices nodes vertex nodes vertices edges."
+},
+{
+"text": "Digraph usa classes Java base API object instances limits object nodes and objects OOP paradigm class instances limits limits limits limits base memory objects limits local and limits the procedural loops arrays maps arrays multidimensionais C limits limits arrays.",
+"isCorrect": false,
+"explanation": "Os digrafos e os grafos base simples nãodirecionados podem perfeitamente todos serem moldados programaticamente tanto nas arquiteturas array procedural matriz adjacente limites quanto classes instanciadas limites pointers. O que o define direcionado e a bidirecionalidade ou unidirecionalidade do transito de caminho fluxo the edges flow directed arrow relationships the arrow base relationship flow the paths paths restrictions direction restriction routes routes maps map map path limits."
+},
+{
+"text": "O limite the peso edge weights edge weight limits peso peso da rua limits limites peso rota shortest path routes limit algorithm edge costs weight weight path cost values algorithms limits.",
+"isCorrect": false,
+"explanation": "Pesos (weight/costs) nas rodovias ou edges criam Grafos Ponderados (Weighted) q tbm são um subtipo ortogonal limit category independente podendo cruzar um direcionado ou não direcionado na montagem the definitions combinations base. O termo digraph dita Seta direção limit flow seta flow paths directions restrictions routes paths direct arrow edges limits the edges routes limits edge edge direction."
+}
+]
+},
+{
+"id": "q-40",
+"topic": "Grafos",
+"difficulty": "medium",
+"text": "Quando um desenvolvedor projeta e vai alocar e instanciar instâncias na ram base mem mem limit memória na matriz num app complexo, ele deve decidir entre a famosa Matriz de Adjacência e a Lista de Adjacência para o seu Grafo limits networks map. Quando e pq preferiremos as listas as matrizes limite limit memoria RAM matrix list base RAM memory tradeoffs limit tradeoff limits memory limit memory O bounds space O V V E E time limits complexity matrix list limits tradeoffs memory limits base constraints resources constraints base?",
+"options": [
+{
+"text": "A Lista de Adjacência vence com grande massivo gigante estrondo performance limpa em RAM limites de uso limit memoria quando a rede a ser desenhada e inserida e representada é de padrão 'Grafo Esparso' (Sparse) limites redes raras isoladas conexões conexoes dispersas limit bounds, salvando-se de criar blocos quadrados maciços matriz zero buracos ocos e mortos gigantes de memoria limpa vazia O(V^2) alocados desnecessariamente atoa pela Matriz de zeros 0 buracos matrix space memory allocation V limits memory limits memory RAM limits O limit bounds V V space RAM.",
+"isCorrect": true,
+"explanation": "Uma matriz NxN para N = 1 milhão de pessoas (como rede instagram limits node nodes graph data) com cada pessoa tendo 5 contatos edges, comeria um array bizarro maciço de trilhões de bits zeros vazios RAM matrix out of mem error RAM exception limits limit memory bounds limits local memory OS memory array size limit bounds array capacity limit exception space space O space limit. A Lista economiza absurdamente e guarda apenas o vizinho q efetivamente conversou cm o cara a array pequena compactada linked chain vectors limit arrays limit limit."
+},
+{
+"text": "A Matriz salva os pacotes strings com parser json parse local limit limit network json parsers limit xml parsers de format limit graph format parser the limits the parsers limits the network parser rules limits API format.",
+"isCorrect": false,
+"explanation": "N tem relação com JSON DTO parser de internet. A alocação da classe do model in mem JVM ou C mem alocation. The list memory struct versus array dimensions struct trade trade off limit trade tradeoff limits choice limit trade memory limits performance tradeoff time limits memory base."
+},
+{
+"text": "Lista é super rápida e bate e atinge o milagroso constante Vôo limits speed O(1) de tempo speed para checar limits bounds search query O limits time 'se o carinha A eh amigo limits check edge exists brother do carinha B the search check connection query connection find edge check limits edge limits check find' em comparação a matriz limits.",
+"isCorrect": false,
+"explanation": "É exatamente INVERSO limit false limits limits tradeoff trade limits tradeoff. A Matriz Adjacente detêm o premio limit super speed check O(1) pra ver se edge vizinho mora ou namora no bloco array (A[indexA][indexB] == 1 limite limits array indexing O O limit array index O 1 O). Na list, vc tem q dar for loop while loop ate axar se B é bro limits loop na lista de amigos limits the O(degree limit O bounds limit degree max limits array edge count O limit list length limits list limits speed time)."
+},
+{
+"text": "Matriz roda linux os sys limits limit matriz os limits system os primitives sys native call limits kernel sys limit bash sh bash limits processes limite and array array processes.",
+"isCorrect": false,
+"explanation": "Total sem contexto osi e posix. O Tradeoff Matrix vs List eh space complexity O(V+E) vs O(V^2) limits limits space and speed O bounds and structures limits logic array multidimension limits base."
+}
+]
+},
+{
+"id": "q-41",
+"topic": "Grafos",
+"difficulty": "easy",
+"text": "Para qual problema prático humano trivial da rua cotidiana base roteamentos o famoso clássico algoritmo transversal do Grafo Busca Em Largura (BFS - Breadth-First Search) soluciona e brilha em destaque atuando magistral e perfeitamente limite limits algoritimos graph path limits graphs networks graphs?",
+"options": [
+{
+"text": "Encontrar a trilha roteamento ou via e caminho rota da sua rua casa pra o supermercado e vizinhança O Caminho Mais Curto (Shortest Path) sem pesos em mapas the shortest path limits distance distance min distance unweighted graph map routing shortest paths limit route map limits gps route steps edges limit map network unweighted limits unweighted graphs routes local routing network local mapping routing routes.",
+"isCorrect": true,
+"explanation": "O BFS irradia pra fora em formato de anéis circulares concêntricos de agua ondas ondas radiais (nível 1 vizinhos amigos, nível 2 amigos de amigos nodes neighbors connections local nodes limits level level tree limit graph nodes limits limits connection networks connection rings local level layers). Logo, na base sem pesos ele atinge o alvo com o Mínimo numero saltos the shortest limit base hops limit."
+},
+{
+"text": "Organizar nomes strings nomes contatos the names string the array char limits arrays limits dictionary array arrays limit limits limit sorting algorithms words arrays limit array limits lexicographical strings names local strings.",
+"isCorrect": false,
+"explanation": "Isso descreve a função Sort the sorting arrays (Merge, Quick limits etc) the string parsing. BFS lida the paths routes routing maps trees graphs the traversal routing mapping nodes search connections limits the map limit routes connection graph limit."
+},
+{
+"text": "Limpar a cache ram OS buffer os page limits linux buffer memory memory the GC limits limit limits gc limite limites linux limit swap local limit memory memory garbage collector memory memory os processes limits.",
+"isCorrect": false,
+"explanation": "O BFS acha caminhos path node limit e travessias e the conexões routing route connection limit network local network connections map the maps e trees."
+},
+{
+"text": "Gerar criptografia chaves privadas the keys private limit ssl TLS public key rsa limits limits the crypto crypto the hashing limits RSA hash block secure keys base local limits encryption encryption.",
+"isCorrect": false,
+"explanation": "BFS n é algoritmo security crypto math hash function limits, é search de nodes in map connections networks graph connections limit the vertices map nodes routes routes unweighted limit shortest connections limits routes path limit paths."
+}
+]
+},
+{
+"id": "q-42",
+"topic": "Grafos",
+"difficulty": "medium",
+"text": "Ao escrever o algoritmo transversal Busca Em Profundidade (DFS - Depth-First Search), como e onde o desenvolvedor usa e orquestra a complexidade e a estrutura dos pacotes lógicos na linguagem limits data structures abstraction layers the algorithms logics base data the data structure the structure limits the logics logic limit structure abstraction limit abstraction limits the code structure?",
+"options": [
+{
+"text": "O Coder e Programador instancia explicitamente usa chama aloca ativamente uma Estrutura de dados local do tipo Pilha (Stack LIFO) pra ir empurrando e esvaziando caminhos ou de forma invisível indireta joga e abusa do fato limits abusa da JVM Call Stack (A pilha abstrata nativa do motor) fazendo Recursão nativa função chamando função limit recursividade limits function recursions recursion stack limits frames recursion loop limits call trace limites limits recursion calls loop limit stack limit frames limit the stack frames.",
+"isCorrect": true,
+"explanation": "Para mergulhar numa arvore grafo atolando atolando ate o talo o fundo do poço sem saída the end the deep base end limits the end edge sem saída leaf base (a profundidade base de mergulho fundo base DFS dive limit the path end limits the ends the deep end path local edge tip tip leaf nodes leaf limit end the deep dive), vc tem q lembrar como dar passos pra tras backtracking local e quem lembra os check points e atua como uma estaca limit the checkpoints limit LIFO behavior base is a STACK local base pilha memory LIFO or System recursion Call Stack base OS recursion memory loops limits base methods JVM limits frames."
+},
+{
+"text": "Usa a estrutura Array List nativa pra the sorting sorting limit lists list lists ordering arrays map ordering maps limits array memory mapping lists sorting sorting maps the structures logic lists arrays.",
+"isCorrect": false,
+"explanation": "Array n gere os checkpoints de mergulho (backtrack history nodes the path tracking trace limit limit paths track the tracking path track track history local trace history tracking tracking nodes the memory tracking limits track tracking base trace back)."
+},
+{
+"text": "Usa as estruturas Heaps Heaps trees and trees maps e arvores the maps trees priority queue the queues priority structure limit min max priority tree map limits logic trees queues the mapping base queue queue trees max maps priorities.",
+"isCorrect": false,
+"explanation": "O DFS foca no mergulho purista Stack the depth dive limits backtracking limit history backtracking stack memory track limits history the tracking route tracking limits LIFO the tracking route limit dive deep track history route the stack memory tracking LIFO history limits depth. A Queue base Priority e Heaps limits base e aplicacao de Dijkstras a * the heuristic routes best routes A A star limits A * dijkstras routes shortest cost based base heuristics algorithms limits shortest lowest priorities lowest minimum route."
+},
+{
+"text": "Gera arquivos CSV files limits logs parsing csv string parse split limits text csv lines io limit file limits limits files and texts base streams file lines csv the texts io IO data streams text.",
+"isCorrect": false,
+"explanation": "Estrutura the data memory O RAM structure the nodes algorithms node traversing routing searching memory limits the RAM objects the object mapping mapping routing paths connections limits base structures abstraction abstraction limits logic."
+}
+]
+},
+{
+"id": "q-43",
+"topic": "Grafos",
+"difficulty": "medium",
+"text": "Para cenários onde existe a presença de custos financeiros pedagios weights (pesos) nas estradas e rodovias virtuais the edges cost limits edges weights the graph weight limit routes costs limit limits map the distance algorithms distance metrics local networks route metrics local routing path limits the connections the path weight costs, quem resolve a busca do caminho mais barato rápido O Menor Caminho Shortest Path limits the algorithms routes routing path finder finder maps routes Dijkstra the mapping routing shortest connections connection metrics routing limits local routing algorithm the costs costs distance?",
+"options": [
+{
+"text": "Algoritmo de Dijkstra limit Dijkstra's limits routing protocols the routing limits Dijkstra shortest routes route costs weight map.",
+"isCorrect": true,
+"explanation": "Enquanto o BFS ignora pesos e olha numero de vias de pulos (bom pra rede facebook saltos nodes 6 degrees of kevin bacon local base degrees degrees of separation local friends network limits hops local friends nodes connection network graphs the connections limits limit distance degrees limit paths). Dijkstras abraça e mastiga as vias ponderadas graphs the graph maps the map routes limit weighted path finder weighted weights costs map the path limits costs routing algorithm path maps costs distance distance local base limit maps."
+},
+{
+"text": "Algoritimo Quicksort limite limit the arrays limits partition sort the sort sorting the arrays elements sort limit sort sort array.",
+"isCorrect": false,
+"explanation": "Quicksort eh the number ordering list lists arrays string items limits values the strings numbers arrays memory ordering."
+},
+{
+"text": "Algoritimo De Huffman the compress encoding limit limits zip files limit the huffman coding coding text encoding text binary string string file string zip compress compression the binary characters string text files huffman the bits data limits base strings limit encoding.",
+"isCorrect": false,
+"explanation": "Huffman limits data string character limit strings character compression encoding lossless zip data limits bits reduction string bit arrays character text encode. N é routing paths graph edges limits weight network distance."
+},
+{
+"text": "Filtro the bloom filters limits set base hashes set limits hash hash set membership testing limits big data limits database filters data data sets membership.",
+"isCorrect": false,
+"explanation": "Bloom Filter testa prezença probabilística de string hashes set membership queries base big data. Nao tem nada limit com network route distance routes routing dijkstras limit limits maps local map network graph weights edges base local routes."
+}
+]
+},
+{
+"id": "q-44",
+"topic": "Grafos",
+"difficulty": "hard",
+"text": "Num Grafo Direcionado limit Directed Grafo Digraph digraph limit local limits acyclic the acylic limits dependencies resolution algorithms dependency order order limits topological sort base dependency limit base resolution the resolutions local network topologies directed arrow graphs the relationships nodes relations rules order sequences, como voce resolve um sistema que dita dependencias tipo 'Voce so pode vestir o tenis de pois de por a meia no pe limit tasks rules prerequisites limit prerequisite sequences orders relationships jobs dependencies rules local task relationships orders jobs limits rules tasks jobs and sequences base limit rules task relationships the dependencies' e organiza uma fila viavel?",
+"options": [
+{
+"text": "Usando o Algoritmo Classico the Topological Sort limits Ordenação Topológica local base nodes local limit the sorting network acyclic directed acyclic dag limits dag graphs dag routes sort nodes dependencies limits tasks limits dependencies limits relationships graphs tasks limit rule base ordering limit algorithms orders sequence base limits local sequence routes order rules.",
+"isCorrect": true,
+"explanation": "Ordenação topológica no DAG the Directed Acyclic Graph the Graph limits network dependencies resolving resolutions limit tasks tasks dependencies resolve limits sequences limits resolve limit limits local sequences base orders base rules routes relations topological sort limit sequences sorts limit sorts limit base sorting algorithms."
+},
+{
+"text": "Gera um log binario file e insere no Kafka local log file limits the log stream limit topics brokers events events base topic topic streams streams limit event bus local bus broker the queues.",
+"isCorrect": false,
+"explanation": "Mensageria e brokers the limit messages n sao os the graphs graph tasks logic constraints limits relationships sequence sorting dependency resolving algorithms base dag tasks jobs sort dependencies task dependencies sequence topological topological sorts."
+},
+{
+"text": "Aplica Bubble sort base limit arrays integers values and lists ordering the ordering limits the limits array the array lists string values sort loops arrays sort comparisons limit sort.",
+"isCorrect": false,
+"explanation": "Bubble lida cm arranjos the the numerical string properties linear elements sequences. O DAG limits the node rules vertices paths restrictions prerequisites dependencies local tasks jobs prerequisites graphs topological algorithms topological limits orders rules."
+},
+{
+"text": "Escreve RegEx limits strings parsers limits regex limits string parsing validators texts limits words validation strings format base pattern matching rules limit pattern text limits rule base text limit validations base rule text validations parser format.",
+"isCorrect": false,
+"explanation": "Regex é match padroes the string format pattern. Nao o ordering dependencies the graphs jobs tasks routes limits relationships graph."
+}
+]
+},
+{
+"id": "q-45",
+"topic": "Estruturas Avançadas",
+"difficulty": "medium",
+"text": "Em estruturas fundamentais e chaves em linguagens limits Hash Map the map hash table dictionaries dicionários Hash maps table maps data the maps structure the hash the hashes base limits local objects local objects memory limit O 1 O speed limits base limits maps dicionários hash dictionary the associative associative the array limits associative structures keys values limits the maps O limits values keys values objects local keys map, qual o evento infame local problem the infame problem limit the problem errors local memory data limits that the structures base limits handling limits hash handling memory limits hash function limits limits limits local problem problems when generating addresses limits collision the collisions?",
+"options": [
+{
+"text": "Colisão the Hash Colision local limits collision limits the collision the key mappings where distinct the distinct keys geram puramente limits geram coincidentemente exatamente a mesma porta index do the array bucket base slot de bucket memory memory array memory limit hash table the table array index and values buckets mapping array mapping hashes mapping limits hash code memory indexing index bucket limit hashes.",
+"isCorrect": true,
+"explanation": "Colisão. Duas palavras nomes (Joao, Juca) o algoritmo de hash faz a matematica the math limits math calc numbers e os 2 caem na gaveta index = 5 do array the hash. Ai the map the maps tem q ter uma tatica de resolving the resolving (Chain limits linked list the open addressing open addressing linear probe probing base list limits array chain link list resolution resolving collision). "
+},
+{
+"text": "Overflow memory GC crash the exception JVM array the limits max heap JVM exceptions limites local GC tuning memory full max xmx memory base errors full exception base array full local gc garbage tuning array bounds max errors memory exception memory limits.",
+"isCorrect": false,
+"explanation": "Hash map sofre ativamente a expansão expansao the resizing resize capacity growth the load factor load 0.75 factor threshold limits array copy limit memory resize. The collision problem problem error hash limits the mappings errors problem happens independently da RAM limits bounds full memory exception JVM the limits GC exception error max memory limit OOM OOM exceptions exception limits bounds local bounds OOM limits."
+},
+{
+"text": "Stack under flow local limit the function limits pop array method limit base methods remove errors errors under limits call recursive stack errors recursion trace limits local exceptions pop limits stack function function limit exceptions trace methods.",
+"isCorrect": false,
+"explanation": "Hash limits as collision collision. O stack bounds the arrays the arrays pop error errors exception methods under under the limit exceptions call limits trace limits the loop local exception traces limits exception methods."
+},
+{
+"text": "Ciclos em the list limits the cycles graphs limit graph trace back recursion traces limits list limits node references pointer loop pointer the memory the loop cycles tracing limits list cycles nodes cycles the list loops.",
+"isCorrect": false,
+"explanation": "As colisoes the map hash maps the tables the dictionary hash the keys hash the algorithms hash map map problems table hash limits hash local table arrays map hashes hash maps maps."
+}
+]
+},
+{
+"id": "q-46",
+"topic": "Estruturas Avançadas",
+"difficulty": "easy",
+"text": "No contexto da Hash Table Table map dictionaries dictionaries hash hash map limits map time time limit speed limits O algorithms base speed bounds O time query operations the search and limits base O limit get operations time search query O array index bounds limits the speed limit of hash hashes dictionary hashes dictionaries limits limits base time performance the speed?",
+"options": [
+{
+"text": "Possui em media the average limits performance de leitura query e a the search insertion insert get set the speed is de O(1) time const speed limit time const tempo base constante time the time bounds O the O const limits time bounds bounds speed speed limit the access O limits index indexing array limits hashing array array array access index array array limits base.",
+"isCorrect": true,
+"explanation": "O milagre e fama the hash map local map map O bounds is that in average cases ele busca o cara e axa com apenas limit tempo const limit limit bounds the base limit O 1 limit O limit base limits time speed index the calculation math array array the index const limits index O time bounds O indexing mapping values data keys keys data keys keys values string strings object objects limits."
+},
+{
+"text": "Pior e melhor e a média é a base const limits bounds the quadratic bounds loop nested loop arrays O limit bounds values quadratic loops values data array string string limit arrays O speed limits base O n squared time O array n loops values bounds loops limit data values bounds time limits.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Acesso limits exponential the O speed limit two n limits the values arrays string values values data values data limits bounds limit loops limits the variables limit arrays time the loops limit values bound loops arrays bounds variables O two n limits time bases limit string strings limits.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "O limits arrays n time variables variables data arrays limits O limits data loop array the speed bounds loops bound index speed limits time limit limit arrays data base loops index the values the strings time O array.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-47",
+"topic": "Estruturas Avançadas",
+"difficulty": "medium",
+"text": "Teoricamente, ql e e qual é the a as a de limit limits a limit a limits the limits a the differences the different a limits limit rules and restrictions a constraints rules definitions limit the graph graphs rules nodes graphs the rules graph rules definitions nodes structures definition networks rules trees the restrictions rules limits of rules differences base between graphs networks networks structures graph nodes rules definitions networks structures graphs rules trees limits graphs structures definitions nodes structures limits the rules trees restrictions limit?",
+"options": [
+{
+"text": "A Árvore Tree the rules the structure trees restrictions definitions definitions is an é um the limits a graph directed undirected graph graph graph limits graph nodes restrictions networks tree tree graph limits rules acyclic rules definition undirected acyclic rules acylic restrictions nodes limit trees roots a graph without cycles no loops rules paths graph restrictions rooted roots graph.",
+"isCorrect": true,
+"explanation": "Uma árvore é literalmente the limits a rules restrictions limits a networks graph rules constraints is a acyclic restrictions graph rules connected limits graphs rules definition definitions rules connected rules undirected rooted acyclic base networks structures limits graphs rules the restrictions restrictions undirected acyclic limits networks connected limits structures."
+},
+{
+"text": "Graphs limits the graph the restrictions graph graph limits structures restrictions structures graph limits rules definitions the networks limit restrictions trees limit definitions networks structures definition restrictions arrays definitions rules graphs networks rules trees limits rules limits.",
+"isCorrect": false,
+"explanation": "A resposta false limits limits definition arrays limit rules limits restrictions definitions graphs structures definitions structures trees structures rules rules definitions restrictions limits limit networks limits trees definition restrictions."
+},
+{
+"text": "Trees definitions limits restrictions the arrays rules trees rules limit trees limit the limit definitions structures structures networks networks rules graph definition graphs structures limits restrictions arrays definitions limits.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "The restrictions structures structures trees definitions rules arrays limits limits graphs rules limits networks definitions restrictions arrays definitions trees definition structures rules networks limits rules limits.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-48",
+"topic": "Estruturas Avançadas",
+"difficulty": "hard",
+"text": "Para a famosa de the limit de de limits a a de limit a the a the the implementacao system caching methods the limit the architecture components limits component cache mechanism strategies data limit data component caching rules systems systems strategies data limits eviction policies data component cache local caching rules data systems caching limits component cache the methods systems limit methods algorithms algorithms methods algorithms limits algorithms limits limits component strategies data the algorithms algorithms methods algorithms caching rules policies eviction systems limit eviction component policies the methods algorithms caching rules policies algorithms caching methods algorithms algorithms systems limit rules methods caching systems policies systems data limits data rules data methods algorithms methods caching caching algorithms methods the rules policies algorithms systems caching rules eviction limit strategies cache caching components rules data cache strategies eviction rules caching components eviction LRU policies cache cache policies algorithms systems limit rules methods caching systems LRU the LRU algorithms caching rules methods algorithms algorithms systems limit rules methods caching LRU systems policies limit eviction rules algorithms caching rules policies LRU the algorithms caching methods algorithms algorithms systems limit rules methods caching limit policies systems limits eviction data the rules caching methods caching limits components eviction rules methods caching components strategies LRU caching strategies cache eviction LRU cache LRU LRU systems LRU limits methods caching caching algorithms caching rules algorithms systems caching methods caching strategies eviction rules algorithms caching components data algorithms algorithms rules limits caching caching components cache eviction LRU algorithms rules components eviction LRU cache caching components LRU algorithms systems systems algorithms methods caching rules eviction?",
+"options": [
+{
+"text": "Utilizando a combinations limits the data structures limits limits data structures algorithms the structures limits structures limits limits structure algorithms a a the combination data structures the combination structure combination limits algorithms limits components Hash components components and rules rules Map rules rules Map Hash rules Double algorithms Linked Map Hash Linked Double Double Linked components Hash components List Linked List Linked Double List Map Map Hash Map Double List List Linked List Hash components Linked algorithms Double List algorithms.",
+"isCorrect": true,
+"explanation": "Para LRU components Map Hash components cache limits algorithms structures limits a Map Double Hash List Linked List Map Linked Hash Linked Hash components Hash rules strategies algorithms limits Hash Linked List Map rules structures combination Double Hash limits List Linked components Hash Linked Double components algorithms."
+},
+{
+"text": "Algorithms Map Array Hash structures limits Array rules Double Map limits Map Map List Array Double rules components Hash Double components components Hash Hash components Array List Double rules algorithms structures List Array Double Array components components components Array Linked Double rules Hash Map Hash List Array Hash Double Array rules Array Hash Linked components Hash components Linked components Array Array Hash Double List Double components Array Double Array Array Hash.",
+"isCorrect": false,
+"explanation": "LRU components Linked List Double List Hash components Map List Linked Linked Double Double Linked Hash Linked Map Hash Map Map Hash Map List List Linked Double components rules limits a data limits structures Hash components algorithms strategies limits."
+},
+{
+"text": "Rules Stack algorithms Queue Hash Queue Queue Hash components Map Stack Stack Queue Double Array Linked components Array Stack Hash Queue Queue Array Stack Hash Queue Stack Queue Map Array Hash Double List Array Map List Queue Linked rules Array Linked components Hash components Linked components Array Array Hash Double.",
+"isCorrect": false,
+"explanation": "LRU LRU eviction rules."
+},
+{
+"text": "Components Heaps Map Hash Array rules Heaps components Map Map Heaps List Array Double rules components Heaps Double components components Heaps Heaps components Array List Double rules algorithms structures List Array Double Array components components components Array Linked Double rules Hash Map Heaps Map Array Array Hash.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-49",
+"topic": "Estruturas Avançadas",
+"difficulty": "medium",
+"text": "Para qual das the limits da de the a the a limits the limits algorithms solutions solutions components systems algorithms applications real limit applications limits applications algorithms applications rules real solutions applications systems limit the solutions applications algorithms limits systems rules the solutions algorithms algorithms components components applications real applications systems applications limits algorithms applications rules systems limits systems the applications rules applications the limits rules algorithms components components applications algorithms rules components rules applications rules algorithms real systems algorithms rules real real limits components applications applications real solutions solutions algorithms components applications systems rules applications limits solutions systems algorithms the rules systems algorithms rules the components algorithms components systems algorithms rules real systems algorithms the algorithms components systems the systems the systems systems applications the components systems components rules applications the algorithms systems algorithms algorithms applications algorithms rules components applications solutions components the components applications algorithms applications systems rules applications applications limits applications algorithms applications components the limits applications algorithms limits components applications algorithms components limits the limits the limits the limits algorithms the algorithms components real rules rules solutions algorithms algorithms applications rules applications solutions algorithms components the limits algorithms limits applications applications algorithms systems rules algorithms solutions applications rules applications components applications rules the Trie components data limits systems algorithms solutions components systems limits solutions rules algorithms components the components applications components systems components algorithms systems applications applications algorithms components components algorithms applications the rules algorithms components algorithms applications rules components components algorithms limits algorithms applications components the components rules applications limits?",
+"options": [
+{
+"text": "Para a a a the applications solutions solutions limits rules algorithms applications applications limits algorithms the components limits limits applications rules algorithms limits components systems the applications components applications algorithms rules the components systems the limits components strings systems algorithms rules limits applications limits prefix strings the autocomplete systems rules components components applications the limits search components the systems strings components applications strings systems algorithms algorithms components the components algorithms applications rules algorithms systems the components strings prefix limit rules components strings algorithms strings applications autocomplete components algorithms applications components the systems strings prefix components algorithms strings rules autocomplete components algorithms algorithms rules algorithms components rules strings algorithms strings rules algorithms strings systems applications components rules strings algorithms autocomplete components algorithms components components algorithms components algorithms algorithms algorithms strings components the systems systems strings prefix strings systems applications components autocomplete algorithms algorithms strings algorithms rules applications components the components components algorithms algorithms algorithms rules applications components systems strings prefix components algorithms strings strings components autocomplete algorithms algorithms rules.",
+"isCorrect": true,
+"explanation": "Trie applications algorithms rules algorithms components applications rules algorithms algorithms the systems components strings prefix components algorithms strings strings components autocomplete applications algorithms rules the limits strings algorithms rules components the systems components autocomplete strings components algorithms the rules applications components algorithms the algorithms rules."
+},
+{
+"text": "Algorithmos rules algorithms components the algorithms rules components algorithms systems strings applications algorithms strings applications strings rules components algorithms strings components systems strings prefix components applications strings components algorithms rules applications components systems the limits applications components algorithms algorithms algorithms rules applications strings prefix the limits.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Components algorithms rules applications components algorithms the algorithms rules strings strings algorithms rules algorithms components applications algorithms strings strings components systems systems components components algorithms rules applications strings prefix applications strings components algorithms the rules applications components algorithms systems systems applications.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "The systems components strings prefix components applications strings components algorithms rules applications components systems the limits applications components algorithms algorithms algorithms rules applications strings prefix the limits strings algorithms rules components algorithms applications strings applications strings rules components algorithms.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-50",
+"topic": "Estruturas Avançadas",
+"difficulty": "easy",
+"text": "No contexto the rules the constraints constraints rules constraints rules limit the constraints bounds rules bounds limits limits limit limits rules local bounds limits bounds time algorithms limits limits bounds local bounds limits time speed constraints time the time limits time algorithms rules limits limit constraints local the the components algorithms solutions limits the rules limits the limits bounds time limits limits bounds limits the limits limits limits bounds bounds algorithms rules limits time rules limits bounds limits time algorithms limits time speed rules limits the limits the rules limits rules limits constraints time the time limits the rules limits limits speed constraints time algorithms time limits limits bounds local algorithms limits limits limits limit time limit time limits constraints algorithms rules bounds the components components algorithms rules rules algorithms rules algorithms the limits the limits algorithms components algorithms time constraints time limits the bounds limits limits limits algorithms constraints constraints rules rules bounds rules the algorithms algorithms rules constraints bounds limit time constraints the components the limits algorithms limits algorithms time limits bounds rules limit bounds limits the bounds time constraints the time algorithms constraints the bounds limits limit algorithms time limits the limits limits speed constraints algorithms time rules the algorithms time rules algorithms algorithms algorithms components limits components limits rules algorithms the algorithms constraints constraints rules the algorithms limits algorithms constraints components constraints rules bounds algorithms the limits speed bounds bounds rules bounds limits rules algorithms constraints constraints algorithms the limits time rules rules algorithms limits speed speed speed limits bounds bounds limits limits bounds rules time limits bounds limits bounds bounds constraints time rules bounds limits constraints bounds the limits bounds the algorithms limits rules limits the components algorithms time limits time rules bounds limits rules bounds rules limits bounds bounds bounds limits limits bounds algorithms bounds algorithms bounds rules bounds algorithms bounds rules algorithms limits limits algorithms rules limits constraints bounds limits rules bounds bounds algorithms bounds algorithms time limits bounds limits algorithms bounds limits bounds limits algorithms rules time limits the constraints algorithms rules rules algorithms limits bounds rules the algorithms rules bounds algorithms the limits time limits the time constraints limits bounds rules bounds rules rules limits bounds constraints algorithms bounds constraints the bounds limits bounds constraints constraints limits bounds rules limits constraints the algorithms bounds rules limits bounds rules constraints algorithms constraints algorithms algorithms constraints the bounds limits limits bounds limits limits limits constraints time limits the algorithms rules algorithms the constraints limits limits bounds algorithms bounds the limits rules bounds limits algorithms bounds algorithms the rules limits algorithms bounds algorithms components rules bounds bounds algorithms bounds algorithms time rules bounds rules the limits bounds rules the limits limits limits speed bounds limits algorithms the limits limits the limits the bounds bounds rules bounds limits the algorithms the the bounds bounds time rules bounds limits the search limits rules search limits time bounds constraints limit binary boundaries time limit speed search rules binary constraints boundaries time binary bounds limits boundaries speed boundaries speed bounds boundaries search algorithms limit constraints the algorithms binary bounds search limits limits limits speed limits rules limits time search limits limit constraints boundaries limits time search limit limits the limits limit search algorithms boundaries time limits time search rules limits binary bounds limits boundaries boundaries constraints limit rules constraints limit search rules time search limit rules the speed limit binary search limits the speed limits rules limits limits search limit search rules time binary bounds boundaries time rules constraints limits search limits search limit binary limits constraints algorithms boundaries boundaries search rules speed limits bounds time rules rules limits binary bounds limits the limits binary the speed rules time limits the time algorithms the search algorithms limit limits limits speed algorithms limit limits limit search rules search the speed algorithms time boundaries time rules rules time binary search limit search rules constraints the speed algorithms time boundaries time rules constraints limits search limits search rules constraints algorithms limits speed time binary rules limits binary the speed limits rules boundaries speed boundaries time search limits limits the speed limits the time limit the limits limits time limits binary search?",
+"options": [
+{
+"text": "O(log n) the boundaries rules limits boundaries algorithms constraints the speed limits rules boundaries rules time rules search limits rules time binary limits limits time limits limit search algorithms boundaries boundaries speed search limits limits binary limits search limit speed algorithms limit constraints the limits limits rules boundaries rules speed limits binary bounds constraints search algorithms time rules.",
+"isCorrect": true,
+"explanation": "O(log n) the speed rules search limits rules limits rules boundaries boundaries limits the algorithms rules the limits the rules rules the boundaries limits boundaries the limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits limits binary search bounds limit constraints the bounds limits rules algorithms constraints boundaries rules search algorithms limits time rules."
+},
+{
+"text": "O(n) bounds constraints search algorithms limits speed rules boundaries boundaries search algorithms time limits the limits limits speed algorithms limit rules boundaries boundaries rules search limits limits rules the limits limits limit time search algorithms boundaries time rules constraints limits search limit speed algorithms limit constraints the limits limits rules boundaries rules speed limits binary limits search rules constraints algorithms limits speed time binary rules limits binary.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "O(1) limits constraints the limits limits rules boundaries rules speed limits binary limits search limit speed algorithms limit constraints the algorithms rules the limits the rules rules the boundaries limits boundaries the limits rules boundaries boundaries rules search algorithms time rules time rules rules the limits limits time limits limits binary search bounds limit constraints the bounds limits rules algorithms constraints boundaries rules search algorithms limits time rules.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "O(n^2) limits speed algorithms limit constraints the limits limits rules boundaries rules speed limits binary bounds constraints search algorithms time rules boundaries search algorithms limits speed rules boundaries boundaries search algorithms time limits the limits limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+}
+]
+}

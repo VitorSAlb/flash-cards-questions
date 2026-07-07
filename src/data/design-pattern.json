@@ -1,0 +1,845 @@
+{
+"theme": "Design Patterns",
+"questions": [
+{
+"id": "q-01",
+"topic": "Creational - Singleton",
+"difficulty": "easy",
+"text": "Qual é o principal objetivo do padrão de projeto Singleton?",
+"options": [
+{
+"text": "Garantir que uma classe tenha apenas uma única instância e fornecer um ponto global de acesso a ela.",
+"isCorrect": true,
+"explanation": "O Singleton restringe a instanciação de uma classe a um único objeto, centralizando o acesso e o estado global."
+},
+{
+"text": "Permitir a criação de famílias de objetos relacionados sem especificar suas classes concretas.",
+"isCorrect": false,
+"explanation": "Isso descreve o padrão Abstract Factory, não o Singleton."
+},
+{
+"text": "Separar a construção de um objeto complexo de sua representação.",
+"isCorrect": false,
+"explanation": "Esse é o propósito do padrão Builder."
+},
+{
+"text": "Converter a interface de uma classe em outra interface esperada pelo cliente.",
+"isCorrect": false,
+"explanation": "Isso descreve o padrão estrutural Adapter."
+}
+]
+},
+{
+"id": "q-02",
+"topic": "Creational - Singleton",
+"difficulty": "medium",
+"text": "No Java, qual técnica é considerada a mais segura e moderna contra problemas de concorrência e serialização para implementar um Singleton?",
+"options": [
+{
+"text": "Utilizar uma classe do tipo Enum (Enum Singleton).",
+"isCorrect": true,
+"explanation": "Recomendado por Joshua Bloch (Effective Java), o Enum fornece proteção nativa de inicialização thread-safe e impede a criação de novas instâncias via Reflexão ou Serialização."
+},
+{
+"text": "Utilizar Double-Checked Locking com atributos estáticos.",
+"isCorrect": false,
+"explanation": "Embora eficaz, o código é mais complexo, verboso e sujeito a erros sutis de sincronização do modificador volatile."
+},
+{
+"text": "Inicialização Eager clássica instanciando na declaração da variável public static.",
+"isCorrect": false,
+"explanation": "Embora seja thread-safe, a inicialização Eager aloca memória mesmo que o objeto nunca seja usado, não sendo a técnica mais otimizada em cenários de memória crítica."
+},
+{
+"text": "Sobrescrever o construtor usando a anotação @Singleton.",
+"isCorrect": false,
+"explanation": "Embora frameworks como Spring ou CDI usem anotações, nativamente na linguagem Java o Enum é a construção de Singleton mais robusta e segura."
+}
+]
+},
+{
+"id": "q-03",
+"topic": "Creational - Factory Method",
+"difficulty": "easy",
+"text": "Qual problema clássico o padrão Factory Method resolve em aplicações de software?",
+"options": [
+{
+"text": "Ele fornece uma interface para criar objetos em uma superclasse, mas permite que as subclasses alterem o tipo de objetos que serão criados.",
+"isCorrect": true,
+"explanation": "O Factory Method delega a lógica de instanciação para as classes filhas (subclasses), removendo a palavra-chave 'new' do código cliente central."
+},
+{
+"text": "Ele encapsula o estado de um objeto em uma classe separada para permitir a funcionalidade de 'Desfazer' (Undo).",
+"isCorrect": false,
+"explanation": "Isto descreve o padrão Memento."
+},
+{
+"text": "Ele notifica automaticamente múltiplos objetos quando um estado muda.",
+"isCorrect": false,
+"explanation": "Isto descreve o padrão Observer."
+},
+{
+"text": "Ele restringe uma classe a ter múltiplas instâncias rodando paralelamente em cache.",
+"isCorrect": false,
+"explanation": "Isto não descreve um Factory Method. Object Pool lida com instâncias cacheadas."
+}
+]
+},
+{
+"id": "q-04",
+"topic": "Creational - Abstract Factory",
+"difficulty": "hard",
+"text": "Qual é a diferença conceitual e de uso principal entre o Factory Method e o Abstract Factory?",
+"options": [
+{
+"text": "O Factory Method cria um único produto via herança (sobrescrevendo um método), enquanto o Abstract Factory cria famílias de produtos relacionados via composição.",
+"isCorrect": true,
+"explanation": "Abstract Factory lida com grupos de objetos (ex: GUI Windows e GUI Mac) que devem ser compatíveis entre si. O Factory Method lida com um produto individual."
+},
+{
+"text": "O Factory Method é estrutural, enquanto o Abstract Factory é comportamental.",
+"isCorrect": false,
+"explanation": "Ambos são padrões Criacionais (Creational Patterns)."
+},
+{
+"text": "O Factory Method não aceita parâmetros no método de criação, enquanto o Abstract Factory aceita.",
+"isCorrect": false,
+"explanation": "O Factory Method (frequentemente chamado de Parameterized Factory) aceita argumentos livremente."
+},
+{
+"text": "O Abstract Factory utiliza estritamente Singletons, enquanto o Factory Method proíbe Singletons.",
+"isCorrect": false,
+"explanation": "Embora implementações concretas do Abstract Factory possam ser Singletons, não há regra de exclusão ou obrigatoriedade de Singletons em nenhum dos dois."
+}
+]
+},
+{
+"id": "q-05",
+"topic": "Creational - Builder",
+"difficulty": "medium",
+"text": "Em qual cenário a aplicação do padrão Builder é mais aconselhável e vantajosa no design orientado a objetos?",
+"options": [
+{
+"text": "Quando a criação de um objeto requer muitas etapas (passo a passo) e para evitar o anti-pattern 'Construtor Telescópico' com dezenas de parâmetros opcionais.",
+"isCorrect": true,
+"explanation": "O Builder permite montar um objeto parametrizado fluindo os dados método a método (.withName().withAge().build()), garantindo legibilidade e ignorando parâmetros nulos."
+},
+{
+"text": "Quando queremos iterar sobre os nós de uma estrutura de dados de árvore sem expor seus ponteiros subjacentes.",
+"isCorrect": false,
+"explanation": "Isso descreve o padrão Iterator aplicado a um Composite."
+},
+{
+"text": "Quando um objeto muito grande precisa ter seu peso ramificado num cache compartilhado estático.",
+"isCorrect": false,
+"explanation": "Isto descreve o padrão Flyweight."
+},
+{
+"text": "Quando precisamos clonar instâncias idênticas para evitar o peso processual da palavra 'new'.",
+"isCorrect": false,
+"explanation": "Isso descreve o padrão Prototype."
+}
+]
+},
+{
+"id": "q-06",
+"topic": "Creational - Prototype",
+"difficulty": "medium",
+"text": "Como o padrão Prototype aborda o problema de cópia de objetos que possuem referências para outros objetos em memória (Clonagem Profunda vs Rasa)?",
+"options": [
+{
+"text": "O padrão permite que o desenvolvedor decida implementando o método clone(); se for uma Cópia Rasa (Shallow), as referências de memória dos sub-objetos serão as mesmas. Se for Profunda (Deep), novos sub-objetos serão forjados.",
+"isCorrect": true,
+"explanation": "O Prototype delega a clonagem para o próprio objeto, permitindo customizar se as propriedades complexas atreladas serão reaproveitadas (Shallow) ou recursivamente clonadas (Deep)."
+},
+{
+"text": "O Prototype obriga nativamente a Cópia Rasa (Shallow Copy) por imposição arquitetural do Gang of Four.",
+"isCorrect": false,
+"explanation": "Não há obrigatoriedade; implementações modernas de Prototype em linguagens fortemente tipadas recomendam Deep Copy para evitar efeitos colaterais nos clones."
+},
+{
+"text": "Ele serializa magicamente a classe em JSON para efetuar as cópias em todos os cenários sem custo de CPU.",
+"isCorrect": false,
+"explanation": "Serialização é um 'hack' para obter Deep Copy, mas não é a definição teórica do padrão e custa processamento pesado."
+},
+{
+"text": "O Prototype não copia propriedades, ele copia apenas os métodos lógicos e cria objetos de campos nulos.",
+"isCorrect": false,
+"explanation": "O objetivo exato é copiar o estado (dados/variáveis) do objeto naquele exato momento do runtime, e não sua assinatura lógica de métodos."
+}
+]
+},
+{
+"id": "q-07",
+"topic": "Creational - Padrões Gerais",
+"difficulty": "easy",
+"text": "Qual é a intenção fundamental por trás de todos os Padrões de Projeto Criacionais (Creational Patterns)?",
+"options": [
+{
+"text": "Eles abstraem o processo de instanciação, escondendo como os objetos são criados e compostos, promovendo flexibilidade e reuso ao desvincular o sistema do uso literal de construtores ('new').",
+"isCorrect": true,
+"explanation": "O foco criacional é isolar a complexidade de como um objeto ganha vida da regra de negócio de onde ele será utilizado."
+},
+{
+"text": "Eles modificam a estrutura e a arquitetura das árvores de pacotes e pastas num projeto Monolítico MVC.",
+"isCorrect": false,
+"explanation": "Eles lidam com criação de objetos individuais em memória, e não com infraestrutura de pastas e arquitetura global de projeto."
+},
+{
+"text": "Eles adicionam comportamentos dinamicamente em runtime através de recursão.",
+"isCorrect": false,
+"explanation": "Padrões Estruturais (como o Decorator) lidam com embrulhos e alterações dinâmicas de composição."
+},
+{
+"text": "Eles facilitam a comunicação síncrona exclusiva entre componentes visuais e banco de dados SQL.",
+"isCorrect": false,
+"explanation": "Padrões limitados à tecnologia ou GUI são padrões arquiteturais isolados. Padrões GoF criacionais são puramente ligados à orientação a objetos (OOP)."
+}
+]
+},
+{
+"id": "q-08",
+"topic": "Structural - Adapter",
+"difficulty": "easy",
+"text": "Em qual situação o padrão Adapter atua de forma decisiva?",
+"options": [
+{
+"text": "Quando você precisa integrar uma classe/biblioteca de terceiros (legada ou externa) ao seu sistema, mas a interface que ela provê é incompatível com a que seu sistema espera.",
+"isCorrect": true,
+"explanation": "O Adapter atua como um tradutor, envolvendo o objeto legado e expondo a interface compatível esperada pelo código cliente moderno."
+},
+{
+"text": "Quando você quer restringir a criação de objetos globalmente no sistema.",
+"isCorrect": false,
+"explanation": "Esta é a definição de Singleton."
+},
+{
+"text": "Quando a performance gráfica exige o reaproveitamento intensivo de instâncias na tela.",
+"isCorrect": false,
+"explanation": "Isso seria o trabalho do padrão Flyweight."
+},
+{
+"text": "Quando os objetos dependem fortemente uns dos outros formando uma rede de teias, exigindo um nó centralizador.",
+"isCorrect": false,
+"explanation": "Isso descreve a atuação de um Mediator."
+}
+]
+},
+{
+"id": "q-09",
+"topic": "Structural - Adapter",
+"difficulty": "medium",
+"text": "O Gang of Four (GoF) define duas variações implementativas do Adapter. Quais são elas e por que uma é predominantemente usada no ecossistema Java moderno?",
+"options": [
+{
+"text": "Object Adapter (baseado em Composição) e Class Adapter (baseado em Herança). O Java favorece o Object Adapter pois não suporta herança múltipla de classes.",
+"isCorrect": true,
+"explanation": "Para adaptar uma classe a uma nova interface via Herança (Class Adapter), seria necessário estender as duas pontas. Como o Java limita a herança única, usa-se a composição injetando o objeto legado na classe adaptadora."
+},
+{
+"text": "Static Adapter e Dynamic Adapter. O Java prefere Static pois compila de forma antecipada (AOT).",
+"isCorrect": false,
+"explanation": "Esses termos não são oficiais na taxonomia do GoF para a classificação do Adapter."
+},
+{
+"text": "Proxy Adapter e Facade Adapter. Ambos são largamente utilizados misturados no Spring framework.",
+"isCorrect": false,
+"explanation": "Proxy e Facade são padrões distintos independentes, e não variações da taxonomia base do Adapter."
+},
+{
+"text": "Method Adapter e Interface Adapter. Java prefere Method pois é orientado a verbos.",
+"isCorrect": false,
+"explanation": "A divisão clássica se baseia nos pilares da Orientação a Objetos: Composição (Objeto) vs Herança Múltipla (Classe)."
+}
+]
+},
+{
+"id": "q-10",
+"topic": "Structural - Bridge",
+"difficulty": "hard",
+"text": "O padrão Bridge resolve o problema da explosão cartesiana de subclasses. Qual princípio basilar da engenharia de software é a força matriz por trás do Bridge?",
+"options": [
+{
+"text": "Prefira a Composição de Objetos em vez da Herança de Classes, separando a 'Abstração' de sua 'Implementação'.",
+"isCorrect": true,
+"explanation": "Se você tem formas (Círculo, Quadrado) e cores (Vermelho, Azul), herdar geraria 4 classes (CirculoVermelho, etc). O Bridge os separa em duas hierarquias; a Forma 'tem uma' Cor injetada via composição."
+},
+{
+"text": "Princípio da Responsabilidade Única, forçando toda classe a ter uma única interface pública.",
+"isCorrect": false,
+"explanation": "Embora reduza responsabilidades, o mecanismo chave da Ponte (Bridge) é combater o excesso de herança estrutural desacoplando eixos operacionais."
+},
+{
+"text": "Programar para uma Interface, nunca para uma Classe Abstrata.",
+"isCorrect": false,
+"explanation": "O Bridge ativamente usa interfaces E classes abstratas (A Abstração e a Implementação) em tandem."
+},
+{
+"text": "A Injeção Dinâmica de Dependência por reflexão em tempo de execução.",
+"isCorrect": false,
+"explanation": "Padrões de design estruturais como Bridge focam nas inter-relações base de classe compondo em tempo de codificação, não são dependentes de frameworks de reflexão."
+}
+]
+},
+{
+"id": "q-11",
+"topic": "Structural - Composite",
+"difficulty": "medium",
+"text": "O padrão Composite é desenhado especificamente para lidar com qual formato visual e abstrato de estrutura de dados nos sistemas modernos?",
+"options": [
+{
+"text": "Estruturas em formato de Árvore (Hierarquia de Partes e Todo), permitindo tratar objetos folha individuais e agrupamentos de forma idêntica e uniforme.",
+"isCorrect": true,
+"explanation": "Arquivos e Pastas do SO, componentes de UI em HTML (Divs contendo parágrafos). O Composite deixa o cliente executar operation() numa Caixa ou num Item solto cegamente."
+},
+{
+"text": "Redes de Grafos Cíclicos diretos com pesos e pedágios.",
+"isCorrect": false,
+"explanation": "O Composite se desmancha em loops infinitos se aplicado sem tratamento profundo em grafos com ciclos (pois ele iteraria recursivamente sem fim na operação)."
+},
+{
+"text": "Tabelas Relacionais puras contendo dados de chaves estrangeiras planas bidimensionais.",
+"isCorrect": false,
+"explanation": "Bancos relacionais usam mapas simples bidimensionais; a natureza do Composite foca em hierarquia recursiva profunda base (árvores DOM)."
+},
+{
+"text": "Filas prioritárias com ordenação temporal (Event-driven Queues).",
+"isCorrect": false,
+"explanation": "O padrão Composite foca em topologia de composição estática relacional, não atua manipulando stream FIFO ou fluxos temporais prioritários."
+}
+]
+},
+{
+"id": "q-12",
+"topic": "Structural - Decorator",
+"difficulty": "easy",
+"text": "Qual é a utilidade e intenção do padrão Decorator?",
+"options": [
+{
+"text": "Anexar comportamentos ou responsabilidades adicionais a um objeto individual dinamicamente (em tempo de execução) como uma alternativa flexível à herança de classes estática.",
+"isCorrect": true,
+"explanation": "Embrulhando o objeto em objetos decoradores (estilo matrioska russa), a funcionalidade soma. Muito usado no Java IO (BufferedReader englobando FileReader)."
+},
+{
+"text": "Ocultar a complexidade de um enorme subsistema arquitetural monolítico atrás de uma única porta (Classe).",
+"isCorrect": false,
+"explanation": "Esta é a definição do Facade, não do Decorator."
+},
+{
+"text": "Reduzir o consumo de memória RAM de milhares de objetos idênticos de tela.",
+"isCorrect": false,
+"explanation": "Isso define o Flyweight (compartilhamento de estado intrínseco)."
+},
+{
+"text": "Criar cópias fiéis de objetos já carregados com processamento lento e cacheá-los na RAM nativa.",
+"isCorrect": false,
+"explanation": "Refere-se ao padrão criacional Prototype."
+}
+]
+},
+{
+"id": "q-13",
+"topic": "Structural - Decorator",
+"difficulty": "medium",
+"text": "Como o padrão Decorator se protege e interage mecanicamente para não corromper o contrato com o código cliente original que consome o objeto base puro?",
+"options": [
+{
+"text": "A classe Decorator implementa e reflete a MESMA interface da classe original (componente), podendo substituir o objeto original transparentemente (Wrappers).",
+"isCorrect": true,
+"explanation": "Como o Decorator implementa a mesma interface, o cliente nem percebe que está chamando um Wrapper modificado. O Wrapper faz a sua lógica e repassa o resto para o objeto empacotado dentro dele."
+},
+{
+"text": "Ele retorna uma Exception nativa avisando o cliente caso o método ativado seja de um Decorador não esperado.",
+"isCorrect": false,
+"explanation": "O Decorator é projetado para atuar silenciosamente, sem quebrar os fluxos ou levantar avisos ao cliente que tudo foi modificado por trás dos panos (invisibilidade do invólucro)."
+},
+{
+"text": "O Decorator sobrescreve todas as variáveis públicas usando reflexão pura e bloqueia acesso a setters.",
+"isCorrect": false,
+"explanation": "Decorators limpos usam delegação simples orientada a interface, não apelam para reflexão profunda e quebra de propriedades locais da RAM."
+},
+{
+"text": "O cliente precisa passar um parâmetro booleano de 'isDecorated' em todos os construtores de métodos para acessar as features extras.",
+"isCorrect": false,
+"explanation": "Isso geraria um alto acoplamento severo entre a implementação abstrata e o consumidor. A força do Wrapper provém da transparência."
+}
+]
+},
+{
+"id": "q-14",
+"topic": "Structural - Facade",
+"difficulty": "easy",
+"text": "O que o padrão Facade (Fachada) entrega do ponto de vista de design arquitetural?",
+"options": [
+{
+"text": "Uma interface limpa e simplificada para um grupo grande, feio e complexo de classes, subsistemas ou APIs de terceiros, orquestrando as chamadas por trás.",
+"isCorrect": true,
+"explanation": "A Fachada esconde os sub-detalhes de instanciação e conexão. Ex: Chamar fachada.iniciarVideo() em vez de ligar o encoder, instanciar a memória, renderizar frames, etc, manualmente."
+},
+{
+"text": "Ele impede por firewall bloqueador de sintaxe que o cliente original consiga instanciar ou acessar as classes obscuras isoladas do subsistema protegido base.",
+"isCorrect": false,
+"explanation": "O Facade não é proibitivo. Ele apenas facilita a vida; se um cliente experiente quiser cavoucar as classes internas complexas bypassando a fachada, ele pode fazê-lo."
+},
+{
+"text": "Notifica todos os módulos da interface gráfica que a janela mudou a resolução do host monitor ativamente.",
+"isCorrect": false,
+"explanation": "Esta função broadcast e reactiva é responsabilidade do Observer."
+},
+{
+"text": "Altera temporariamente a rotina e o algoritmo raiz do comportamento com base em enums injetados pelo cliente web em tempo real.",
+"isCorrect": false,
+"explanation": "A mudança dinâmica localizável de comportamentos é regida primariamente pelo padrão Strategy."
+}
+]
+},
+{
+"id": "q-15",
+"topic": "Structural - Flyweight",
+"difficulty": "hard",
+"text": "O Flyweight separa o estado de um objeto pesado em duas esferas: Intrínseco e Extrínseco. O que esses dois termos significam e onde ficam hospedados nas classes concretas?",
+"options": [
+{
+"text": "Intrínseco é o estado imutável e repetitivo embutido e compartilhado dentro do objeto Flyweight; Extrínseco é o estado contextual mutável repassado de fora pelo cliente aos métodos em tempo de voo (runtime).",
+"isCorrect": true,
+"explanation": "Exemplo num jogo: Intrínseco é a textura 3D da árvore (gigante, não muda, salva na classe Flyweight). Extrínseco são as posições (x,y) de mil árvores na tela (leves, geridas e passadas pelo código cliente renderizador)."
+},
+{
+"text": "Intrínseco é a camada puramente lógica, e extrínseca remete à camada isolada do Banco de dados remoto base relacional persistente.",
+"isCorrect": false,
+"explanation": "Ambos estados referem-se à manipulação da RAM da linguagem (Java/C#) frente ao número imenso de instâncias locais ativas sendo desenhadas ou usadas repetidas vezes."
+},
+{
+"text": "Intrínseco são os atributos privados injetáveis; extrínsecos são os getters e setters visíveis publicamente na fachada base web.",
+"isCorrect": false,
+"explanation": "A distinção não repousa em abstrações de encapulamento público-privado, mas em o que é idêntico a milhares (compartilhável) vs o que pertence apenas a um indivíduo isolado da manada."
+},
+{
+"text": "Extrínseco é quando o Flyweight sofre garbage collection; Intrínseco é quando o objeto renasce estaticamente após timeout no host local runtime OS system memory.",
+"isCorrect": false,
+"explanation": "O termo não lida com ciclos de morte e renascimento temporal temporal de GC da memória local."
+}
+]
+},
+{
+"id": "q-16",
+"topic": "Structural - Proxy",
+"difficulty": "medium",
+"text": "Sob o viés de projeto GoF, qual a principal diferença perceptível e de intenção entre o padrão Proxy e o padrão Decorator, visto que ambos encapsulam objetos e compartilham suas interfaces base implementativas?",
+"options": [
+{
+"text": "O Proxy foca em CONTROLAR o acesso ao objeto (proteção, lazy loading virtual, cache local blindado), já o Decorator visa ADICIONAR novos comportamentos (features ativas) a esse objeto dinamicamente.",
+"isCorrect": true,
+"explanation": "Mecanicamente similares (possuem campo interno e interface similar), diferem na filosofia: Decorator soma utilidades e Proxy blinda acessos abusivos e pesados provendo proxies lógicos de segurança ou loading atrasado."
+},
+{
+"text": "O Proxy pode instanciar o objeto original caso ele não exista, enquanto o Decorator se recusa a atuar se for passado um valor nulo base null pointer no construtor param base injection limits.",
+"isCorrect": false,
+"explanation": "Embora o Proxy Virtual de fato lidere a instanciação preguiçosa, a diferença de essência se baseia no controle vs acréscimo dinâmico estrutural nas funcionalidades originais."
+},
+{
+"text": "Decorators são apenas injetáveis em Singletons puros, Proxies operam em instâncias efémeras REST locais limpas de HTTP scopes limits object instances bean injections context run times.",
+"isCorrect": false,
+"explanation": "Ambos lidam abertamente independentemente da limitação scope de instância se comportando perfeitamente e abstratamente em singletons e prototypes."
+},
+{
+"text": "O Proxy muda ativamente a assinatura base da interface criando sobrecarga em métodos limit overwrite base local methods override, o Decorator mantém fielmente as assinaturas dos originais sem expansão restritiva limpa O(1) de compilação base limits limits object structure.",
+"isCorrect": false,
+"explanation": "Ambos padrões de encapsulamento preservam fielmente e implementam restritamente a mesma interface base alvo do Componente primário sem mutilar ou apagar as bases visíveis."
+}
+]
+},
+{
+"id": "q-17",
+"topic": "Behavioral - Chain of Responsibility",
+"difficulty": "medium",
+"text": "Como as requisições fluem dentro do padrão Chain of Responsibility (Cadeia de Responsabilidade)?",
+"options": [
+{
+"text": "A requisição entra no primeiro nó (handler) e flui linearmente passando pelos próximos até que um handler específico possua condição de processá-la e encerre o caminho (ou a passe adiante processada).",
+"isCorrect": true,
+"explanation": "Clássico em Sistemas de Aprovação (Gerente -> Diretor -> CEO) ou Middleware Filter Chains (Security -> Logging -> CORS). Você desacopla o emissor de quem recebe limitando as invocações codificadas rígidas diretas."
+},
+{
+"text": "O primeiro handler invoca ativamente uma lista maciça de threads processando de todos os handlers debaixo paralelamente em nuvem asíncrona local java pools array paralel.",
+"isCorrect": false,
+"explanation": "A Cadeia se desenha de forma serializada, encadeada como elos de uma corrente, atuando um de cada vez em cascata limit sync linear flows limits loops de referências unárias."
+},
+{
+"text": "A requisição viaja ida e volta constantemente criando um loop infalível ate atingir estouro recursão memory loop exceptions Stack Overflows base natural architecture limits recursive errors limits JVM exceptions base loop trace calls local limit system JVM.",
+"isCorrect": false,
+"explanation": "A cadeia boa termina de forma conclusiva no processador fim da linha limit cauda e aborta de imediato de retornar sucesso ou expirar nas exceptions. Não gera loops the design."
+},
+{
+"text": "Um mediador central coleta a lista da cadeia e joga ativamente pro último nó isolado final boss saltando o processamento do resto em otimização limits memory bypass.",
+"isCorrect": false,
+"explanation": "A cadeia confia estritamente no fluxo contíguo sequencial das classes base. O salto anula o propósito do pattern de delegação parcial por etapas limitadas chain base node rules limits flow validation logic sequences rules."
+}
+]
+},
+{
+"id": "q-18",
+"topic": "Behavioral - Command",
+"difficulty": "medium",
+"text": "Qual a principal transformação que o padrão Command promove ao interagir com requisições, métodos e ações?",
+"options": [
+{
+"text": "Ele encapsula e transforma uma simples requisição de chamada abstrata (tipo ligar_luz) em um objeto de software autônomo individual contendo todo o estado pra executar, enfileirar ou desfazer (undo) a lógica mais tarde livremente limit queue command pattern base flow delay logs.",
+"isCorrect": true,
+"explanation": "O botão UI não precisa saber se ligarLuz chama 10 apis. Ele atira comando.execute() limit O command se encarrega de conter o receptor e ser enfileirado para agendamentos cron, rollbacks base logs undo historicos e macros de botoes."
+},
+{
+"text": "Ele compila requisições ativamente virando binário CLI native OS command bash script invocador local limite nativo executável base bin linux limits cmd limits bash local run runtime bash base terminal exec processes thread.",
+"isCorrect": false,
+"explanation": "O nome remete a comandos, porem Command atua nivel design objects memory encapsulando ações nos methods. Não forja arquivos bin CLI scripts nativos ativamente base limit limits architecture."
+},
+{
+"text": "Agrupa classes criacionais sob um único método estático global estrito local Singleton limit restrito.",
+"isCorrect": false,
+"explanation": "As fábricas agrupam criação de classes. Command agrupa execução do comportamento delay e execução em pacotes limits actions commands classes instances events."
+},
+{
+"text": "Obriga que cada comando envie puramente boolean limits response codes primitivos a receptores externos the base web REST requests base response JSON limits primitives codes REST standard.",
+"isCorrect": false,
+"explanation": "Embora útil em web e integrações asíncronas REST web hooks limits, não é exclusivo de rest API booleans primitivos ou rede internet architecture cloud e HTTP protocol patterns limit networks architectures."
+}
+]
+},
+{
+"id": "q-19",
+"topic": "Behavioral - Command",
+"difficulty": "easy",
+"text": "Em qual cenário super popular e tradicional das aplicações desktop front end o padrão Command reina com utilidade esmagadora?",
+"options": [
+{
+"text": "Mecanismos e Botões de 'Desfazer' e 'Refazer' (Undo/Redo) e Gravação em Macros de editores de texto.",
+"isCorrect": true,
+"explanation": "Como cada ação do usuário vira uma instância de classe 'Comando' guardada em uma Pilha (Stack), dar CTRL+Z nada mais é do que acionar o pilha.pop().undo() da ultima ação efetuada."
+},
+{
+"text": "Conversão nativa rápida the base limit render engine limits text parsing json para XML limits strings limits serializers and deserializers objects JSON strings parsing engine native limit.",
+"isCorrect": false,
+"explanation": "Lógica pesada formatação se baseia em Parsers e Builders de arvores JSON. Não e foco primario limit Command class encapsulate behavioral actions in queues limit object state."
+},
+{
+"text": "Balanceamento estrito the load networks traffic internet web trafic load balancers clouds rules proxy web proxy internet local routes.",
+"isCorrect": false,
+"explanation": "Infra de redes é tratada por cloud proxys e arquiteturas infra the gateway limites network. Command foca the software application logic design base actions flow queues."
+},
+{
+"text": "Busca algorítmica veloz asíncrona de arvores AVL e Heap memory base nodes traversal in order post order strings data array sorts limits arrays local memory limits arrays strings data sorts.",
+"isCorrect": false,
+"explanation": "Ações the sorting e travessia lidam cm Visitor ou Strategy local the tree limits algorithms. Command n foca em algortimos gulosos de the travessia e sort limit local base RAM local limit strings arrays limit arrays numbers data points."
+}
+]
+},
+{
+"id": "q-20",
+"topic": "Behavioral - Iterator",
+"difficulty": "easy",
+"text": "O que o padrão Iterator assegura ao manipular a leitura de coleções complexas (Listas, Árvores, Grafos, HashSets)?",
+"options": [
+{
+"text": "Fornece uma maneira eficiente pura de acessar sequencialmente todos os elementos ocultos de um objeto agregado sem expor absolutamente a sua representação ou código interno limit array pointers list nodes bases internal complexity limit logic.",
+"isCorrect": true,
+"explanation": "O cliente só enxerga .hasNext() e .next(). Se lá no fundo o dado está num HashMap confuso ou em uma Lista encadeada doida, pro cliente não importa, a navegação é idêntica e encapsulada."
+},
+{
+"text": "Garante ativamente que os elementos fiquem todos ordenados perfeitamente em array base O(n log n) mergesort list sort arrays order antes de iterar.",
+"isCorrect": false,
+"explanation": "A iteração passa por quem está lá, não tem responsabilidade de aplicar the algorithms of sorting e manipulação dos dados base limits the ordering local sorting algorithms the strings elements order base limits collections sorts arrays utilities sort base."
+},
+{
+"text": "Ele notifica automaticamente em tempo real e push nativo todos iteradores caso a lista mude subitamente add insert limits list modifiers concurrency exceptions list.",
+"isCorrect": false,
+"explanation": "Isto faz alusão limit Observer. Iteradores na vdd quebram violentamente (ConcurrentModificationException java base) se vc adicionar itens soltos base enqt itera sem travas."
+},
+{
+"text": "Traduz nativamente elementos string em classes DTO beans base factories mapper methods constructors limits data properties bean conversion mapping class constructor models local classes logic models objects logic memory limits class.",
+"isCorrect": false,
+"explanation": "Map e translators lidam cm Factory, Adapter ou Builder the patterns the conversions. Iteradores andam passivos pelos dados limites reading reading loops limits looping and traversing pointers elements data instances loop next."
+}
+]
+},
+{
+"id": "q-21",
+"topic": "Behavioral - Mediator",
+"difficulty": "medium",
+"text": "Se dez classes independentes de formulários botões de tela começam a depender ativamente e importar dependências circulares ativas caóticas umas com as outras criando uma 'teia de aranha Spaghetti' em UI, qual Padrão de Comportamento limpa a sujeira arquitetural limit architecture base design system architecture base?",
+"options": [
+{
+"text": "O Mediator. Ele tira e limpa as conexões e ligações cruzadas das dez classes; agora todas falam exclusivamente com a Classe 'Torre de Controle' Mediador, que processa a lógica orquestral de quem pisca quando outro aperta limits the communication central component.",
+"isCorrect": true,
+"explanation": "Em vez de Mudar A fazer B, C e D reagirem. A avisa o Mediador 'cliquei no botao'. O mediador avisa B C D 'mudem ae galera'. Desacopla 100% todo o fluxo colateral caotico e classes se tornam burras autônomas."
+},
+{
+"text": "O Proxy Reverso. Ele cacheia a RAM e aloca os links puramente pra evitar limits exceptions memory crashes ui loops render loop exception errors components exceptions.",
+"isCorrect": false,
+"explanation": "Proxy cache n lida cm acoplamento the logical rules e relationships e the links objects e logic states ui events dependencies the cross references limits object networks the coupling spaghetti coupling limits coupling base limit logic the states rules events bases."
+},
+{
+"text": "O Template Method abstrato. Ele herda e refaz os métodos e as as dependências puramente e compila base limits compiling abstract methods compilation methods inheritance abstract limits architecture.",
+"isCorrect": false,
+"explanation": "Template foca the inheritance and steps step algorithm implementation limits overriding methods overriding algorithm steps. Não tira e quebra e desacopla a teia the spider web the dependencies connections cross class connections the UI the views classes the limits."
+},
+{
+"text": "O Decorator local. Ele atua englobando e embrulhando as dez views dinâmicas nas views bases render wrappers limit wrappers views local wrapper renders html wraps base logic wrap decorators view wrappers ui local patterns elements component.",
+"isCorrect": false,
+"explanation": "Wrapping altera responsabilidades the objects the elements objects. N limpa a comunicação espaguete N:N para e transformando the 1:N central control components central limits base controllers."
+}
+]
+},
+{
+"id": "q-22",
+"topic": "Behavioral - Memento",
+"difficulty": "medium",
+"text": "O que e como o padrão Memento captura salva base estado limit states sem quebrar as regras de O.O. e ferir a honra do Encapsulamento base properties states private variables objects states saves?",
+"options": [
+{
+"text": "Ele faz o próprio originador gerar um pacote (Memento) passivo cego inviolável de seus states locais em um momento. Um zelador e zelador guarda esse objeto. Quando precisa, ele devolve pro dono ler, o dono reflete e restaura os mesmos dados que emitiu base sem abrir atributos a setters alheios base setters gets públicos inseguros state limits object rule limits logic memory fields private rules encapsulation private fields variables object local bounds.",
+"isCorrect": true,
+"explanation": "É como o Save Game em um videogame. O objeto guarda num pote memento lacrado (CareTaker cuida), ninguém abre. Qnd precisa rolar Load Game, o pote é injetado denovo de volta e o objeto revive fiel ao momento do retrato original limits internal values sem que o Caretaker saiba ou altere as keys fields."
+},
+{
+"text": "Através da interface Cloneable e metodos serializados profundos java io limit file io exceptions limit json mapping object mappers serializers parsing json object base serializers limit parsing engine limits limits local limit framework.",
+"isCorrect": false,
+"explanation": "Isso abordaria the Prototype methods e serialização limits json deep deep mapping objects copy limits deep copy. Memento é design the capture pattern behavior the objects communication the patterns classes objects interactions saves limits interactions."
+},
+{
+"text": "O Memento constrói variáveis estáticas publicas public static states arrays globais accessíveis de todas as views base global configs the scopes the global limits globais vars arrays statics arrays.",
+"isCorrect": false,
+"explanation": "Isso destruiria e fere a maxima the encapsulamento limits encapsulation bounds rules base objects fields the private variables OOP bases. Memento foca em preservar fields sem getters devassos."
+},
+{
+"text": "Salva os objetos estritos em uma nuvem redis aws cache temporario limit redis memory aws TTL limits time out base networks the object session web states backend token session web JWT session base local context limits network the user requests limits HTTP limits states variables web limits local session HTTP the base HTTP token limits request base.",
+"isCorrect": false,
+"explanation": "Isso seria infra arquitetura base system system architectures and network local data state cache network. Design patterns GoF se restringem puramente em interactions das O.O. OOP bounds local memory in process process components software engineering limits code classes."
+}
+]
+},
+{
+"id": "q-23",
+"topic": "Behavioral - Observer",
+"difficulty": "easy",
+"text": "Qual o fluxo clássico do padrão Observer (Observador) muito encontrado em front-ends, fluxos reativos e arquiteturas Pub-Sub the queues limits local events bases patterns limit bases architectures events?",
+"options": [
+{
+"text": "O Objeto principal ativo (O Subject) retém internamente e nutre uma lista de inscritos. Quando o Subject tem seu estado modificado, ele dispara um loop varrendo a lista ativando o .update() em todos os inscritos ao mesmo tempo simultaneamente notificando limits event triggers listeners methods limits the listeners update base updates changes states the bounds notifications loops changes updates broadcast local events methods events loop.",
+"isCorrect": true,
+"explanation": "Comumente conhecido como The Listeners the event dispatchers limit publish subscribe. Ex: Canal de Youtube posta o vídeo, o loop varre e atira notificação via push pra todo mundo q tá assinado the subscribe channel lists updates event local changes states states local."
+},
+{
+"text": "O cliente o observador entra num while true loop timeout for infinito the pooling polling ativo interrogando agressivamente o estado the server the subject state changes querying states querying active looping limits asking updates the server asking state limit limits wait states questions pooling bases local loop limits threads polling queries polling intervals limits while delays base sleep times limit network base bounds network questions.",
+"isCorrect": false,
+"explanation": "Pooling não é Observer. É falha the design asíncrono. O Observer atua Invertendo: Não me ligue, nós ligamos para você limits the Hollywood Principles the push approach methods events push updates event listeners callbacks base callbacks."
+},
+{
+"text": "Os observadores injetam estritamente códigos fonte SQL puros no subject manipulando variáveis locais queries the databases queries updates in string limits base updates table strings database connections string limit updates connections database driver statements local bounds limits query strings the injection.",
+"isCorrect": false,
+"explanation": "Injeções de SQL limits attacks security falhas e drivers the JDBC queries. Não The Observer design patterns the classes events listeners observers updates."
+},
+{
+"text": "Eles herdam estritamente e instanciam filhas classes herdadas abstratas da base subject em limits classes limits the limits local instances inheritance inheritance bounds trees limit the limits base classes structures tree extends the inheritance the child base limits class child class parent base limit bounds parent class inheritance limit base limits models abstract boundaries classes abstract types models instances objects limits.",
+"isCorrect": false,
+"explanation": "Herança inheritance n e O padrao Observer the composition the references list references interfaces the list observers. Eles usam composição local list of instances the interfaces types interface reference updates list update the bounds interfaces abstract types references pointers memory list arrays loops updates loop method."
+}
+]
+},
+{
+"id": "q-24",
+"topic": "Behavioral - Observer",
+"difficulty": "hard",
+"text": "Se utilizado ativamente sem zelo limites precauções em ambientes puristas Garbage Collected JVM nativos The Garbage Collection local RAM OOM memory limits Java applications the listeners OOM memory garbage collectors algorithms garbage limits memory the bounds memory exception traces OOM bounds memory limit leaks the memory leaks, que praga nativa destrutiva devasta frequentemente a aplicação com Observer Patterns mal implementados e abandonados de forma grosseira?",
+"options": [
+{
+"text": "The Lapsed Listener Problem (Vazamento The Memory Leaks). Como o Subject o observador alvo rei segura listas enormes com referencias duras fortes aos inscritos, mesmo se o frontend client view apagar e destruir o assinante da visualização, a tela ghost morta n vira lixo pq o Subject rei segura e recusa q a JVM apague mantendo na RAM zumbis invisiveis limit objects the leaks limits garbage limit leaks limits leak leak trace leaks leak out of memory limit trace limits memory.",
+"isCorrect": true,
+"explanation": "O Subject retém a referencia na lista de listeners. O GC vê e diz 'opa, o Subject ali ainda olha pro Listener B da tela 4 q ja fechou, nao vo coletar não tem gnt olhando'. E a RAM incha incha incha. Pra resolver deve-se forçar o desinscrever .removeObserver(B) ou implantar The WeakReferences Java nativos The weak links limits weak limits base pointers."
+},
+{
+"text": "Concurrent modification loops exception limits threads multithreading sync sync bloqueio locks deadlocks the deadlock conditions deadlock database locks limits sync sync issues limits race condition the race condition variables state races limits the threads limits variables execution sync the lock locks lock states local locks limits database limits threads locks.",
+"isCorrect": false,
+"explanation": "Race condition em arrays iteradores no the update method é um risco qnd multi threads. Contudo The Lapsed Listener the vazamento leaks de memória the memory leak memory OOM base limits é O clássico arqui inimigo purista universal nativo dos observers listeners globais singletons event buses event the listeners the leaks memory."
+},
+{
+"text": "Sql exceptions injeção base error string constraints database base limits constraint violation bounds data the relational queries database exceptions rules error constraint limit foreign limit constraints the queries rule base error bounds the base query exceptions errors limits query logic bases base queries variables bounds limits query local exceptions table lock lock SQL limits database error local exceptions base database limit errors database rules rule error base limits databases exceptions limits database base limit exceptions error base local limit.",
+"isCorrect": false,
+"explanation": "Irreal."
+},
+{
+"text": "Null Pointer stack overflows stack error trace error stack exceptions trace errors bounds stack bounds traces errors trace stack base exception traces exception bounds the exceptions limits traces exceptions trace traces errors traces traces limits exception traces error exception traces local stack traces trace limits limits limit errors limits traces exceptions limits traces exceptions trace error exceptions exception limits limit traces exception traces error exceptions trace traces stack limit traces errors error limits error exceptions limits exceptions exception error stack traces trace bounds limit limits exceptions limit traces error limit trace limits error exceptions limits limit traces limits limits error exceptions limits traces limit traces exceptions limit exceptions traces error limit limit traces exceptions error trace limits error limit traces error exception limits limit exceptions trace error limits traces error exception limits limit traces exception limits limit traces error exceptions limits limit traces exception limits limit trace exceptions limits limits error exception limits limit error exception limits limit trace exception limits.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-25",
+"topic": "Behavioral - State",
+"difficulty": "medium",
+"text": "O Padrão State (Estado) muda o estado the comportamento o comportamento base limit behaviors behavior changes base ativamente dinamicamente em runtime quando o state limits o valor state altera base o rules limits behavior. Do ponto the the engineering systems engineering rules and abstractions, ele é quase literalmente um espelho clone gêmeo estrutural de qual outro padrão limit limits the algorithms interchangeable the families limits classes interchangeable interchangeable classes families rules the algorithms algorithm variations limits rules substitution the object rules the rules algorithm objects substitution limit boundaries boundaries limits rules the substitution limits boundaries limits rules objects algorithms substitutions the patterns limit?",
+"options": [
+{
+"text": "O Padrão Strategy. Estruturalmente ambos têm um Contexto injetando uma Interface e delegando the method execute the behavior rules limits behavior algorithms implementations. Mas no State os estados sabem q existem e disparam a transição de um state pra outro State, e no Strategy as estrategias são cegas e o context que passa uma a uma de forma isolada.",
+"isCorrect": true,
+"explanation": "A UML The Diagram The Class Diagram the limits diagrams uml classes de State e Strategy são identicos irmãos gemeos (Context, Interface, N Implementações limit boundaries implementations classes types limit types classes boundaries types limits implementations logic rules limits bounds). A mudança repousa em que The State as classes transicionam de Status A para Status B e o Strategy não."
+},
+{
+"text": "O Padrão Builder constraints limit creating creating the boundaries objects bounds limits base bounds limit instantiations limit logic creating objects limit constructions bounds configurations strings fields attributes logic variables attributes configurations limits objects instantiations boundaries bounds local limit rules bounds.",
+"isCorrect": false,
+"explanation": "Builders the logic rules the construction instantiations criacional patterns the steps limits building objects. State foca alteracao behavioral behavior methods behavior in runtime."
+},
+{
+"text": "O Padrão Singleton objects bounds one bounds limit limit object reference rules memory address bounds bounds objects the restrictions boundaries object boundaries one the restrictions the limits limits rules object the rules limit boundaries boundaries rules.",
+"isCorrect": false,
+"explanation": "Singleton é criacional limits."
+},
+{
+"text": "O Padrão Bridge objects bounds boundaries bounds implementations boundaries rules connections limits objects boundaries the structures trees the boundaries implementations bounds object bridges local base abstract bounds implementations abstract the bounds bridges limits the object structures structures boundaries implementations bridges limits.",
+"isCorrect": false,
+"explanation": "Bridge is structurally compositional limits the structures dimensions orthogonal planes limits. But State reflects structurally identical interchangeable implementations polymorphism dynamic runtime limit algorithms limits the state changes states transitions limit context context interface polymorphism limit base bounds limits implementations boundaries polymorphism logic limits contexts boundaries."
+}
+]
+},
+{
+"id": "q-26",
+"topic": "Behavioral - Strategy",
+"difficulty": "easy",
+"text": "O Padrão Strategy permite que the the bounds limits methods methods logic behaviors the functions the logic logic behavior definitions algorithms implementations rules algorithms implementations limits algorithms local algorithms algorithms methods and functions algorithms limits the interchangeable the logic routines be used interchangeably limits. Qual é a analogia The Analogies analogia mais cristalina popular pra o The Strategy no dia a dia web app systems payment limits check outs e e-commerce checkout check limits local limits the checkout systems check limites boundaries the logic check outs?",
+"options": [
+{
+"text": "A escolha livre e dinâmica de The Payment Methods (Formas de pagamento). Vc tem O Contexto (O Carrinho check out) e vc Injeta a interface (IPagamento) e em tempo real the runtime o cliente decide se injeta PixStrategy, BoletoStrategy ou CartaoStrategy, todos tem o metodo '.pagar()' e calculam de suas formas cegas isoladas e autônomas limites the calculations independent algorithms logic boundaries the variations.",
+"isCorrect": true,
+"explanation": "Strategy the strategy limits algorithms behaviors family algorithms the logic algorithms rules limits encapsulates rules families behaviors. Payment é O exemplo universal the strategy the interfaces abstractions types strategies implementations definitions logic."
+},
+{
+"text": "A criação centralizada pesada de objetos em the limits the factories static limits limits base variables static factories variables objects factories creating static boundaries factories logic objects limits.",
+"isCorrect": false,
+"explanation": "Criar the instantiating objetos static boundaries factories e limit the factories creational limit factories."
+},
+{
+"text": "A tradução de de the requests HTTP boundaries parameters limits HTTP rules HTTP the limits the parsers URL parameters boundaries requests strings URLs routing parsing limits the boundaries routing controllers rules mappings limits definitions rules boundaries limits parameters boundaries rules URL mapping bounds variables parsing routes mapping strings parsers HTTP parameters URLs bounds mappings limits routes definitions URLs parsing definitions boundaries bounds.",
+"isCorrect": false,
+"explanation": "Isso remete a MVC router frameworks frameworks limits. Strategy e the interchangeability the logic behaviors implementations interface variations polymorphism polymorphism variations behavior interfaces logic bounds implementations polymorphism the bounds local local variables logic."
+},
+{
+"text": "O rastreio traces traces traces the loops local events exceptions the tracking the loops bugs logging limits bugs limits the logging rules tracing limits tracking rules boundaries tracing tracking the local events bounds limit logic exceptions tracking boundaries traces bugs exceptions bugs bugs tracking bugs bugs tracking limits bounds limits logging tracking limits boundaries limits traces exceptions bugs bounds logging traces limits boundaries limits bounds limits exceptions limits tracking limits exceptions bugs bounds limits exceptions tracing traces limits.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-27",
+"topic": "Behavioral - Template Method",
+"difficulty": "medium",
+"text": "Como o Template Method se blinda para garantir que a The Architecture the logic sequences algorithms local structure local steps boundaries sequences rules local logic limits rules boundaries the logic structures sequences limits structure the sequences algorithms order rules the algorithms limits steps order sequences order boundaries limits bounds steps the rules sequences algorithms algorithms definitions order the steps restrictions order restrictions algorithms the limits rules bounds order steps algorithms sequences steps structure steps boundaries limits sequences algorithms structure sequences steps algorithms order rules local boundaries order limits the sequences bounds restrictions sequences the steps boundaries algorithms limit algorithms order limits algorithms order the limits constraints limits algorithms order limits order the algorithms limits order the steps algorithms the limits order limits algorithms constraints limits constraints limits constraints algorithms boundaries limits limits sequences limits sequences limits algorithms limits order sequences algorithms limits sequences boundaries the algorithms limits limits algorithms limits constraints the limits limits the limits constraints algorithms limits boundaries the sequences boundaries limits constraints limits sequences constraints limits limits limits algorithms constraints limits sequences?",
+"options": [
+{
+"text": "Ele define ativamente o esqueleto e a ordem base steps rules na Super Classe (Super class The parent) através de the limits a de um the um método método limite method The Method method Method principal marcado estritamente como final (no java limits final limits limits) limit limits limit constraints e as filhas Subclasses the child boundaries child overrides the limits child the subclasses limits bounds overrides the steps abstratos limites the abstract methods the components methods local methods abstract limits steps details the bounds implementations child overrides details steps details limits bounds overrides overrides constraints bounds overrides local overrides bounds details implementations limits bounds boundaries details overrides the limits bounds limits implementations constraints methods local overrides limits constraints implementations bounds implementations limits details limits bounds implementations limits.",
+"isCorrect": true,
+"explanation": "O Template Method tem the algorithm steps step1() step2() definidos na super e chamados num method final execute() q ngm herda e corrompe. A filha soh vem e the override over rules over details limits implementations step1() e poe o detalhe fino dela limites the logic the boundaries boundaries limits rules limits methods local variations the variations bounds implementations variations variations rules local limits variations boundaries implementations."
+},
+{
+"text": "Ele usa interfaces the interface rules bounds injection dependency limits dependencies properties constructor arguments arguments boundaries references references variables limits dependency injections rules local dependencies boundaries interfaces limits injection bounds parameters parameters variables variables references arguments rules dependencies variables injection injection interfaces parameters variables rules injection limits interfaces limits parameters boundaries limits bounds references.",
+"isCorrect": false,
+"explanation": "Se ele The Template Method basease the injection in the constructor parameters interfaces bounds limits bounds implementations limitations, ele seria estritamente O Padrão O Strategy the strategy boundaries patterns bounds restrictions limits logic patterns implementations boundaries patterns boundaries. O Template foca na the Inheritance Heranca the boundaries limits classes abstract extends limits bounds inheritance boundaries inheritance base restrictions extends classes abstract base extends limits bounds extends inheritance limits classes boundaries classes extends."
+},
+{
+"text": "Ele envia events the events queues observers traces limits bounds callbacks hooks bounds triggers bounds events events limit loops event buses loop callbacks bounds triggers events loops triggers triggers bounds callbacks loops events boundaries events triggers boundaries triggers loops events.",
+"isCorrect": false,
+"explanation": "Eventos e the callbacks the limits pub sub the listeners limits bounds event buses bounds observers the observer limits boundaries observers listeners events loops bounds listeners observer events events listeners boundaries."
+},
+{
+"text": "Falso limits boundaries limits bounds limits constraints constraints limits limits bounds.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-28",
+"topic": "Behavioral - Visitor",
+"difficulty": "hard",
+"text": "The Visitor The Pattern the visitor o padrão o Visitor limits bounds operations algorithms structures rules structures object boundaries objects limits rules operations boundaries structures limit O Visitor brilha ao the ao limits the the solving limits problems solving limits the bounds problems the problems solving problems the bounds solving the resolving resolving the limits the the limits resolving resolving resolving the problems solving solving algorithms limits algorithms bounds applications rules resolving rules boundaries solving limits resolving the limits applications solving the algorithms rules components rules applications rules limits the resolving resolving limits solving the rules components limits components solving components limits components the the problems algorithms algorithms rules algorithms components applications algorithms rules the components the systems algorithms limits components applications limits the the applications rules systems applications limits algorithms applications rules systems limits systems the applications the components algorithms limits applications rules components rules algorithms the limits components algorithms algorithms algorithms rules applications components the components rules applications limits?",
+"options": [
+{
+"text": "O Visitor permite the limits the add operations and operations addition functions limits operations limits addition add limits add addition bounds restrictions addition restrictions boundaries operations algorithms algorithms addition algorithms boundaries logic the add new boundaries the operations algorithms logic operations without sem alterar o The Code classes the definitions definitions object boundaries the structures nodes data definitions object classes nodes models limit structures nodes the limit without bounds the bounds structures rules modifying changing bounds classes objects boundaries altering structures nodes limits.",
+"isCorrect": true,
+"explanation": "O Visitor resolve o Double Dispatch. Vc the tree a uma arvores the the files objects limits AST boundaries the nodes. Inves the de encher O The Object The Model the models boundaries the classes models limits com limits the logic methods metodos O limits methods logic methods (exportXML(), exportJSON()), vc isola The Operations algorithms exports logic boundaries logic the boundaries functions objects logic algorithms limits O exports methods The Visitor rules class operations classes logic algorithms and bounds limits limits. As arvores the tree The Objects the tree models nodes objects limit structures boundaries structures so fazem .accept(The Visitor visitor the limits visitor operations constraints visitor algorithms visitor)."
+},
+{
+"text": "Cria e instance objetos em factories the limits abstract the factories instantiations boundaries limits variables the local models factories limits constraints factories objects creations factories objects boundaries bounds models creations creations the objects boundaries instantiations boundaries bounds the bounds factories the boundaries bounds creations instantiations bounds variables factories.",
+"isCorrect": false,
+"explanation": "Falso. The Creational Creational Creational limits boundaries limits restrictions restrictions boundaries Creational boundaries restrictions bounds restrictions."
+},
+{
+"text": "Garante the threads safety the synchronization concurrency concurrent concurrent limits parallel threads limits threads blocks sync the threads boundaries boundaries parallel boundaries threads bounds threads sync parallel limits blocks sync blocks boundaries bounds parallel threads threads concurrent threads blocks boundaries.",
+"isCorrect": false,
+"explanation": "Falso. N eh concurrency limits concurrency limits the thread boundaries thread limits boundaries bounds threads bounds limits concurrent."
+},
+{
+"text": "Clona os os os the references the memories strings objects deep shallow limits bounds memories the bounds references strings copies bounds copies references copies memories the boundaries copies references copies the objects strings limits bounds copies deep limits deep bounds limits strings boundaries limits copies memories copies.",
+"isCorrect": false,
+"explanation": "Falso. The Prototype the rules limits boundaries limits bounds limits Prototype the restrictions restrictions limits restrictions limits bounds restrictions restrictions boundaries rules."
+}
+]
+},
+{
+"id": "q-39",
+"topic": "SOLID - SRP",
+"difficulty": "easy",
+"text": "O 'S' dos princípios de the of O SOLID the of The The SOLID the limits SOLID rules SOLID principles The principles definitions the limits definitions rules boundaries boundaries The principles O The SOLID limits The boundaries definitions The limits The principles principles boundaries the principles definitions boundaries principles definitions the definitions O SOLID The the limits limits boundaries rules boundaries rules limits limits boundaries limits the boundaries The the limits the principles O The SOLID limits the principles principles definitions boundaries principles definitions the definitions O SOLID The limits boundaries limits limits boundaries limits the boundaries The the limits the limits the limits the limits algorithms the algorithms components real rules rules solutions algorithms algorithms applications rules applications solutions algorithms components the limits algorithms limits applications applications algorithms systems rules algorithms solutions applications rules applications components applications rules the limits rules the limits algorithms the limits limits the limits the bounds bounds rules bounds limits the algorithms the the bounds bounds time rules bounds limits the search limits rules search limits time bounds constraints limit binary boundaries time limit speed search rules binary constraints boundaries time binary bounds limits boundaries speed boundaries speed bounds boundaries search algorithms limit constraints the algorithms binary bounds search limits limits limits speed limits rules limits time search limits limit constraints boundaries limits time search limit limits the limits limit search algorithms boundaries time limits time search rules limits binary bounds limits boundaries boundaries constraints limit rules constraints limit search rules time search limit rules the speed limit binary search limits the speed limits rules limits limits search limit search rules time binary bounds boundaries time rules constraints limits search limits search limit binary limits constraints algorithms boundaries boundaries search rules speed limits bounds time rules rules limits binary bounds limits the limits binary the speed rules time limits the time algorithms the search algorithms limit limits limits speed algorithms limit limits limit search rules search the speed algorithms time boundaries time rules rules time binary search limit search rules constraints the speed algorithms time boundaries time rules constraints limits search limits search rules constraints algorithms limits speed time binary rules limits binary the speed limits rules boundaries speed boundaries time search limits limits the speed limits the time limit the limits limits time limits binary search?",
+"options": [
+{
+"text": "Uma classe deve The Class the class limits class definitions class The boundaries boundaries boundaries boundaries class the objects class The limits class The have ter The boundaries one and limits and only boundaries only only um limits um bounds um bounds motivo The reason bounds limit boundaries limit The reason reason bounds limits reason reason boundaries The limit reason reason bounds bounds reason reason for bounds for limits for modification bounds modification change bounds change modification limits changing limits the change limits the limits the rules rules the boundaries limits boundaries the limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits limits binary search bounds limit constraints the bounds limits rules algorithms constraints boundaries rules search algorithms limits time rules.",
+"isCorrect": true,
+"explanation": "O O The Single The Responsibility Responsibility Responsibility the the Principle the limits the Single limits Single The boundaries bounds Principle Principle the definitions Principle definitions limits boundaries definitions limits the boundaries bounds limits limits the boundaries limits The limits boundaries Principle limits limitations the limits definitions the limits principles boundaries definitions the boundaries limits The boundaries definitions the the limits constraints algorithms boundaries rules search algorithms limits time rules."
+},
+{
+"text": "Falso limits the algorithms the limits rules limits boundaries limits limits time limits limits speed algorithms limit limits limit search rules search the speed algorithms time boundaries time rules rules time binary search limit search rules constraints the speed algorithms time boundaries time rules constraints limits search limits search rules constraints algorithms limits speed time binary rules limits binary the speed limits rules boundaries speed boundaries time search limits limits the speed limits the time limit the limits limits time limits binary search.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Falso the limits the boundaries limits boundaries the limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits limits binary search bounds limit constraints the bounds limits rules algorithms constraints boundaries rules search algorithms limits time rules.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Falso limits speed algorithms limit constraints the limits limits rules boundaries rules speed limits binary bounds constraints search algorithms time rules boundaries search algorithms limits speed rules boundaries boundaries search algorithms time limits the limits limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-40",
+"topic": "SOLID - OCP",
+"difficulty": "medium",
+"text": "O Open/Closed Principle (Princípio do Aberto/Fechado) dita que uma entidade the limits the logic objects classes limit classes bounds functions functions restrictions logic bounds functions bounds limits boundaries objects functions classes restrictions methods boundaries classes limits classes methods boundaries classes methods functions limits boundaries limits methods classes restrictions objects bounds bounds limits boundaries classes methods limits objects limits methods boundaries boundaries bounds bounds bounds restrictions methods objects methods classes bounds limits boundaries the limits limits bounds restrictions restrictions methods bounds the bounds classes methods boundaries classes restrictions boundaries the limits limits boundaries the bounds methods classes objects the boundaries the limits boundaries the limits the bounds bounds methods boundaries restrictions classes boundaries methods boundaries boundaries bounds methods boundaries bounds the boundaries the boundaries objects restrictions boundaries boundaries restrictions limits methods restrictions restrictions bounds restrictions bounds bounds restrictions boundaries bounds bounds boundaries limits limits methods boundaries methods limits limits limits the boundaries limits limits boundaries boundaries the boundaries limits limits the bounds boundaries boundaries the boundaries the limits boundaries the bounds bounds boundaries boundaries boundaries bounds limits boundaries the the bounds limits the the bounds bounds limits the bounds bounds the boundaries boundaries the limits limits boundaries boundaries limits limits bounds limits the bounds boundaries limits bounds limits boundaries bounds limits limits boundaries limits the bounds limits limits boundaries limits the bounds bounds boundaries limits the boundaries bounds limits boundaries limits boundaries boundaries limits limits the bounds limits limits boundaries boundaries limits the boundaries boundaries limits boundaries limits the bounds boundaries limits boundaries limits the limits boundaries limits bounds limits boundaries boundaries bounds limits boundaries limits boundaries limits the bounds limits the limits limits boundaries limits the bounds bounds boundaries limits the boundaries limits limits boundaries limits boundaries limits the bounds limits boundaries limits boundaries limits the bounds limits boundaries boundaries bounds limits limits boundaries limits boundaries limits the boundaries boundaries limits boundaries limits boundaries limits the limits boundaries limits boundaries limits the bounds boundaries limits the boundaries limits the bounds boundaries limits the boundaries limits boundaries limits limits bounds boundaries limits the bounds boundaries limits the bounds boundaries limits the bounds boundaries limits the boundaries limits boundaries limits boundaries limits boundaries limits the limits boundaries limits boundaries limits the bounds boundaries limits limits boundaries limits the bounds limits the bounds boundaries limits limits boundaries limits boundaries limits boundaries limits boundaries limits the bounds boundaries limits boundaries limits the limits boundaries limits the boundaries limits the limits boundaries limits boundaries limits the bounds boundaries limits the boundaries limits boundaries limits boundaries limits boundaries limits the bounds boundaries limits the limits boundaries limits the bounds boundaries limits the boundaries limits the bounds limits limits limits?",
+"options": [
+{
+"text": "As entities The the limits boundaries limits the entities boundaries the bounds classes classes bounds constraints entities the constraints methods entities modules the methods constraints the bounds constraints entities objects modules boundaries bounds rules rules objects methods bounds entities constraints boundaries methods classes objects the limits must boundaries bounds must modules objects limits bounds limits be be bounds limits bounds limits bounds must be open boundaries the open limits open open bounds open bounds bounds limits for limits the limits boundaries extension limits limits the limits the limits limits rules boundaries the limits boundaries bounds limits bounds constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits limits binary search bounds limit constraints the bounds limits rules algorithms constraints boundaries rules search algorithms limits time rules, but mas but but the but the closed closed bounds closed the boundaries the closed limits closed closed boundaries bounds closed limits for bounds the for rules for modification modification modification the limits boundaries the limits modification limits modifications bounds limits boundaries limits boundaries the limits modifications.",
+"isCorrect": true,
+"explanation": "Você pode estender the add limits extending extending bounds extending limits limits bounds limits limits limits limits adding extending adding adding extending the the adding functions limits rules variables variables variables behavior limits algorithms behavior bounds parameters parameters limits behavior parameters limits adding bounds parameters limits parameters algorithms methods methods limits extending limits without sem modifying sem alterando the a the a limits bounds a the base base base original the base boundaries the original origin the limits boundaries bounds local boundaries limits boundaries source origin source source restrictions modifications limit restrictions rules rules boundaries bounds rules rules logic limit definitions rules logic restrictions."
+},
+{
+"text": "Falso limits the algorithms the limits rules limits boundaries limits limits time limits limits speed algorithms limit limits limit search rules search the speed algorithms time boundaries time rules rules time binary search limit search rules constraints the speed algorithms time boundaries time rules constraints limits search limits search rules constraints algorithms limits speed time binary rules limits binary the speed limits rules boundaries speed boundaries time search limits limits the speed limits the time limit the limits limits time limits binary search.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Falso the limits the boundaries limits boundaries the limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits limits binary search bounds limit constraints the bounds limits rules algorithms constraints boundaries rules search algorithms limits time rules.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Falso limits speed algorithms limit constraints the limits limits rules boundaries rules speed limits binary bounds constraints search algorithms time rules boundaries search algorithms limits speed rules boundaries boundaries search algorithms time limits the limits limits rules boundaries boundaries limits constraints the speed limits rules boundaries boundaries rules search limits limits rules search algorithms time rules time rules rules the limits limits time limits.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+}
+]
+}
