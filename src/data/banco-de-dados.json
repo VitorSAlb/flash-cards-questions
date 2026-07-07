@@ -1,0 +1,425 @@
+{
+"theme": "Bancos de Dados e Conectividade",
+"questions": [
+{
+"id": "q-01",
+"topic": "Bancos Relacionais",
+"difficulty": "easy",
+"text": "O que define a propriedade de 'Atomicidade' (o 'A' de ACID) em transações de um banco de dados relacional?",
+"options": [
+{
+"text": "Garante que uma transação seja tratada como uma unidade única e indivisível; ou todas as suas operações são executadas com sucesso, ou nenhuma é (rollback total).",
+"isCorrect": true,
+"explanation": "Atomicidade previne cenários onde, por exemplo, em uma transferência bancária, o dinheiro saia de uma conta mas falhe ao entrar na outra, garantindo o 'tudo ou nada'."
+},
+{
+"text": "Garante que o banco de dados permaneça em um estado consistente antes e depois da transação, respeitando todas as chaves e constraints.",
+"isCorrect": false,
+"explanation": "Isso descreve a propriedade de Consistência (o 'C' de ACID)."
+},
+{
+"text": "Garante que operações concorrentes não interfiram umas nas outras até que a transação termine.",
+"isCorrect": false,
+"explanation": "Isso descreve a propriedade de Isolamento (o 'I' de ACID)."
+},
+{
+"text": "Garante que as alterações de uma transação confirmada (committed) não serão perdidas, mesmo em caso de falha de energia.",
+"isCorrect": false,
+"explanation": "Isso descreve a propriedade de Durabilidade (o 'D' de ACID)."
+}
+]
+},
+{
+"id": "q-02",
+"topic": "Bancos Relacionais",
+"difficulty": "medium",
+"text": "Qual é a principal função de um Índice (Index) em um banco de dados relacional e qual o seu principal trade-off?",
+"options": [
+{
+"text": "Índices aceleram drasticamente as operações de leitura (buscas, SELECTs), mas penalizam a performance de operações de escrita (INSERT, UPDATE, DELETE) e consomem espaço extra em disco.",
+"isCorrect": true,
+"explanation": "A criação de uma estrutura secundária (como uma Árvore B) permite buscas rápidas, mas obriga o banco a atualizar o índice a cada nova modificação na tabela."
+},
+{
+"text": "Índices servem unicamente para garantir que os valores de uma coluna sejam únicos na tabela.",
+"isCorrect": false,
+"explanation": "Isso é feito pela restrição UNIQUE. Um índice comum não impõe unicidade, embora índices UNIQUE existam."
+},
+{
+"text": "Índices comprimem os dados para economizar espaço em disco a custo de CPU na leitura.",
+"isCorrect": false,
+"explanation": "Índices aumentam o consumo de espaço, não o comprimem."
+},
+{
+"text": "Eles criptografam colunas sensíveis em tempo real sem afetar a performance de inserção.",
+"isCorrect": false,
+"explanation": "Índices lidam com otimização de busca relacional (estruturas de dados), não com encriptação de bytes."
+}
+]
+},
+{
+"id": "q-03",
+"topic": "Bancos Relacionais",
+"difficulty": "hard",
+"text": "O que ocorre no nível de Isolamento Transacional 'Read Uncommitted' e qual é o problema (fenômeno) clássico que ele permite?",
+"options": [
+{
+"text": "Permite que uma transação leia dados que ainda não foram confirmados (committed) por outra transação concorrente, gerando o fenômeno de 'Dirty Read' (Leitura Suja).",
+"isCorrect": true,
+"explanation": "Se a Transação A alterar um dado e a Transação B o ler antes da A fazer commit (ou caso A faça rollback), a Transação B terá lido lixo inválido da memória temporária."
+},
+{
+"text": "Bloqueia completamente leituras durante gravações, prevenindo leituras fantasmas (Phantom Reads).",
+"isCorrect": false,
+"explanation": "Esse é o isolamento mais forte (Serializable), enquanto Read Uncommitted é o mais fraco."
+},
+{
+"text": "Garante que a mesma linha consultada duas vezes traga o mesmo resultado na mesma transação, permitindo leituras irrepetíveis.",
+"isCorrect": false,
+"explanation": "Essa restrição ocorre no isolamento 'Repeatable Read', que não permite o Non-repeatable Read."
+},
+{
+"text": "Impede a leitura de dados de outras tabelas sem o comando JOIN explícito.",
+"isCorrect": false,
+"explanation": "Isolamento refere-se ao controle de visibilidade em concorrência, não regras sintáticas da linguagem SQL pura."
+}
+]
+},
+{
+"id": "q-04",
+"topic": "Bancos Relacionais",
+"difficulty": "medium",
+"text": "No contexto de modelagem relacional, qual o objetivo da Normalização (1FN, 2FN, 3FN)?",
+"options": [
+{
+"text": "Eliminar redundâncias de dados e garantir dependências corretas (integridade relacional), dividindo tabelas grandes e anômalas em estruturas menores e mais coesas interligadas por chaves.",
+"isCorrect": true,
+"explanation": "A normalização minimiza problemas de anomalias na inserção, atualização ou deleção de registros ao não repetir dados textuais idênticos em várias tabelas espalhadas."
+},
+{
+"text": "Aumentar a velocidade das consultas SELECT reunindo todos os dados do banco de dados em uma única tabela horizontal denormalizada.",
+"isCorrect": false,
+"explanation": "Isso é o oposto: a desnormalização, que agrupa dados para leitura rápida em detrimento da redundância (Data Warehouses)."
+},
+{
+"text": "Converter dados de texto em binário para economizar espaço de armazenamento limit bounds.",
+"isCorrect": false,
+"explanation": "Trata-se de organização lógica tabular e relacional matemática de chaves e campos, e não formatação crua de hardware filesystem binários."
+},
+{
+"text": "Habilitar conexões seguras de fora para o servidor local host porta limits NAT configs.",
+"isCorrect": false,
+"explanation": "Isto são permissões de network socket base e segurança firewalls, Normalização cuida dos relacionamentos schemas."
+}
+]
+},
+{
+"id": "q-05",
+"topic": "Bancos Relacionais",
+"difficulty": "easy",
+"text": "O que diferencia a instrução SQL 'DELETE' do comando 'TRUNCATE' em uma tabela?",
+"options": [
+{
+"text": "DELETE apaga linhas uma a uma (podendo usar a cláusula WHERE) e registra as exclusões no log de transações; TRUNCATE apaga tudo de uma vez de forma bruta (sem WHERE), limpando o arquivo físico, e resetando os contadores de auto_increment.",
+"isCorrect": true,
+"explanation": "TRUNCATE é uma operação de DDL (Data Definition Language) de performance maciça pois não loga remoções individuais de tuplas, e o DELETE é DML (Data Manipulation Language) cirúrgico transacional."
+},
+{
+"text": "TRUNCATE remove apenas as colunas vazias; DELETE apaga a tabela inteira do banco.",
+"isCorrect": false,
+"explanation": "Apagar a tabela como um todo incluindo estrutura chama-se DROP TABLE."
+},
+{
+"text": "Ambos funcionam de maneira matematicamente idêntica gerando o mesmo impacto exato no servidor.",
+"isCorrect": false,
+"explanation": "Um age logando row por row transacional pesado, e o outro reseta os headers arquivos diretos sem dó e não aceita WHERE limits restritivos row filtering filter."
+},
+{
+"text": "DELETE só funciona se houver uma chave estrangeira presente na tabela restrição constraints limits constraints bounds limits limits.",
+"isCorrect": false,
+"explanation": "Nenhum comando base requer chaves estrangeiras presentes por obrigação sintática primária semântica engine de execução de deleção de linhas registros nativos local database tables base schema."
+}
+]
+},
+{
+"id": "q-06",
+"topic": "Bancos Relacionais",
+"difficulty": "medium",
+"text": "Em SQL, qual é a diferença entre um 'INNER JOIN' e um 'LEFT JOIN'?",
+"options": [
+{
+"text": "INNER JOIN retorna apenas as linhas que têm correspondência mútua em ambas as tabelas cruzadas; LEFT JOIN retorna todas as linhas da tabela à esquerda (A), independentemente de haver correspondência com a da direita (B) (preenchendo com nulos caso não encontre).",
+"isCorrect": true,
+"explanation": "Se buscar por 'Clientes' LEFT JOIN 'Pedidos', o banco traz todos os clientes cadastrados. Se o cliente não fez pedidos as colunas do pedido vêm nulas. No INNER ele sumiria da visão e não apareceria se nunca comprou base."
+},
+{
+"text": "LEFT JOIN é restrito à busca de strings lidas de colunas em idiomas ocidentais baseados na esquerda; INNER junta de forma randômica.",
+"isCorrect": false,
+"explanation": "A direção não remete à posição do texto e leitura idiomática, e sim a ordem em que as tabelas foram escritas no script (Tabela 1 LEFT JOIN Tabela 2)."
+},
+{
+"text": "INNER JOIN une as tabelas fisicamente permanentemente em disco criando nova estrutura de backup tabela Limits View Materialized bounds; LEFT atua em memoria virtual.",
+"isCorrect": false,
+"explanation": "Todas as junções simples de SQL geram resumos lógicos em memória temporária para enviar na requisição, nenhuma materializa dados local no disco fisicamente sem o Create Table explícito."
+},
+{
+"text": "Não há diferença performance, é puro syntatic sugar de legibilidade dialect base SQL base dialeto sintático engine local sql parsers string.",
+"isCorrect": false,
+"explanation": "Mudam drasticamente os resultados lógicos finais trazidos dependendo de chaves órfãs isoladas limit limits row matches logic boolean limits sets Venn diagrams math logic relational sets arrays."
+}
+]
+},
+{
+"id": "q-07",
+"topic": "Bancos Relacionais",
+"difficulty": "hard",
+"text": "O que ocorre fisicamente ao criar um 'Índice Clusterizado' (Clustered Index) em um banco como o SQL Server ou MySQL (InnoDB)?",
+"options": [
+{
+"text": "O próprio armazenamento físico dos dados na tabela inteira é forçadamente reordenado em disco para coincidir exatamente com a ordem lógica dessa chave do índice.",
+"isCorrect": true,
+"explanation": "Diferente de um Índice Non-Clustered (que é um sumário solto externo com ponteiros), o Clusterizado muda a vida física dos blocos dos bytes dos arquivos do disco B-Tree nodes folha para acelerar absurdo buscas sequenciais Range queries limits in the key bounds bounds disk pages."
+},
+{
+"text": "Ele envia dados em lote assincrono ativamente em nuvem conectando o servidor mestre base AWS nodes replicas de leitura do cluster replication factor log bin config cluster failover nodes replicas master node fail base nodes clusters limit limit node limit replicas limits node node replica node limite cluster hardware nodes cluster limits.",
+"isCorrect": false,
+"explanation": "Não confunda a palavra Cluster (Grupo físico de maquinas e servidores de alta disponibilidade AWS limit architecture AWS infrastructure) com o Indice Clusterizado do BD nativo relacional (que refere a aglomeração e clustering logico espacial do arquivo de HD data blocks storage disk blocks base B-tree nodes local data files)."
+},
+{
+"text": "Ele comprime colunas ativamente varchar para boolean para otimização bounds memory strings space memory limit RAM arrays string bounds limit limits.",
+"isCorrect": false,
+"explanation": "Nenhuma compressao de conversão tipos. Lida com a ordenação purista no disco."
+},
+{
+"text": "Ele anula transações pendentes no buffer limite flush log buffers limits transaction timeout transaction exceptions limits deadlock limits limits lock limits exceptions locks.",
+"isCorrect": false,
+"explanation": "Operação base de estrutura, n afeta rollbacks em runtime the deadlock control exceptions transactions blocks limits table row locks lock management concurrency mechanisms databases base limits row level base rules."
+}
+]
+},
+{
+"id": "q-08",
+"topic": "Bancos Não Relacionais",
+"difficulty": "easy",
+"text": "Quais são as principais categorias abrangentes de modelagens de Bancos de Dados NoSQL (Not Only SQL)?",
+"options": [
+{
+"text": "Chave-Valor (Redis), Orientados a Documentos (MongoDB), Colunares Wide-Column (Cassandra), e Orientados a Grafos (Neo4J).",
+"isCorrect": true,
+"explanation": "Os NoSQLs abrem mão da rigidez tabular SQL padronizada universal para focar em casos de usos puros otimizados (como super cache de chave, árvores json grandes e redes de conexões puras nativas)."
+},
+{
+"text": "Relacionais lentos, Relacionais rápidos, Relacionais baseados em Blockchain crypto limits e Relacionais Desktop local limit desktop limits sql access database file Access.",
+"isCorrect": false,
+"explanation": "NoSQL rompe em partes ou na íntegra a dependência da modelagem estrita em SQL Tabelas Relacional Limits."
+},
+{
+"text": "XML puro XML limits API Rest, Arquivos de Texto TXT limit bash shell log logs txt data e arquivos binários de vídeo imagens BLOB data bases binary formats media systems storage files object bucket AWS S3 buckets limits s3.",
+"isCorrect": false,
+"explanation": "Bancos NoSQL continuam sendo motores gerenciais organizados e indexados potentes e não apenas storage brutos lixos soltos blobs file objects storage media buckets."
+},
+{
+"text": "Tabelas primárias restritas, views imutaveis base restrita views e tabelas hash exclusivas para senhas criptografadas criptograficas crypt limits base security limits.",
+"isCorrect": false,
+"explanation": "As categorias referem se ao layout modelagem core base logic architecture nodes structure object relations objects key relationships base data model patterns limits."
+}
+]
+},
+{
+"id": "q-09",
+"topic": "Bancos Não Relacionais",
+"difficulty": "medium",
+"text": "Na teoria do Teorema CAP (que rege sistemas distribuídos NoSQL), quais os três pilares que competem entre si impedindo que um sistema seja perfeito em todos simultaneamente?",
+"options": [
+{
+"text": "Consistência (Consistency), Disponibilidade (Availability) e Tolerância a Partição (Partition tolerance). Em quedas na rede (P), você só pode optar por salvar o sistema cravando ele com (C) retornando erros, ou deixá-lo vivo dando respostas com dados sujos velhos limitando a verdade garantindo (A) a resposta rápida cega local limits.",
+"isCorrect": true,
+"explanation": "Se a rede parte no meio (o nó 1 n fala com nó 2). Se um cliente escreve no nó 1 e outro bate ler no 2, o sistema precisa decidir: ou ele congela as leituras até resolver (CP) para não dar leitura falsa (C), ou ele dá o valor antigo rápido priorizando a vida (AP)."
+},
+{
+"text": "Concorrência (Concurrency), Atributos (Attributes), e Propriedades (Properties) limits restrito the classes properties variables constraints limits objects attributes relations objects limits variables boundaries variables limits bounds classes instances objects constraints limit properties bounds classes limits object.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Custos (Cost), Agilidade (Agility) e Performance (Performance) the marketing concepts cloud definitions manager concepts limits startup agile rules methodologies framework agile scrum limites sprint limits velocity speed bounds metrics limits sprint velocity points burndown.",
+"isCorrect": false,
+"explanation": "Isto são jargões de management Agile, não a matemática Brewer do Teorema fundamental purista CAP base dist systems limitations rules architecture network limitations bounds."
+},
+{
+"text": "Criptografia (Cryptography), API (Application Interface) e Payload (Payload) limites base networking security headers protocols networks data sizes bounds limits the connection parameters variables protocols base connection logic API limits boundaries restrictions.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+},
+{
+"id": "q-10",
+"topic": "Bancos Não Relacionais",
+"difficulty": "medium",
+"text": "Como um banco de dados Orientado a Documentos (como o MongoDB) trata nativamente as estruturas de chave estrangeira pesadas JOINs entre entidades interligadas limits relationships sql?",
+"options": [
+{
+"text": "Desencoraja ativamente as junções (Join). Prefere utilizar a 'Desnormalização' embutindo (Embedding) os dados diretamente dentro do próprio documento em JSON (ex: os itens do carrinho não são outra tabela, ficam em um Array listado dentro do objeto Carrinho inteiro em sí do próprio JSON isolado).",
+"isCorrect": true,
+"explanation": "Ao embutir objetos no próprio payload, buscar a informação consome só 1 leitura física super veloz limitando a complexidade sem a necessidade de varrer os index relacionais pesados O bounds loops joins sql query optimizer cost plan limits overhead. Se a info não couber (milhões list array max bytes sizes json limits memory limit size documento mongodb bytes size limits bounds collections max limits object size boundaries boundaries collection) usa-se referencias References refs objectIds ID base limit."
+},
+{
+"text": "Usa comandos SELECT * LEFT JOIN identicos aos relacionais puro nativo limits queries drivers JDBC restritos padrao SQL ANSI rules padrão queries sql nativo queries SQL restrito limit sql queries base sql standards limits SQL queries.",
+"isCorrect": false,
+"explanation": "MongoDB n usa SQL nativo the sql parsing standard the standard W3 ANSI queries. O comando the join (Lookup limits the aggregate) eh desencorajado pelo custo e design document oriented paradigm logic design data model scheme schema free limits data flexibility no schema less local."
+},
+{
+"text": "Reescreve e apaga os dados a cada read memory limit bounds constraints cache memory read array limits.",
+"isCorrect": false,
+"explanation": "Ele n é RAM caching voltil purista base como Redis cache systems, ele armazena duro em disco a arvore JSON serializada BSON no MongoDB Limits."
+},
+{
+"text": "Converte magicamente em formato CSV array csv strings delimiters string parse limit text csv arrays bounds parsing strings arrays limits bounds data boundaries limits array map limits array limits strings limit parser string values boundaries delimiters CSV CSV.",
+"isCorrect": false,
+"explanation": "Bancos doc usa JSON/BSON arvores the objects key maps arrays, e não colunas planas csv com delimitador pipes commas."
+}
+]
+},
+{
+"id": "q-11",
+"topic": "Bancos Não Relacionais",
+"difficulty": "hard",
+"text": "Em um banco Chave-Valor extremamente rápido voltado primariamente para in-memory como o Redis (Remote Dictionary Server), como ele soluciona o problema universal clássico de limitação do espaço máximo de HD/RAM pra que os caches de sessões não quebrem e crash em o OS Out of memory kernel panic OOM limits server full disc memory O bounds full crashes exceptions?",
+"options": [
+{
+"text": "Aplica políticas automáticas baseadas ativamente em Time To Live (TTL) ou regras de expurgo Eviction (ex: Least Recently Used LRU ou LFU) em que as chaves mais velhas intocadas apagam nativamente silenciosamente abrindo vagões de RAM pra os acessos do cache novo limits caches limites eviction rules.",
+"isCorrect": true,
+"explanation": "Redis atua configurando que sessoes duram apenas '3000 ms' ou que o MAXMEMORY=2GB. Quando a agua bate os 2gb, os algoritmos do LRU removem chaves não mais lidas base and logic behavior of cache replacement policies nativos the in memory engines data store structures base eviction rules."
+},
+{
+"text": "Manda os dados pesados pro disco rigido silencioso SSD local host storage ativamente the memory mapping storage SSD aws drive efs disk volume limits cloud ebs limits bounds hard drive limits volumes linux limit base SSD disks swap system limits block disks volumes limits block volumes arrays limits disk array RAID block block volumes limits hardware blocks.",
+"isCorrect": false,
+"explanation": "Embora o redis SALVE O backup (persistência bg save dump append files log aof) no SSD para durabilidade, o espaco LIMITADOR é a RAM memory execution limits in memory stores base OS RAM max limit limits RAM. Quando enche a ram RAM o problema rola independente the HD block SSD AWS."
+},
+{
+"text": "Ele desliga a VM aws instance linux kernel the container limites container kubernetes the crash container the pod evictions limits K8s limits nodes limites cluster kubernetes base OOM limit exceptions OOM limits docker limits containers local restart limit pod loops crash loops back off exceptions traces crash.",
+"isCorrect": false,
+"explanation": "Bancos robustos não preferem the crash death the instances the OS exceptions OOM as feature funcional the systems, ele tem features ativas de eviction the keys cleaning limits as lixo policies the cache substitution policies."
+},
+{
+"text": "Pede para que the Dev admin the SRE DBA pague ativamente the license the keys licensas limits pricing plan limits credit card the limits limit quotas billing rules AWS the quota rules limits billing limits cost costs limit aws cloud AWS cloud the billing limit cost rule local restrictions the billing the budget plan rules bounds limits the quotas limits pricing constraints limitations constraints base cloud constraints cloud costs.",
+"isCorrect": false,
+"explanation": "As poliicas the RAM eviction control limit a RAM e gerenciam as chaves do cache, isentas the faturamento billing cloud services base."
+}
+]
+},
+{
+"id": "q-12",
+"topic": "Bancos Relacionais",
+"difficulty": "easy",
+"text": "O que e para que serve O ORM (Object-Relational Mapping)?",
+"options": [
+{
+"text": "Um framework middleware que traduz magicamente Classes puras da linguagem Orientada a Objetos em Tabelas fisicas do Banco de Dados SQL de forma transparente, permitindo vc buscar, salvar dados usando a lógica de programação de codigo Java com metodos (.save) invés de ficar focado colando código string the comandos de SQL crú 'INSERT INTO table VALUES' na mao vulneravel a injeções em cada classe limit query text sql strings concat constraints limites vulnerability SQL injection exceptions bugs local errors parsing limits type conversions bounds string parsing local driver constraints limits limit queries driver local limit.",
+"isCorrect": true,
+"explanation": "O Hibernate no Java atua mapeando o Obj Java 'Usuario.class' na tabela 'usuarios'. Vc poupa 80% de tempo fazendo get() nativo sem escrever o select puro em string propensa a erros tipograficos exception base typos parser exception database JDBC bounds the framework bounds limits abstraction query parsing abstract engine logic mapping data model models classes limits."
+},
+{
+"text": "Um firewall restrito the proxy proxy WAF restrições firewall firewalls limits rules network routing web limits TCP iptables linux roteador rules gateways proxy firewall base aws alb rules web load balancer proxy security limits local hardware.",
+"isCorrect": false,
+"explanation": "ORM foca em Mapping de código OO pro mundo DB Sql limits translation bridges logic object abstraction limits base data translation mapping schemas constraints types validation limitations. N lida com segurança proxy de network osi layer 4 ou 7 WAF TCP limits."
+},
+{
+"text": "Uma plataforma de interface Web de designer GUI visual drag drop para desenhar modelar as telinhas de cadastro no react base limits components front end visual base limits react views limits components DOM HTML templates web design patterns front the frontend templates limits front component frameworks frontend CSS CSS limit style CSS variables frameworks the limits templates GUI component UI front end limit view templates front end limits the limits.",
+"isCorrect": false,
+"explanation": "Falso."
+},
+{
+"text": "Sistema the streaming video asincrono asíncronas streams eventos limits pub sub queues kafka rabbitmq limits network events streams limits brokers topics events queues event limit message events message networks limits streams brokers message event topics message events event buses the limits broker limits buses limits limits network buses topics bus events queue network limit events events broker.",
+"isCorrect": false,
+"explanation": "Falso. Mensagerias e asincrono limits streams events event bus limits. ORM lida the mappings SQL RDBMS limits translation objects persistence models rules constraints boundaries models objects tables."
+}
+]
+},
+{
+"id": "q-13",
+"topic": "Conexões e Frameworks",
+"difficulty": "medium",
+"text": "Ao utilizar puramente a API do JDBC (Java Database Connectivity) sem frameworks ORM (Hibernate) na base, qual interface clássica essencial o programador deve atuar para construir the queries com placeholders '?' dinâmicos blindando contra injeções SQL The SQL INJECTION limit security vulnerabilities vulnerabilities hack hacker attack the base attack limits the web limits attacks SQL string limits vulnerability?",
+"options": [
+{
+"text": "A Interface PreparedStatement.",
+"isCorrect": true,
+"explanation": "Evitar o uso de Statements puros concatenando string ('SELECT * from x where y='+variavel) é a base the security do JDBC. O PreparedStatement deixa a estrutura fixa, compila no BD a lógica limits performance the caching execution plans e o parâmetro q o user injetou limits entra sanitizado purificado bind variables sem rodar comandos maliciosos drop table."
+},
+{
+"text": "O The SessionFactory interface session hibernate session local limits session object limit hibernate limits boundaries connection factory bounds limits connections connection context limits boundaries the persistence sessions boundaries session transaction limits context persistence limit.",
+"isCorrect": false,
+"explanation": "Apesar the the security the framework limits the injection limit SQLi base the persistence mappings abstractions limits, SessionFactory é do pacote O.R.M. Hibernate The abstraction frameworks ORM. A questão restringe limits a puramente the JDBC plain vanilla standard API rules native Java SQL bounds the api."
+},
+{
+"text": "ConnectionPool properties the Hikari pool max limits limits connection size limits bounds connection the pool max time life time the idle timeout connections max pool limit pool size connections timeout limits Hikari properties max connections connection properties limit the Hikari bounds timeouts bounds the limits parameters limits pool values pool parameters limits the timeout limit parameters bounds parameters limits connection pool pool properties limit boundaries local timeout limits bounds parameters boundaries rules parameters limitations rules limits limits the connections pool the limits definitions properties limit rules parameters limits properties.",
+"isCorrect": false,
+"explanation": "Pool limits the numero limits de the conexoes conexões em memoria na thread limit performance optimization limits db connections network overhead the handshakes. Não protege a String SQL limits do the hackers the injeção injeções SQL injection."
+},
+{
+"text": "Http filters web filters the web the spring filters web filter rules filter token exception the auth filters JWT web filters JWT roles tokens the roles limits annotations web the methods HTTP filter rules HTTP parameters filters CORS boundaries the web requests HTTP boundaries limits methods the filter HTTP CORS rules requests limits limits web tokens methods variables rules token HTTP parameters boundaries methods methods request HTTP limits.",
+"isCorrect": false,
+"explanation": "Embora dê pra the filter limites web filters a the parameters base HTTP local filters parameters limits strings e bloquear characters local the HTTP the web requests HTTP layer the methods methods parameters parameters, a barreira do banco DB JDBC nativa segura purista blindada limits The API The boundaries boundaries DB limites injection é The PreparedStatement no pacote data data java sql limits sql statements the sql API definitions."
+}
+]
+},
+{
+"id": "q-14",
+"topic": "Conexões e Frameworks",
+"difficulty": "easy",
+"text": "Na moderna Spring Data JPA (Framework abstraction data access), como declaramos a ação a o método de the the buscar um 'Produto' limit Produto entity model limits the entity records limits boundaries entities constraints boundaries no banco the data store db base records limits cujas The limits nome nome limit nome The nome name property string limit variables The values field property name string attributes attributes properties attributes name properties fields the property seja igual a um the name limits boundaries constraints the name limits parametro?",
+"options": [
+{
+"text": "Não escrevemos string SQL Nenhuma the queries queries strings sql queries SQL. Simplesmente declaramos e nomeamos e declaramos o The Method name no The the Repository limit The interfaces a assinatura limite `Optional<Produto> findByNome(String nome);` e the the framework limits o Spring compila gera o the limit The limits select nativo do banco proxy The implementation proxy implementation no runtime tempo de execução limite base The limits boundaries abstraction methods proxies the query engine the proxies the proxy implementations.",
+"isCorrect": true,
+"explanation": "O milagre the Spring Data é o Derived Query Methods the naming the boundaries algorithms parsing the string Method parsing engine limits. Você so monta a the phrase base nomeando findBy... limits o Spring cria e forja o limits O código JDBC PreparedStatement the SQL statements hibernate HQL the bounds query limits boundaries boundaries limits queries methods implementations boundaries methods the the implementations proxies limits queries definitions limits."
+},
+{
+"text": "Temos que estritamente usar a The anotação The annotations limits annotations The @Query(\"SELECT * FROM produtos WHERE name=\" + name) explicitamente forçadamente restrito limits The SQL query language rules The language syntax parser definitions syntax definitions parameters strings definitions parameters variables strings limits limits SQL syntax rules limits.",
+"isCorrect": false,
+"explanation": "Pode usar the limits The @Query limits para complexas, mas the query name derivatives O limits the conventions naming conventions parameters variables parameters conventions the methods name parsing engines properties names string variables mappings frameworks parameters rules rules methods parameters boundaries parameters definitions attributes rules limits resolve trivial fields filters constraints properties variables filters parameters constraints boundaries parameters boundaries."
+},
+{
+"text": "Devemos criar the classes controllers controllers limit The classes the limits endpoints The routes The views rest classes the logic limits views UI components views DOM the views controllers DOM frontend limits logic the limits html pages templates.",
+"isCorrect": false,
+"explanation": "Onde the controllers atua the MVC the views routing routes limits the DOM components web the boundaries UI bounds the views web limits pages routing the routes the routes frameworks the limits the views parameters limit routing frameworks views mapping variables limits templates. O Spring data repos foca the the databases the repositories operations the data access limit persistence access."
+},
+{
+"text": "Devemos o usar The bash the bash limits limits tools cli terminal linux The linux limit kernel OS bash the the sh OS system OS system linux native limit shell limits variables bash tools the systems linux limits limits processes variables commands native processes limits bash environment kernel bash scripts scripts processes commands shell limits tools OS bash terminal tools linux native system processes bash scripts processes variables OS limits linux tools shell processes commands environment commands limits variables bash the bash environment bash variables processes shell tools linux system commands processes kernel shell limits environment commands bash bash.",
+"isCorrect": false,
+"explanation": "Totalmente incoerente limit the exceptions bash bash exceptions limit the limits traces exceptions limits limit the exceptions traces limit exceptions traces error limits exceptions the limit the traces exceptions limits limit the trace."
+}
+]
+},
+{
+"id": "q-15",
+"topic": "Conexões e Frameworks",
+"difficulty": "medium",
+"text": "O the connection pooling limits pool limits pool the limits data sources parameters limits memory limits resources limits pool limits optimization the connections pool limits the memory base pooling connection the pools limits pool parameters The the limites connection pools limits boundaries pooling limits resources limits the pools limits boundaries limit O Connection Pool limits (Exemplo: O The HikariCP The Hikari boundaries no Spring Boot limits the Spring limits parameters limits boundaries the properties the parameters boundaries) evita limites prevents o que exactly?",
+"options": [
+{
+"text": "Evita the overhead local O o the O gasto a penalização pesada temporal e processual limit time de tempo O and CPU The network costs limit limit establishing establishing tcp connections limits The opening handshakes and closing limites connections TCP handshakes The the the conexões com The banco O base of databases limit closing opening limits network limits tcp base connections tcp bounds limits em TODA limits TODA a toda every cada request the HTTP web requests the HTTP requests bounds limit boundaries the HTTP API endpoints limits the connections limits parameters the parameters properties parameters the limits connections bounds endpoints.",
+"isCorrect": true,
+"explanation": "A ineficiência limits e o lag the delay limits de the conectar com o the DB o The database db é imenso. Se o o the backend the Java criasse O e The fechasse a the porta a The connection The the connections conexao de limit socket the limites The bounds The TCP a cada a The todo e a O limit click do the user the user no mouse the front end The the frontend the limites limitations the boundaries the limits the limits o sistema The server limit backend backend morria limit exception errors error OOM the timeouts limit timeouts the delay lags limits lags limit limitations limits limitations. O The Hikari (o The the the the pool limits the memory the the pool) the o The guarda The deixa a as n The as a O limits 10 (exemplo the the the max connections the variables variables limit) the conexões as limits as limits limits abertas quentes the hot the ready connections The bounds bounds connections em um array The local memory array list The limits the the memory The boundaries limits O The Array limits list limits queue limit limits queue list the queue queue list The limits in the the RAM RAM RAM the limits O limits e the as the and the and e and e limits the distribui The the a as The shares distribui empresta the shares the borrows limits distribui The boundaries The distributes boundaries e The as limits the and limits limits reusa reusa O the the reuses reuses limits reuses as as as limites."
+},
+{
+"text": "Impede injeções sql The the sql exceptions the limits limits exceptions injections limitations the injections the exceptions The limits the errors sql sql limits base bounds bounds limits limitations errors SQL error exceptions error errors bounds limitations SQL exceptions the definitions errors restrictions sql parameters definitions limitations rules parameters bounds restrictions limitations base rules SQL.",
+"isCorrect": false,
+"explanation": "Pool limits the numero limits de the conexoes conexões limits bounds boundaries O the limit the connections limits the limits the limits parameters bounds. Não protege the limits the the limits errors limits exceptions limits boundaries strings errors limits definitions definitions limitations limitations SQL limits limitations injections bounds definitions limitations boundaries exceptions limits limitations errors limitations definitions restrictions limitations parameters bounds exceptions bounds definitions limitations."
+},
+{
+"text": "Reduz o the the tamanho The limits the the parameters properties O the limits limites the memory the space properties limits constraints O parameters boundaries limitations O bounds attributes attributes properties constraints limit attributes constraints O fields the boundaries boundaries attributes the limitations variables constraints O O constraints attributes rules properties variables constraints fields the properties parameters properties constraints fields the the limits limitations.",
+"isCorrect": false,
+"explanation": "Pool n diminui bytes string payload payload constraints parameters limits the O bounds the payload bounds bytes limit parameters JSON The bounds O json parameters sizes O constraints sizes the limits parameters bounds payload the limitations constraints limits boundaries json bounds restrictions fields O sizes limits sizes boundaries the payload limits rules limitations limits constraints constraints definitions rules limitations."
+},
+{
+"text": "Falso limits false the constraints boundaries constraints the parameters boundaries properties boundaries false constraints variables boundaries false limitations limitations constraints definitions rules limitations.",
+"isCorrect": false,
+"explanation": "Falso."
+}
+]
+}
+]
+}
